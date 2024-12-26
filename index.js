@@ -20,7 +20,7 @@ app.get('/', async (req, res) => {
     const latitude = req.headers['x-vercel-ip-latitude']
     const longitude = req.headers['x-vercel-ip-longitude']
     const timeZone = req.headers['x-vercel-ip-timezone']
-    const countryName = timeZone?.replace(/^.*\/|\/.*$/g, '')
+    const countryName = timeZone?.split('/')[1]
 
     const locationInfo = {
       status: res.statusCode,
