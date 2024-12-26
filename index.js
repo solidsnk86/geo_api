@@ -1,6 +1,5 @@
 import express from 'express'
 import cors from 'cors'
-import { toCity } from './services/get-city.js'
 
 const app = express()
 
@@ -28,7 +27,7 @@ app.get('/api/location', async (req, res) => {
     const locationInfo = {
       ip: clientIp,
       city: {
-        name: cityName,
+        name: decodeURIComponent(cityName),
       },
       country: country
     }
