@@ -11,7 +11,7 @@ app.use(cors({
     const ACCEPTED_ORIGINS = [
       'http://localhost:8080',
        'http://localhost:3000',
-        `${location.href}`,
+        `${import.meta.url}`,
          `${process.env.VERCEL_URL}`
         ]
 
