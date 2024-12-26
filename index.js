@@ -6,23 +6,7 @@ import dotenv from 'dotenv'
 const app = express()
 
 app.use(express.json())
-app.use(cors({
-  origin: (origin, callback) => {
-    const ACCEPTED_ORIGINS = [
-      'http://localhost:8080',
-       'http://localhost:3000',
-        `${import.meta.url}`,
-         `${process.env.VERCEL_URL}`
-        ]
-
-    if (ACCEPTED_ORIGINS.includes(origin)) {
-      return callback(null, true)
-    }
-    if(!origin) {
-      return callback(null, true)
-    }
-  }
-}))
+app.use(cors())
 app.disable('x-powered-by')
 
 dotenv.config()
