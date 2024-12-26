@@ -17,8 +17,8 @@ app.get('/', async (req, res) => {
     const cityName = req.headers['x-vercel-ip-city']
     const country = req.headers['x-vercel-ip-country']
     const postalCode = req.headers['x-vercel-ip-postal-code']
-    // const latitude = req.headers['x-vercel-ip-latitude']
-    // const longitude = req.headers['x-vercel-ip-longitude']
+    const latitude = req.headers['x-vercel-ip-latitude']
+    const longitude = req.headers['x-vercel-ip-longitude']
     const timeZone = req.headers['x-vercel-ip-timezone']
 
     const locationInfo = {
@@ -38,10 +38,10 @@ app.get('/', async (req, res) => {
         time_zone: timeZone,
       },
       network_interfaces: getNetworkInterfaces(),
-      // coords: {
-      //   latitude: latitude,
-      //   longitude: longitude
-      // }
+      coords: {
+        latitude: latitude,
+        longitude: longitude
+      }
     }
 
     res.status(200).send(
@@ -59,14 +59,6 @@ app.get('/', async (req, res) => {
       } from 'https://esm.sh/sugar-high'
       const el = document.querySelector('pre > code')
       el.innerHTML = highlight(el.innerText)
-
-      const result = document.querySelector('code')
-      const coords = {}
-      navigator.geolocation?.getCurrentPosition((pos) => {
-        coords["longitude"] = pos.coords.longitude
-        coords["latitude"] = pos.coords.latitude
-         result.append(JSON.stringify(coords, null, 2))
-        })
     </script>
     <style>
       :root {
