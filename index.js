@@ -19,7 +19,7 @@ app.get('/', async (req, res) => {
     const postalCode = req.headers['x-vercel-ip-postal-code']
     const latitude = req.headers['x-vercel-ip-latitude']
     const longitude = req.headers['x-vercel-ip-longitude']
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    
 
     const locationInfo = {
       status: res.statusCode,
@@ -30,11 +30,8 @@ app.get('/', async (req, res) => {
       },
       country: {
         name: country,
-        flag: `<img src="https://flagcdn.com/16x12/${country?.toLowerCase()}.png" 
-                width="16"
-                height="12"
-                alt="Argentina">`,
-        time_zone: timeZone,
+        flag: `https://flagcdn.com/16x12/${country?.toLowerCase()}.png`,
+        time_zone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       },
       network_interfaces: getNetworkInterfaces(),
       coords: {
