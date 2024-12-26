@@ -20,6 +20,7 @@ app.get('/', async (req, res) => {
     const latitude = req.headers['x-vercel-ip-latitude']
     const longitude = req.headers['x-vercel-ip-longitude']
     const timeZone = req.headers['x-vercel-ip-timezone']
+    const countryName = timeZone?.replace(/^.*\/|\/.*$/g, '')
 
     const locationInfo = {
       status: res.statusCode,
@@ -29,7 +30,8 @@ app.get('/', async (req, res) => {
         postal_code: postalCode
       },
       country: {
-        name: country,
+        name: countryName,
+        alpha: country,
         flag: {
           size_1: `https://flagcdn.com/16x12/${country?.toLowerCase()}.png`,
           size_2: `https://flagcdn.com/32x34/${country?.toLowerCase()}.png`,
