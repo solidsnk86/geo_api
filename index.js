@@ -46,7 +46,6 @@ app.get('/', async (req, res) => {
       },
       sys_info: {
         language: navigator.language,
-        platform: navigator.platform,
       }
     }
 
