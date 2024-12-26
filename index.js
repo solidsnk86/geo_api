@@ -54,7 +54,6 @@ app.get('/', async (req, res) => {
     <meta name="color-scheme" content="light dark">
      <link rel="shortcut icon" href="https://raw.githubusercontent.com/solidsnk86/portfolio-mgc-2024/master/public/solidsnk86.png" type="image/x-icon">
     <meta charset="utf-8">
-    <link  />
     <script type="module">
       import {
         highlight
