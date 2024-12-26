@@ -17,8 +17,8 @@ app.get('/', async (req, res) => {
     const cityName = req.headers['x-vercel-ip-city']
     const country = req.headers['x-vercel-ip-country']
     const postalCode = req.headers['x-vercel-ip-postal-code']
-    const latitude = req.headers['x-vercel-ip-latitude']
-    const longitude = req.headers['x-vercel-ip-longitude']
+    // const latitude = req.headers['x-vercel-ip-latitude']
+    // const longitude = req.headers['x-vercel-ip-longitude']
     const timeZone = req.headers['x-vercel-ip-timezone']
 
     const locationInfo = {
@@ -38,13 +38,12 @@ app.get('/', async (req, res) => {
         time_zone: timeZone,
       },
       network_interfaces: getNetworkInterfaces(),
-      coords: {
-        latitude: latitude,
-        longitude: longitude
-      }
+      // coords: {
+      //   latitude: latitude,
+      //   longitude: longitude
+      // }
     }
 
-    
     res.status(200).send(
        `<!DOCTYPE html><html lang="en">
   <head>
@@ -61,9 +60,12 @@ app.get('/', async (req, res) => {
       const el = document.querySelector('pre > code')
       el.innerHTML = highlight(el.innerText)
 
+      const result = document.querySelector('code')
+      const coords = {}
       navigator.geolocation?.getCurrentPosition((pos) => {
-        ${locationInfo.coords.latitude} = pos.coords.latitude
-        ${locationInfo.coords.longitude} = pos.coords.longitude
+        coords["longitude"] = pos.coords.longitude
+        coords["latitude"] = pos.coords.latitude
+         result.append(JSON.stringify(coords, null, 2))
         })
     </script>
     <style>
@@ -135,6 +137,7 @@ app.get('/', async (req, res) => {
   <body>
     <pre>
 <code>${JSON.stringify(locationInfo, null, 2)}</code>
+<code class='result'></code>
     </pre>
     <a href="https://github.com/solidsnk86/" target="_blank" rel="noopener noreferrer nofollow" class="github-corner" aria-label="View source on GitHub">
       <svg width="80" height="80" viewBox="0 0 250 250" style="position: absolute; bottom: 0; rotate: 90deg; border: 0; right: 0;" aria-hidden="true">
