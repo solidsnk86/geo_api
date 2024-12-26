@@ -30,9 +30,6 @@ app.get('/', async (req, res) => {
     const postalCode = req.headers['x-vercel-ip-postal-code']
     const latitude = req.headers['x-vercel-ip-latitude']
     const longitude = req.headers['x-vercel-ip-longitude']
-    const APIKEY = process.env.NEXT_WEATHER_API
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIKEY}`)
-    const jsonData = await response.json()
 
     const locationInfo = {
       status: res.statusCode,
@@ -47,8 +44,7 @@ app.get('/', async (req, res) => {
       coords: {
         latitude: latitude,
         longitude: longitude
-      },
-      weather_api: jsonData
+      }
     }
 
     res.json(locationInfo)
@@ -56,6 +52,24 @@ app.get('/', async (req, res) => {
     console.error('Error:', error)
     res.status(500).json({ status: res.statusCode, error: 'Error obteniendo datos de localización' })
   }
+})
+
+app.get('/weather', async (req, res) => {
+  const { longitude, latitude } = req.body
+  try {
+    const APIKEY = process.env.NEXT_WEATHER_API
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIKEY}`)
+    const jsonData = await response.json()
+
+    if (!response.ok) {
+      res.status(400).json({ status: res.statusCode, message: response.statusText })
+    }
+
+    res.status(200).json(jsonData)
+
+  } catch(err) {
+    res.status(500).json({ status: res.statusCode, message: 'Server Error' + " " + err })
+   }
 })
 
 const PORT = process.env.PORT ?? 3000
