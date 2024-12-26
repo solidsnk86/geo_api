@@ -130,7 +130,7 @@ app.get('/', async (req, res) => {
 <code>${JSON.stringify(locationInfo, null, 2)}</code>
     </pre>
     <a href="https://github.com/solidsnk86/" target="_blank" rel="noopener noreferrer nofollow" class="solid" aria-label="View profile on GitHub">
-      With 💙 by 
+      Made with 💙 by 
       <img src="https://raw.githubusercontent.com/solidsnk86/portfolio-mgc-2024/master/public/solidsnk86.png" alt="Solid Snake PixelArt" style="image-rendering: pixelated;" width="50" height="50" />
     </a>
   </body>
