@@ -138,6 +138,46 @@ app.get('/', async (req, res) => {
   }
 })
 
+app.get('/location', (req, res) => {
+  try {
+    const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.connection.remoteAddress
+    const cityName = req.headers['x-vercel-ip-city']
+    const country = req.headers['x-vercel-ip-country']
+    const postalCode = req.headers['x-vercel-ip-postal-code']
+    const latitude = req.headers['x-vercel-ip-latitude']
+    const longitude = req.headers['x-vercel-ip-longitude']
+    const timeZone = req.headers['x-vercel-ip-timezone']
+    const countryName = timeZone?.split('/')[1]
+
+    const locationInfo = {
+      status: res.statusCode,
+      ip: clientIp,
+      city: {
+        name: decodeURIComponent(cityName),
+        postal_code: postalCode
+      },
+      country: {
+        name: countryName,
+        alpha: country,
+        flag: {
+          size_1: `https://flagcdn.com/16x12/${country?.toLowerCase()}.png`,
+          size_2: `https://flagcdn.com/32x34/${country?.toLowerCase()}.png`,
+          size_3: `https://flagcdn.com/48x36/${country?.toLowerCase()}.png`
+        },
+        time_zone: timeZone,
+      },
+      network_interfaces: getNetworkInterfaces(),
+      coords: {
+        latitude: latitude,
+        longitude: longitude
+      }
+    }
+
+    res.status(200).json(locationInfo)
+} catch (err) {
+  res.status(500).json({ message: 'Server Error' + err })
+}})
+
 app.get('/weather', async (req, res) => {
   const longitude = req.headers['x-vercel-ip-longitude']
   const latitude = req.headers['x-vercel-ip-latitude']
