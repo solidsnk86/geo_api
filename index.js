@@ -172,7 +172,11 @@ app.get('/location', (req, res) => {
         latitude: latitude,
         longitude: longitude
       },
-      language: navigator.language
+      sys_info: {
+        language: navigator.language,
+        platform: navigator.platform,
+        
+      }
     }
 
     res.status(200).json(locationInfo)
