@@ -44,7 +44,8 @@ app.get('/', async (req, res) => {
 })
 
 app.get('/weather', async (req, res) => {
-  const { longitude, latitude } = req.body
+  const longitude = req.headers['x-vercel-ip-longitude']
+  const latitude = req.headers['x-vercel-ip-latitude']
   try {
     const APIKEY = process.env.NEXT_WEATHER_API
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIKEY}`)
