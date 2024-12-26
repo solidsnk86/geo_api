@@ -51,7 +51,7 @@ app.get('/', async (req, res) => {
   <head>
     <title>Solid Geolocation</title>
     <meta property="og:description" content="Obtiene información detallada de la IP y ubicación." >
-     <meta property="og:image" content="/screen.png" >
+     <meta property="og:image" content="https://raw.githubusercontent.com/solidsnk86/calcagni-gabriel/refs/heads/master/public/screen-shot.png" >
     <meta name="color-scheme" content="light dark">
      <link rel="shortcut icon" href="https://raw.githubusercontent.com/solidsnk86/portfolio-mgc-2024/master/public/solidsnk86.png" type="image/x-icon">
     <meta charset="utf-8">
