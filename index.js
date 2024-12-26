@@ -188,10 +188,15 @@ app.get('/location', (req, res) => {
 }})
 
 app.get('/weather', async (req, res) => {
-  const { latitude, longitude } = req.params
+  const { latitude, longitude } = req.query
+
+  if (!latitude || !longitude) {
+    res.status(400).json({ message: 'Latitud y longitud son requeridas' })
+  }
+
   try {
     const APIKEY = process.env.NEXT_WEATHER_API
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIKEY}`)
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKEY}`)
     const jsonData = await response.json()
 
     if (!response.ok) {
