@@ -196,7 +196,7 @@ app.get('/weather', async (req, res) => {
 
   try {
     const APIKEY = process.env.NEXT_WEATHER_API
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKEY}`)
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIKEY}`)
     const jsonData = await response.json()
 
     if (!response.ok) {
