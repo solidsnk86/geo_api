@@ -18,7 +18,7 @@ app.use(cors({
 }))
 app.disable('x-powered-by')
 
-app.get('/api/location', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.connection.remoteAddress
     const cityName = req.headers['x-vercel-ip-city']
