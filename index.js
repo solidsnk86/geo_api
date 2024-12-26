@@ -34,7 +34,7 @@ app.get('/', async (req, res) => {
         postal_code: postalCode
       },
       country: country,
-      time_zone: new Date().toLocaleString()
+      time_zone: new Date().toISOString()
     }
 
     res.json(locationInfo)
