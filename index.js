@@ -105,7 +105,7 @@ app.get('/', async (req, res) => {
         bottom: 0;
         right: 0;
         text-decoration: none;
-        color: #fff;
+        color: var(--color);
         font-size: 2vmin;
         font-family: "Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo,
           monospace; 
