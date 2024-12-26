@@ -23,19 +23,24 @@ app.get('/', async (req, res) => {
     const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.connection.remoteAddress
     const cityName = req.headers['x-vercel-ip-city']
     const country = req.headers['x-vercel-ip-country']
+    const postalCode = req.headers['x-vercel-ip-postal-code']
+    
 
     const locationInfo = {
+      status: res.statusCode,
       ip: clientIp,
       city: {
         name: decodeURIComponent(cityName),
+        postal_code: postalCode
       },
-      country: country
+      country: country,
+      time_zone: new Date().toLocaleString()
     }
 
     res.json(locationInfo)
   } catch (error) {
     console.error('Error:', error)
-    res.status(500).json({ error: 'Error obteniendo datos de localización' })
+    res.status(500).json({ status: res.statusCode, error: 'Error obteniendo datos de localización' })
   }
 })
 
