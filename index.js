@@ -176,7 +176,7 @@ app.get('/location', (req, res) => {
 
     res.status(200).json(locationInfo)
 } catch (err) {
-  res.status(500).json({ message: 'Server Error' + err })
+  res.status(500).json({ message: 'Server Error ' + err })
 }})
 
 app.get('/weather', async (req, res) => {
