@@ -8,7 +8,12 @@ const app = express()
 app.use(express.json())
 app.use(cors({
   origin: (origin, callback) => {
-    const ACCEPTED_ORIGINS = ['http://localhost:8080', 'http://localhost:3000', `${process.env.VERCEL_URL}`]
+    const ACCEPTED_ORIGINS = [
+      'http://localhost:8080',
+       'http://localhost:3000',
+        'http://127.0.0.1:5500/',
+         `${process.env.VERCEL_URL}`
+        ]
 
     if (ACCEPTED_ORIGINS.includes(origin)) {
       return callback(null, true)
