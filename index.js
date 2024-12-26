@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import { toCity } from './services/get-city.js'
 
 const app = express()
 
@@ -21,11 +22,15 @@ app.disable('x-powered-by')
 app.get('/api/location', async (req, res) => {
   try {
     const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.connection.remoteAddress
-    const connection = req.connection.address()
+    const cityName = req.headers['x-vercel-ip-city']
+    const country = req.headers['x-vercel-ip-country']
 
     const locationInfo = {
       ip: clientIp,
-      address: connection
+      city: {
+        name: cityName,
+      },
+      country: country
     }
 
     res.json(locationInfo)
