@@ -100,8 +100,23 @@ app.get('/', async (req, res) => {
         line-height: 1.5;
       }
 
+      .solid-corner {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        text-decoration: none;
+        color: #fff;
+        font-size: 2vmin;
+        font-family: "Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo,
+          monospace; 
+        display: flex;
+        width: fit-content;
+        align-items: center;
+        gap: 4px;
+      }
+
       .solid-corner:hover img {
-        filter: drop-shadow(0 0 20px rebeccapurple);
+        filter: drop-shadow(0 0 20px #0078D7);
         transition: all 1s ease;
       }
     </style>
@@ -111,7 +126,8 @@ app.get('/', async (req, res) => {
 <code>${JSON.stringify(locationInfo, null, 2)}</code>
     </pre>
     <a href="https://github.com/solidsnk86/" target="_blank" rel="noopener noreferrer nofollow" class="solid-corner" aria-label="View profile on GitHub">
-      <img src="https://raw.githubusercontent.com/solidsnk86/portfolio-mgc-2024/master/public/solidsnk86.png" alt="Solid Snake PixelArt" style="position: absolute; bottom: 0; right: 0; image-rendering: pixelated;" width="50" height="50" />
+      With 💙 by 
+      <img src="https://raw.githubusercontent.com/solidsnk86/portfolio-mgc-2024/master/public/solidsnk86.png" alt="Solid Snake PixelArt" style="image-rendering: pixelated;" width="50" height="50" />
     </a>
   </body>
 </html>`
