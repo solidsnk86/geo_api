@@ -100,14 +100,9 @@ app.get('/', async (req, res) => {
         line-height: 1.5;
       }
 
-      .solid-corner {
-      width: 80px;
-      height: 80px;
-      background: tomato;
-      }
-
       .solid-corner:hover img {
-        filter: drop-shadow(0 0 10px rebeccapurple);
+        filter: drop-shadow(0 0 20px rebeccapurple);
+        transition: all 1s ease;
       }
     </style>
   </head>
@@ -115,7 +110,7 @@ app.get('/', async (req, res) => {
     <pre>
 <code>${JSON.stringify(locationInfo, null, 2)}</code>
     </pre>
-    <a href="https://github.com/solidsnk86/" target="_blank" rel="noopener noreferrer nofollow" class="solid-corner" aria-label="View source on GitHub">
+    <a href="https://github.com/solidsnk86/" target="_blank" rel="noopener noreferrer nofollow" class="solid-corner" aria-label="View profile on GitHub">
       <img src="https://raw.githubusercontent.com/solidsnk86/portfolio-mgc-2024/master/public/solidsnk86.png" alt="Solid Snake PixelArt" style="position: absolute; bottom: 0; right: 0;" width="50" height="50" />
     </a>
   </body>
