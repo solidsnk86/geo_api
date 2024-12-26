@@ -33,9 +33,9 @@ app.get('/', async (req, res) => {
         name: countryName,
         alpha: country,
         flag: {
-          size_1: `https://flagcdn.com/16x12/${country?.toLowerCase()}.png`,
-          size_2: `https://flagcdn.com/32x34/${country?.toLowerCase()}.png`,
-          size_3: `https://flagcdn.com/48x36/${country?.toLowerCase()}.png`
+          small: `https://flagcdn.com/16x12/${country?.toLowerCase()}.png`,
+          medium: `https://flagcdn.com/32x34/${country?.toLowerCase()}.png`,
+          large: `https://flagcdn.com/48x36/${country?.toLowerCase()}.png`
         },
         time_zone: timeZone,
       },
