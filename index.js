@@ -131,7 +131,6 @@ app.get('/', async (req, res) => {
   <body>
     <pre>
 <code>${JSON.stringify(locationInfo, null, 2)}</code>
-<code class='result'></code>
     </pre>
     <a href="https://github.com/solidsnk86/" target="_blank" rel="noopener noreferrer nofollow" class="github-corner" aria-label="View source on GitHub">
       <svg width="80" height="80" viewBox="0 0 250 250" style="position: absolute; bottom: 0; rotate: 90deg; border: 0; right: 0;" aria-hidden="true">
