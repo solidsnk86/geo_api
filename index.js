@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import getNetworkInterfaces from './services/get-network-interfaces.js'
 
 const app = express()
 
@@ -34,7 +35,8 @@ app.get('/', async (req, res) => {
         postal_code: postalCode
       },
       country: country,
-      time_zone: new Date().toISOString()
+      time_zone: new Date().toISOString(),
+      network_interfaces: getNetworkInterfaces()
     }
 
     res.json(locationInfo)
