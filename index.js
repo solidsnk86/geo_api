@@ -43,6 +43,10 @@ app.get('/', async (req, res) => {
       coords: {
         latitude: latitude,
         longitude: longitude
+      },
+      sys_info: {
+        language: navigator.language,
+        platform: navigator.platform,
       }
     }
 
@@ -175,7 +179,7 @@ app.get('/location', (req, res) => {
       sys_info: {
         language: navigator.language,
         platform: navigator.platform,
-        
+
       }
     }
 
