@@ -19,7 +19,7 @@ app.get('/', async (req, res) => {
     const postalCode = req.headers['x-vercel-ip-postal-code']
     const latitude = req.headers['x-vercel-ip-latitude']
     const longitude = req.headers['x-vercel-ip-longitude']
-    const timeZone = moment.tz.guess()
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
     const locationInfo = {
       status: res.statusCode,
