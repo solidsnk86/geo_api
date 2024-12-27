@@ -21,6 +21,7 @@ const limiter = rateLimit({
   max: 100,
   message: 'Demasiadas peticiones desde esta IP, por favor intente más tarde'
 })
+
 app.use(limiter)
 dotenv.config();
 
