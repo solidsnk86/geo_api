@@ -1,215 +1,67 @@
-import express from 'express'
-import cors from 'cors'
-import getNetworkInterfaces from './services/get-network-interfaces.js'
-import dotenv from 'dotenv'
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import extractLocationInfo from "./services/get-location-info.js";
+import { mainView } from "./views/main-view.js";
 
-const app = express()
+const app = express();
 
-app.use(express.json())
-app.use(cors())
-app.disable('x-powered-by')
+app.use(express.json());
+app.use(cors());
+app.disable("x-powered-by");
 
-dotenv.config()
+dotenv.config();
 
-app.get('/', async (req, res) => {
+app.get("/", async (req, res, next) => {
   try {
-    const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.connection.remoteAddress
-    const cityName = req.headers['x-vercel-ip-city']
-    const country = req.headers['x-vercel-ip-country']
-    const postalCode = req.headers['x-vercel-ip-postal-code']
-    const latitude = req.headers['x-vercel-ip-latitude']
-    const longitude = req.headers['x-vercel-ip-longitude']
-    const timeZone = req.headers['x-vercel-ip-timezone']
-    const countryName = timeZone?.split('/')[1]
+    const locationInfo = extractLocationInfo(req);
 
-    const locationInfo = {
-      status: res.statusCode,
-      ip: clientIp,
-      city: {
-        name: decodeURIComponent(cityName),
-        postal_code: postalCode
-      },
-      country: {
-        name: countryName,
-        alpha: country,
-        flag: {
-          small: `https://flagcdn.com/16x12/${country?.toLowerCase()}.png`,
-          medium: `https://flagcdn.com/32x34/${country?.toLowerCase()}.png`,
-          large: `https://flagcdn.com/48x36/${country?.toLowerCase()}.png`
-        },
-        time_zone: timeZone,
-      },
-      network_interfaces: getNetworkInterfaces(),
-      coords: {
-        latitude: latitude,
-        longitude: longitude
-      },
-      sys_info: {
-        language: navigator.language,
-      }
-    }
-
-    res.status(200).send(
-       `<!DOCTYPE html><html lang="en">
-  <head>
-    <title>Solid Geolocation</title>
-    <meta property="og:description" content="Obtiene información detallada de la IP y ubicación." >
-     <meta property="og:image" content="https://raw.githubusercontent.com/solidsnk86/calcagni-gabriel/refs/heads/master/public/screen-geolocation_api.png" >
-    <meta name="color-scheme" content="light dark">
-     <link rel="shortcut icon" href="https://raw.githubusercontent.com/solidsnk86/portfolio-mgc-2024/master/public/solidsnk86.png" type="image/x-icon">
-    <meta charset="utf-8">
-    <script type="module">
-      import {
-        highlight
-      } from 'https://esm.sh/sugar-high'
-      const el = document.querySelector('pre > code')
-      el.innerHTML = highlight(el.innerText)
-    </script>
-    <style>
-      :root {
-        --color: #000000;
-        --background-color: #ffffff;
-        --sh-class: #000000;
-        --sh-identifier: #000000;
-        --sh-sign: rgba(0, 0, 0, 0.5);
-        --sh-string: #000000;
-        --sh-keyword: #000000;
-        --sh-comment: #000000;
-        --sh-jsxliterals: #000000;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --color: #ffffff;
-          --background-color: #000000;
-          --sh-class: #ffffff;
-          --sh-identifier: #ffffff;
-          --sh-sign: rgba(255, 255, 255, 0.5);
-          --sh-string: #ffffff;
-          --sh-keyword: #ffffff;
-          --sh-comment: #ffffff;
-          --sh-jsxliterals: #ffffff;
-        }
-      }
-
-      body {
-        background: var(--background-color);
-      }
-
-      code {
-        font-size: 2vmin;
-        font-family: "Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo,
-          monospace;
-        line-height: 1.5;
-      }
-
-      .solid {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        text-decoration: none;
-        color: var(--color);
-        font-size: 2vmin;
-        font-family: "Operator Mono", "Fira Code", "SF Mono", "Roboto Mono", Menlo,
-          monospace; 
-        display: flex;
-        width: fit-content;
-        align-items: center;
-        gap: 4px;
-      }
-
-      .solid:hover img {
-        filter: drop-shadow(0 0 20px #0078D7);
-        transition: all 1s ease;
-      }
-    </style>
-  </head>
-  <body>
-    <pre>
-<code>${JSON.stringify(locationInfo, null, 2)}</code>
-    </pre>
-    <a href="https://github.com/solidsnk86/" target="_blank" rel="noopener noreferrer nofollow" class="solid" aria-label="View profile on GitHub">
-      Made with 💙 by 
-      <img src="https://raw.githubusercontent.com/solidsnk86/portfolio-mgc-2024/master/public/solidsnk86.png" alt="Solid Snake PixelArt" style="image-rendering: pixelated;" width="50" height="50" />
-    </a>
-  </body>
-</html>`
-    )
-    
+    res.status(200).send(mainView({ data: locationInfo }));
   } catch (error) {
-    console.error('Error:', error)
-    res.status(500).json({ status: res.statusCode, error: 'Error del servidor' })
+    next(error);
   }
-})
+});
 
-app.get('/location', (req, res) => {
+app.get("/location", (req, res) => {
   try {
-    const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.connection.remoteAddress
-    const cityName = req.headers['x-vercel-ip-city']
-    const country = req.headers['x-vercel-ip-country']
-    const postalCode = req.headers['x-vercel-ip-postal-code']
-    const latitude = req.headers['x-vercel-ip-latitude']
-    const longitude = req.headers['x-vercel-ip-longitude']
-    const timeZone = req.headers['x-vercel-ip-timezone']
-    const countryName = timeZone?.split('/')[1]
+    const locationInfo = extractLocationInfo(req);
 
-    const locationInfo = {
-      status: res.statusCode,
-      ip: clientIp,
-      city: {
-        name: decodeURIComponent(cityName),
-        postal_code: postalCode
-      },
-      country: {
-        name: countryName,
-        alpha: country,
-        flag: {
-          size_1: `https://flagcdn.com/16x12/${country?.toLowerCase()}.png`,
-          size_2: `https://flagcdn.com/32x34/${country?.toLowerCase()}.png`,
-          size_3: `https://flagcdn.com/48x36/${country?.toLowerCase()}.png`
-        },
-        time_zone: timeZone,
-      },
-      network_interfaces: getNetworkInterfaces(),
-      coords: {
-        latitude: latitude,
-        longitude: longitude
-      },
-      sys_info: {
-        language: navigator.language,
-      }
-    }
+    res.status(200).json(locationInfo);
+  } catch (err) {
+    res.status(500).json({ message: "Server Error " + err });
+  }
+});
 
-    res.status(200).json(locationInfo)
-} catch (err) {
-  res.status(500).json({ message: 'Server Error ' + err })
-}})
-
-app.get('/weather', async (req, res) => {
-  const { latitude, longitude } = req.query
+app.get("/weather", async (req, res) => {
+  const { latitude, longitude } = req.query;
 
   if (!latitude || !longitude) {
-    res.status(400).json({ message: 'Latitud y longitud son requeridas' })
+    res.status(400).json({ message: "Latitud y longitud son requeridas" });
   }
 
   try {
-    const APIKEY = process.env.NEXT_WEATHER_API
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIKEY}`)
-    const jsonData = await response.json()
+    const API_ID = process.env.NEXT_WEATHER_API;
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_ID}`
+    );
+    const jsonData = await response.json();
 
     if (!response.ok) {
-      res.status(400).json({ status: res.statusCode, message: response.statusText })
+      res
+        .status(400)
+        .json({ status: res.statusCode, message: response.statusText });
     }
 
-    res.status(200).json(jsonData)
+    res.status(200).json(jsonData);
+  } catch (err) {
+    res
+      .status(500)
+      .json({ status: res.statusCode, message: "Server Error" + " " + err });
+  }
+});
 
-  } catch(err) {
-    res.status(500).json({ status: res.statusCode, message: 'Server Error' + " " + err })
-   }
-})
-
-const PORT = process.env.PORT ?? 3000
+const PORT = process.env.PORT || 3639;
 
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`)
-})
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
