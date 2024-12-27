@@ -7,10 +7,21 @@ import rateLimit from 'express-rate-limit'
 
 const app = express();
 
+const corsOptions = {
+  methods: ['GET', 'POST'],
+  maxAge: 86400,
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.disable("x-powered-by");
 
+const limiter = rateLimit({
+  windowMS: 15 * 60 * 1000,
+  max: 100,
+  message: 'Demasiadas peticiones desde esta IP, por favor intente más tarde'
+})
+app.use(limiter)
 dotenv.config();
 
 app.get("/", async (req, res, next) => {
