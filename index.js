@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import extractLocationInfo from "./services/get-location-info.js";
 import { mainView } from "./views/main-view.js";
+import rateLimit from 'express-rate-limit'
 
 const app = express();
 

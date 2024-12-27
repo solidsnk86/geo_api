@@ -17,7 +17,7 @@ const extractLocationInfo = (req) => {
     status: 200,
     ip: clientIp,
     city: {
-      name: cityName ? decodeURIComponent(cityName) : "",
+      name: cityName ? decodeURIComponent(cityName) : "No disponible",
       postal_code: postalCode || null,
     },
     country: {
