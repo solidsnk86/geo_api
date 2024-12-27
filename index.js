@@ -177,8 +177,6 @@ app.get('/location', (req, res) => {
       },
       sys_info: {
         language: navigator.language,
-        platform: navigator.platform,
-
       }
     }
 
