@@ -8,11 +8,9 @@ export const mainView = ({ data }) => `
      <link rel="shortcut icon" href="https://raw.githubusercontent.com/solidsnk86/portfolio-mgc-2024/master/public/solidsnk86.png" type="image/x-icon">
     <meta charset="utf-8">
     <script type="module">
-      import {
-        highlight
-      } from 'https://esm.sh/sugar-high'
-      const el = document.querySelector('pre > code')
-      el.innerHTML = highlight(el.innerText)
+      import { highlight } from 'https://esm.sh/sugar-high';
+      const code = document.querySelector('pre > code');
+      code.innerHTML = highlight(code.innerText);
     </script>
     <style>
       :root {
@@ -75,7 +73,7 @@ export const mainView = ({ data }) => `
   </head>
   <body>
     <pre>
-<code>${JSON.stringify(data, null, 2)}</code>
+      <code>${JSON.stringify(data, null, 2)}</code>
     </pre>
     <a href="https://github.com/solidsnk86/" target="_blank" rel="noopener noreferrer nofollow" class="solid" aria-label="View profile on GitHub">
       Made with 💙 by 
