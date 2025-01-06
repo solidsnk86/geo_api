@@ -1,4 +1,5 @@
 import getNetworkInterfaces from './get-network-interfaces.js'
+import checkUndefined from './set-undefined.js';
 
 const extractLocationInfo = (req) => {
   const clientIp =
@@ -37,11 +38,11 @@ const extractLocationInfo = (req) => {
     },
     network_interfaces: getNetworkInterfaces(),
     coords: {
-      latitude: latitude || null,
-      longitude: longitude || null,
+      latitude: latitude || "No disponible",
+      longitude: longitude || "No disponible",
     },
     sys_info: {
-      language: typeof navigator !== "undefined" ? navigator.language : null,
+      language: checkUndefined({ fx: navigator.language }),
       system: platform,
       web_browser: {
         browser: match[1],
