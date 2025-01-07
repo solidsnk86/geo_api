@@ -1,5 +1,5 @@
-import getNetworkInterfaces from './get-network-interfaces.js'
-import checkUndefined from './set-undefined.js';
+import getNetworkInterfaces from "./get-network-interfaces.js";
+import checkUndefined from "./set-undefined.js";
 
 const extractLocationInfo = (req) => {
   const clientIp =
@@ -13,12 +13,12 @@ const extractLocationInfo = (req) => {
   const longitude = req.headers["x-vercel-ip-longitude"];
   const timeZone = req.headers["x-vercel-ip-timezone"];
   const countryName = timeZone?.split("/")[1];
-  const platform = req.headers["sec-ch-ua-platform"].replace(/\"/g, "")
+  const platform = req.headers["sec-ch-ua-platform"].replace(/\"/g, "");
   const userInfo = req.headers["sec-ch-ua"];
   const regex = /"([^"]+)";v="(\d+)"/;
-  const webBrowser = userInfo.split("\n")[0].split(",")[0]
-  const match = webBrowser.match(regex)
-  
+  const webBrowser = userInfo.split("\n")[0].split(",")[0];
+  const match = webBrowser.match(regex);
+
   return {
     status: 200,
     ip: clientIp,
@@ -41,15 +41,16 @@ const extractLocationInfo = (req) => {
       latitude: latitude || "No disponible",
       longitude: longitude || "No disponible",
     },
-    sys_info: {
-      language: checkUndefined({ fx: navigator.language }),
-      system: platform,
-      web_browser: {
-        browser: match[1],
-        version: match[2]
-      }
-
-    },
+    sys_info: [
+      {
+        language: checkUndefined({ fx: navigator.language }),
+        system: platform,
+        web_browser: {
+          browser: match[1],
+          version: match[2],
+        },
+      },
+    ],
   };
 };
 
