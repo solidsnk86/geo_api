@@ -43,16 +43,14 @@ const extractLocationInfo = (req) => {
       latitude: latitude || "No disponible",
       longitude: longitude || "No disponible",
     },
-    sys_info: [
-      {
-        language: checkUndefined({ fx: navigator.language }),
-        system: platform,
-        web_browser: {
-          browser: match[1],
-          version: match[2],
-        },
+    sys_info: {
+      language: checkUndefined({ fx: navigator.language }),
+      system: platform,
+      web_browser: {
+        browser: match[1],
+        version: match[2],
       },
-    ],
+    },
   };
 };
 
