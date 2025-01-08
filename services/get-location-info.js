@@ -35,7 +35,7 @@ const extractLocationInfo = (req) => {
         medium: `https://flagcdn.com/32x34/${country?.toLowerCase()}.png`,
         large: `https://flagcdn.com/48x36/${country?.toLowerCase()}.png`,
       },
-      emoji_flag: getCountryFlag(country),
+      emoji_flag: getCountryFlag({ countryCode: country }),
       time_zone: timeZone || null,
     },
     network_interfaces: getNetworkInterfaces(),
