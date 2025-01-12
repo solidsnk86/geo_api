@@ -51,52 +51,6 @@ export const mainView = ({ data }) => `
       bottom: 10px;
       right: 10px;
     }
-    .card {
-      margin: 0 auto;
-      padding: .5em;
-      width: fit-content;
-      background: #000;
-      text-align: center;
-      border-radius: 8px;
-      position: relative;
-    }
-    @property --angle {
-      syntax: '<angle>';
-      initial-value: 0deg;
-      inherits: false;
-    }
-    .card::after,
-    .card::before {
-      content: '';
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      background: conic-gradient(
-        from var(--angle),
-        #ff4545,
-        #00ff99,
-        #006aff,
-        #ff0095,
-        #ff4545
-      );
-      top: 50%;
-      left: 50%;
-      translate: -50% -50%;
-      z-index: -1;
-      padding: 1px;
-      border-radius: 8px;
-      animation: 3.5s spin linear infinite;
-    }
-    .card::before {
-      filter: blur(1.5rem);
-      opacity: 0.5;
-      animation: 3s spin linear infinite;
-    }
-    @keyframes spin {
-      to {
-        --angle: 360deg;
-      }
-    }
     .solid {
       text-decoration: none;
       color: var(--color);
@@ -114,11 +68,9 @@ export const mainView = ({ data }) => `
       <code>${JSON.stringify(data, null, 2)}</code>
     </pre>
     <section>
-      <div class="card">
       <a href="https://github.com/solidsnk86/" target="_blank" rel="noopener noreferrer nofollow" class="solid" aria-label="View profile on GitHub">
       Made with 🤍 by @solidSnk86
       </a>
-    </div>
     </section>
   </body>
 </html>
