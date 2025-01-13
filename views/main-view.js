@@ -9,8 +9,9 @@ export const mainView = ({ data }) => `
     <meta charset="utf-8">
     <script type="module">
       import { highlight } from 'https://esm.sh/sugar-high';
+      import cleanIndent from 'https://cdn.jsdelivr.net/gh/liquidsnk86/cdn-js@main/indent-cleaner.js';
       const code = document.querySelector('pre > code');
-      code.innerHTML = highlight(code.innerText);
+      code.innerHTML = highlight(cleanIndent(code.innerText));
     </script>
     <style>
     :root {
