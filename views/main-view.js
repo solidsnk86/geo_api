@@ -30,7 +30,7 @@ export const mainView = ({ data }) => `
         --background-color: #000000;
         --sh-class: #ffffff;
         --sh-identifier: #ffffff;
-        --sh-sign: rgba(255, 255, 255, 0.5);
+        --sh-sign: rgba(214, 176, 110, 0.5);
         --sh-string: #ffffff;
         --sh-keyword: #ffffff;
         --sh-comment: #ffffff;
@@ -60,6 +60,9 @@ export const mainView = ({ data }) => `
       display: flex;
       width: fit-content;
       align-items: center;  
+    }
+    .solid:hover {
+      color: orange;
     }
   </style>
   </head>
