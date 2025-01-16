@@ -8,7 +8,7 @@ import { airport } from './closest-airport.js'
 import { readJSON } from '../utils/read-json.js'
 
 // const __dirname = dirname(fileURLToPath(import.meta.url))
-const airports = readJSON('../airports.json')
+// const airports = readJSON('../airports.json')
 
 // fetch('https://cdn.jsdelivr.net/gh/liquidsnk86/cdn-js@main/world-airports.json')
 //   .then((res) => res.json())
