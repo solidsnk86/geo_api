@@ -1,5 +1,5 @@
 import { getCountryFlag } from './convert-to-flag.js'
-import checkUndefined from './set-undefined.js'
+import checkIfUndefined from './set-undefined.js'
 import { getClosestAirport } from './closest-airport.js'
 
 const extractLocationInfo = (req, airports) => {
@@ -61,7 +61,7 @@ const extractLocationInfo = (req, airports) => {
       airport_distance: `${minDistance.toFixed(2)}km` || 'Sin geolocalización',
     },
     sys_info: {
-      language: checkUndefined({ fx: navigator.language }),
+      language: checkIfUndefined({ fx: navigator.language }),
       system: platform,
       web_browser: {
         browser: match[1],

@@ -1,3 +1,3 @@
-export default function checkUndefined({ fx }) {
-    return typeof navigator !== "undefined" ? fx : null
+export default function checkIfUndefined({ fx }) {
+  return typeof navigator !== 'undefined' ? fx : null
 }
