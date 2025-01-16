@@ -6,7 +6,7 @@ export const getAllAirports = async () => {
   const filteredAirports = Object.keys(airports)
     .map((key) => {
       const { iata, name, city, country, lat, lon } = airports[key]
-      return iata ? { iata, name, city, country, lat, lon } : null
+      return iata ? { iata, name, city, state, country, lat, lon } : null
     })
     .filter(Boolean)
   return filteredAirports

@@ -49,8 +49,14 @@ const extractLocationInfo = (req, airports) => {
       longitude: longitude || 'No disponible',
     },
     haversine_location: {
-      closest_airport: closestAirport.name,
+      iata: closestAirport.iata,
+      closest_airport: {
+        airport: closestAirport.name,
+        latitude: closestAirport.lat,
+        longitude: closestAirport.lon,
+      },
       city: closestAirport.city,
+      state: closestAirport.state,
       country: closestAirport.country,
       airport_distance: `${minDistance.toFixed(2)}km`,
     },
