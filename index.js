@@ -4,12 +4,9 @@ import dotenv from 'dotenv'
 import extractLocationInfo from './services/get-location-info.js'
 import { mainView } from './views/main-view.js'
 import rateLimit from 'express-rate-limit'
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'url'
-import { writeFile } from 'fs/promises'
+import { getAllAirports } from './services/get-airports.js'
 
 const app = express()
-const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const corsOptions = {
   methods: ['GET', 'POST'],
@@ -31,7 +28,8 @@ dotenv.config()
 
 app.get('/', async (req, res, next) => {
   try {
-    const locationInfo = extractLocationInfo(req)
+    const airports = await getAllAirports()
+    const locationInfo = extractLocationInfo(req, airports)
 
     res.status(200).send(mainView({ data: locationInfo }))
   } catch (error) {

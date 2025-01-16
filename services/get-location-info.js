@@ -1,30 +1,8 @@
 import { getCountryFlag } from './convert-to-flag.js'
 import checkUndefined from './set-undefined.js'
-// import { airport } from './closest-airport.js'
-// import { promises as fs } from 'fs'
-// import { resolve, dirname } from 'path'
-// import { fileURLToPath } from 'url'
-// import { readJSON } from '../utils/read-json.js'
+import { getClosestAirport } from './closest-airport.js'
 
-// const __dirname = dirname(fileURLToPath(import.meta.url))
-// const airports = readJSON('../airports.json')
-
-// fetch('https://cdn.jsdelivr.net/gh/liquidsnk86/cdn-js@main/world-airports.json')
-//   .then((res) => res.json())
-//   .then(async (data) => {
-//     const filePath = resolve(__dirname, `../airports.json`)
-//     const content = Object.keys(data)
-//       .map((key) => {
-//         const { iata, name, city, state, country, lat, lon } = data[key]
-//         return iata
-//           ? { iata, name, city, state, country, latitude: lat, longitude: lon }
-//           : null
-//       })
-//       .filter(Boolean)
-//     await fs.writeFile(filePath, JSON.stringify(content, null, 2))
-//   })
-
-const extractLocationInfo = (req) => {
+const extractLocationInfo = (req, airports) => {
   const clientIp =
     req.headers['x-forwarded-for'] ||
     req.headers['x-real-ip'] ||
@@ -41,8 +19,12 @@ const extractLocationInfo = (req) => {
   const regex = /"([^"]+)";v="(\d+)"/
   const webBrowser = userInfo.split('\n')[0].split(',')[0]
   const match = webBrowser.match(regex)
+  const coords = {
+    lat: parseFloat(latitude || '-32.5603447'),
+    lon: parseFloat(longitude || '-65.2351276'),
+  }
 
-  // const closestAirport = airport(coords, airports)
+  const { closestAirport, minDistance } = getClosestAirport(coords, airports)
 
   return {
     status: 200,
@@ -65,6 +47,12 @@ const extractLocationInfo = (req) => {
     coords: {
       latitude: latitude || 'No disponible',
       longitude: longitude || 'No disponible',
+    },
+    haversine_location: {
+      closest_airport: closestAirport.name,
+      city: closestAirport.city,
+      country: closestAirport.country,
+      airport_distance: `${minDistance.toFixed(2)}km`,
     },
     sys_info: {
       language: checkUndefined({ fx: navigator.language }),
