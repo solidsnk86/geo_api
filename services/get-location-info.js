@@ -46,6 +46,7 @@ const extractLocationInfo = (req) => {
     latitude,
     longitude,
   }
+  const closestAirport = airport(coords, airports)
 
   return {
     status: 200,
@@ -65,12 +66,11 @@ const extractLocationInfo = (req) => {
       emoji_flag: getCountryFlag({ countryCode: country }),
       time_zone: timeZone || null,
     },
-    network_interfaces: getNetworkInterfaces(),
-    airport: airport(coords, airports),
     coords: {
       latitude: latitude || 'No disponible',
       longitude: longitude || 'No disponible',
     },
+    airport: closestAirport,
     sys_info: {
       language: checkUndefined({ fx: navigator.language }),
       system: platform,
