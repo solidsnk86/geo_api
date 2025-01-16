@@ -39,11 +39,34 @@ app.get('/', async (req, res, next) => {
   }
 })
 
-app.get('/location', (req, res) => {
+app.get('/location', async (req, res) => {
   try {
+    const getLocationFromWeatherAPI = async () => {
+      const API_ID = process.env.NEXT_WEATHER_API
+      const latitude = req.headers['x-vercel-ip-latitude']
+      const longitude = req.headers['x-vercel-ip-longitude']
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_ID}`
+      )
+      const jsonData = response.json()
+      const data = Object.keys(jsonData).map((key) => {
+        const { name, sys, coord } = jsonData[key]
+        return {
+          city: name,
+          sysCountry: sys.country,
+          long: coord.lon,
+          lati: coord.lat,
+        }
+      })
+      return data
+    }
+
+    const { city, sysCountry, long, lati } = await getLocationFromWeatherAPI()
     const locationInfo = extractLocationInfo(req)
 
-    res.status(200).json(locationInfo)
+    res
+      .status(200)
+      .json({ locationInfo, otherInfo: { city, sysCountry, long, lati } })
   } catch (err) {
     res.status(500).json({ message: 'Server Error ' + err })
   }

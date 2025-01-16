@@ -1,11 +1,10 @@
 import { getCountryFlag } from './convert-to-flag.js'
-import getNetworkInterfaces from './get-network-interfaces.js'
 import checkUndefined from './set-undefined.js'
-import { airport } from './closest-airport.js'
+// import { airport } from './closest-airport.js'
 // import { promises as fs } from 'fs'
 // import { resolve, dirname } from 'path'
 // import { fileURLToPath } from 'url'
-import { readJSON } from '../utils/read-json.js'
+// import { readJSON } from '../utils/read-json.js'
 
 // const __dirname = dirname(fileURLToPath(import.meta.url))
 // const airports = readJSON('../airports.json')
@@ -42,10 +41,7 @@ const extractLocationInfo = (req) => {
   const regex = /"([^"]+)";v="(\d+)"/
   const webBrowser = userInfo.split('\n')[0].split(',')[0]
   const match = webBrowser.match(regex)
-  const coords = {
-    latitude,
-    longitude,
-  }
+
   // const closestAirport = airport(coords, airports)
 
   return {
@@ -56,7 +52,7 @@ const extractLocationInfo = (req) => {
       postal_code: postalCode || null,
     },
     country: {
-      name: countryName || null,
+      name: countryName || 'No disponible',
       alpha: country || null,
       flag: {
         small: `https://flagcdn.com/16x12/${country?.toLowerCase()}.png`,
