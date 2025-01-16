@@ -4,8 +4,12 @@ import dotenv from "dotenv";
 import extractLocationInfo from "./services/get-location-info.js";
 import { mainView } from "./views/main-view.js";
 import rateLimit from 'express-rate-limit'
+import { dirname, resolve } from 'path'
+import { fileURLToPath } from "url";
+import { writeFile } from "fs/promises";
 
 const app = express();
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const corsOptions = {
   methods: ['GET', 'POST'],
@@ -18,7 +22,7 @@ app.disable("x-powered-by");
 
 const limiter = rateLimit({
   windowMS: 15 * 60 * 1000,
-  max: 100,
+  max: 300,
   message: 'Demasiadas peticiones desde esta IP, por favor intente más tarde'
 })
 
@@ -38,6 +42,25 @@ app.get("/", async (req, res, next) => {
 app.get("/location", (req, res) => {
   try {
     const locationInfo = extractLocationInfo(req);
+
+    const mapAirports = (payload) => Object.keys(payload).map((key) => {
+      const { iata, name, lat, lon } = payload[key]
+      return iata ? { iata, name, latitude: lat, longitude: lon } : null
+    }).filter(Boolean)
+    
+    const withFetch = (url, filename, mapper) =>
+      fetch(url)
+        .then(res => res.json())
+        .then(async data => {
+          const filepath = resolve(__dirname, `../${filename}.json`)
+          const content = mapper(data)
+          await writeFile(filepath, JSON.stringify(content, null, 2))
+          console.log(`Added ${content.length} at ${filename} in ${__dirname} ✨`)
+        })
+    
+    Promise.all([
+      withFetch('https://cdn.jsdelivr.net/gh/mwgg/Airports/airports.json', 'airports', mapAirports)
+    ]).catch(error => console.error(error) || process.exit(1))
 
     res.status(200).json(locationInfo);
   } catch (err) {
