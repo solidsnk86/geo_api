@@ -46,7 +46,7 @@ const extractLocationInfo = (req) => {
     latitude,
     longitude,
   }
-  const closestAirport = airport(coords, airports)
+  // const closestAirport = airport(coords, airports)
 
   return {
     status: 200,
@@ -70,7 +70,6 @@ const extractLocationInfo = (req) => {
       latitude: latitude || 'No disponible',
       longitude: longitude || 'No disponible',
     },
-    airport: closestAirport,
     sys_info: {
       language: checkUndefined({ fx: navigator.language }),
       system: platform,
