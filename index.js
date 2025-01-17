@@ -39,39 +39,12 @@ app.get('/', async (req, res, next) => {
 
 app.get('/location', async (req, res) => {
   try {
-    const locationInfo = extractLocationInfo(req)
+    const airports = await getAllAirports()
+    const locationInfo = extractLocationInfo(req, airports)
 
     res.status(200).json(locationInfo)
   } catch (err) {
     res.status(500).json({ message: 'Server Error ' + err })
-  }
-})
-
-app.get('/weather', async (req, res) => {
-  const { latitude, longitude } = req.query
-
-  if (!latitude || !longitude) {
-    res.status(400).json({ message: 'Latitud y longitud son requeridas' })
-  }
-
-  try {
-    const API_ID = process.env.NEXT_WEATHER_API
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_ID}`
-    )
-    const jsonData = await response.json()
-
-    if (!response.ok) {
-      res
-        .status(400)
-        .json({ status: res.statusCode, message: response.statusText })
-    }
-
-    res.status(200).json(jsonData)
-  } catch (err) {
-    res
-      .status(500)
-      .json({ status: res.statusCode, message: 'Server Error' + ' ' + err })
   }
 })
 
