@@ -1,4 +1,3 @@
-// Equatorial mean radius of Earth in meters
 const EARTH_RADIUS = 6378137
 const square = (num) => num * num
 const degreesToRadians = (degrees) => (degrees * Math.PI) / 180.0
