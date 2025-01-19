@@ -1,12 +1,12 @@
 {
-  "name": "backend",
+  "name": "geo-api",
   "version": "1.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "Geolocation app",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch index.js"
+    "dev": "node --watch src/index.js"
   },
   "keywords": [],
   "author": "",

@@ -1,10 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import extractLocationInfo from './services/get-location-info.js'
-import { mainView } from './views/main-view.js'
+import extractLocationInfo from '../services/get-location-info.js'
+import { mainView } from '../views/main-view.js'
 import rateLimit from 'express-rate-limit'
-import { getAllAirports } from './services/get-airports.js'
+import { getAllAirports } from '../services/get-airports.js'
 
 const app = express()
 
