@@ -62,7 +62,7 @@ app.get('/geolocation', async (req, res) => {
   try {
     const [cities] = await Promise.all([getAllCitiesAR()])
     const { closestTarget, minDistance } = getClosestPlace(coordinates, cities)
-    const { nombre, tipo, departamento, provincia, pais, latitud, longitud } =
+    const { nombre, tipo, departamento, provincia, pais, lat, lon } =
       closestTarget
     res.status(200).json({
       city: nombre,
@@ -71,6 +71,10 @@ app.get('/geolocation', async (req, res) => {
       state: provincia,
       country: pais,
       distance: `${minDistance.toFixed(3)}mts`,
+      coordinates: {
+        latitude: lat,
+        longitude: lon,
+      },
     })
   } catch (error) {
     res.status(500).json({ message: 'Server error: ' + error })
