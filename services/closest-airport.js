@@ -19,18 +19,18 @@ const haversine = (pointA, pointB) => {
   return distance / 1000
 }
 
-export const getClosestAirport = (coordinates, airports) => {
-  let closestAirport = null
+export const getClosestPlace = (coordinates, allData) => {
+  let closestTarget = null
   let minDistance = Infinity
 
-  for (const airport of airports) {
-    const meters = haversine(coordinates, airport)
+  for (const data of allData) {
+    const meters = haversine(coordinates, data)
 
     if (meters < minDistance) {
       minDistance = meters
-      closestAirport = airport
+      closestTarget = data
     }
   }
 
-  return { closestAirport, minDistance }
+  return { closestTarget, minDistance }
 }

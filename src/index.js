@@ -1,10 +1,12 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import extractLocationInfo from './services/get-location-info.js'
-import { mainView } from './views/main-view.js'
+import extractLocationInfo from '../services/get-location-info.js'
+import { mainView } from '../views/main-view.js'
 import rateLimit from 'express-rate-limit'
-import { getAllAirports } from './services/get-airports.js'
+import { getAllAirports } from '../services/get-airports.js'
+import { getAllCitiesAR } from '../services/get-cities.js'
+import { getClosestPlace } from '../services/closest-airport.js'
 
 const app = express()
 
@@ -48,7 +50,34 @@ app.get('/location', async (req, res) => {
   }
 })
 
-const PORT = process.env.PORT || 3639
+app.get('/geolocation', async (req, res) => {
+  const { lat, lon } = req.query
+  if (!lat || !lon) {
+    res.status(400).json({
+      message: 'Debes proporcionar los parámetros de latitud y longitud',
+    })
+    return
+  }
+  const coordinates = { lat, lon }
+  try {
+    const [cities] = await Promise.all([getAllCitiesAR()])
+    const { closestTarget, minDistance } = getClosestPlace(coordinates, cities)
+    const { nombre, tipo, departamento, provincia, pais, latitud, longitud } =
+      closestTarget
+    res.status(200).json({
+      city: nombre,
+      type: tipo,
+      departament: departamento,
+      state: provincia,
+      country: pais,
+      distance: `${minDistance.toFixed(3)}mts`,
+    })
+  } catch (error) {
+    res.status(500).json({ message: 'Server error: ' + error })
+  }
+})
+
+const PORT = 5731
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`)

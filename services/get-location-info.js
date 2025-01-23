@@ -1,6 +1,6 @@
 import { getCountryFlag } from './convert-to-flag.js'
 import checkIfUndefined from './set-undefined.js'
-import { getClosestAirport } from './closest-airport.js'
+import { getClosestPlace } from './closest-airport.js'
 
 const extractLocationInfo = (req, airports) => {
   const clientIp =
@@ -24,7 +24,7 @@ const extractLocationInfo = (req, airports) => {
     lon: parseFloat(longitude || '-65.2351276'),
   }
 
-  const { closestAirport, minDistance } = getClosestAirport(coords, airports)
+  const { closestAirport, minDistance } = getClosestPlace(coords, airports)
 
   return {
     status: 200,
