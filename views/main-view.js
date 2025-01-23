@@ -41,6 +41,14 @@ export const mainView = ({ data }) => `
     body {
       background: var(--background-color);
     }
+    span {
+    margin: 0;
+    padding: 0;
+    }
+    pre {
+    margin: 0;
+    padding: 0;
+    }
     code {
       font-size: 2vmin;
       font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono', Menlo,
@@ -69,7 +77,7 @@ export const mainView = ({ data }) => `
   </head>
   <body>
     <pre>
-      <code>${JSON.stringify(data, null, 2)}</code>
+      <code>\t${JSON.stringify(data, null, 2)}</code>
     </pre>
     <section>
       <a href="https://github.com/solidsnk86/" target="_blank" rel="noopener noreferrer nofollow" class="solid" aria-label="View profile on GitHub">
@@ -78,4 +86,4 @@ export const mainView = ({ data }) => `
     </section>
   </body>
 </html>
-`;
+`

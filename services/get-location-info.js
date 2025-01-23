@@ -30,40 +30,31 @@ const extractLocationInfo = (req, airports) => {
     status: 200,
     ip: clientIp,
     city: {
-      name: cityName ? decodeURIComponent(cityName) : 'No disponible',
-      postal_code: postalCode || null,
+      name: cityName ? decodeURIComponent(cityName) : closestAirport.city,
+      state: closestAirport.state,
+      postalCode: postalCode || null,
+      closestAirport: {
+        iata: closestAirport.iata || 'Sin geolocalización',
+        airport: closestAirport.name || 'Sin geolocalización',
+        airportDistance: `${minDistance.toFixed(2)}km` || 'Sin geolocalización',
+        latitude: closestAirport.lat || 'Sin geolocalización',
+        longitude: closestAirport.lon || 'Sin geolocalización',
+      },
     },
     country: {
-      name: countryName || 'No disponible',
+      name: countryName || closestAirport.country,
       alpha: country || null,
-      flag: {
-        small: `https://flagcdn.com/16x12/${country?.toLowerCase()}.png`,
-        medium: `https://flagcdn.com/32x34/${country?.toLowerCase()}.png`,
-        large: `https://flagcdn.com/48x36/${country?.toLowerCase()}.png`,
-      },
-      emoji_flag: getCountryFlag({ countryCode: country }),
-      time_zone: timeZone || null,
+      emojiFlag: getCountryFlag({ countryCode: country }),
+      timezone: timeZone || null,
     },
     coords: {
       latitude: latitude || 'No disponible',
       longitude: longitude || 'No disponible',
     },
-    haversine_location: {
-      iata: closestAirport.iata || 'Sin geolocalización',
-      closest_airport: {
-        airport: closestAirport.name || 'Sin geolocalización',
-        latitude: closestAirport.lat || 'Sin geolocalización',
-        longitude: closestAirport.lon || 'Sin geolocalización',
-      },
-      city: closestAirport.city || 'Sin geolocalización',
-      state: closestAirport.state || 'Sin geolocalización',
-      country: closestAirport.country || 'Sin geolocalización',
-      airport_distance: `${minDistance.toFixed(2)}km` || 'Sin geolocalización',
-    },
-    sys_info: {
+    sysInfo: {
       language: checkIfUndefined({ fx: navigator.language }),
       system: platform,
-      web_browser: {
+      webBrowser: {
         browser: match[1],
         version: match[2],
       },

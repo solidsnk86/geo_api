@@ -28,7 +28,7 @@ dotenv.config()
 
 app.get('/', async (req, res, next) => {
   try {
-    const airports = await getAllAirports()
+    const [airports] = await Promise.all([getAllAirports()])
     const locationInfo = extractLocationInfo(req, airports)
 
     res.status(200).send(mainView({ data: locationInfo }))
