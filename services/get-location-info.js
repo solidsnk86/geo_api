@@ -27,7 +27,6 @@ const extractLocationInfo = (req, airports) => {
   const { closestAirport, minDistance } = getClosestPlace(coords, airports)
 
   return {
-    status: 200,
     ip: clientIp,
     city: {
       name: cityName
