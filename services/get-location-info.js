@@ -19,7 +19,10 @@ const extractLocationInfo = (req, airports) => {
   const regex = /"([^"]+)";v="(\d+)"/
   const webBrowser = userInfo.split('\n')[0].split(',')[0]
   const match = webBrowser.match(regex)
-  const coords = { latitude, longitude }
+  const coords = {
+    lat: parseFloat(latitude),
+    lon: parseFloat(longitude),
+  }
   const { closestTarget, minDistance } = getClosestPlace(coords, airports)
 
   return {
@@ -34,11 +37,15 @@ const extractLocationInfo = (req, airports) => {
       emojiFlag: getCountryFlag({ countryCode: country }),
       timezone: timeZone || null,
     },
-    nearestAirport: {
-      iata: closestTarget.iata || 'No disponible',
-      name: closestTarget.name || 'No disponible',
-      country: closestTarget.country || 'No disponoble',
-      distance: `${minDistance}mts`,
+    closestAirport: {
+      iata: closestTarget.iata,
+      name: closestTarget.name,
+      city: closestTarget.city,
+      state: closestTarget.state,
+      country: closestTarget.country,
+      latitude: closestTarget.lat,
+      longitude: closestTarget.lon,
+      distance: `${minDistance.toFixed(3) || 0}mts`,
     },
     coords: {
       latitude: latitude || 'No disponible',
