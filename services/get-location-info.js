@@ -1,8 +1,7 @@
 import { getCountryFlag } from './convert-to-flag.js'
 import checkIfUndefined from './set-undefined.js'
-import { getClosestPlace } from './closest-airport.js'
 
-const extractLocationInfo = (req, airports) => {
+const extractLocationInfo = (req) => {
   const clientIp =
     req.headers['x-forwarded-for'] ||
     req.headers['x-real-ip'] ||
