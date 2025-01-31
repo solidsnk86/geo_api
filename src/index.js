@@ -60,20 +60,38 @@ app.get('/geolocation', async (req, res) => {
   }
   const coordinates = { lat, lon }
   try {
-    const [cities] = await Promise.all([getAllCitiesAR()])
+    const [cities, airports] = await Promise.all([
+      getAllCitiesAR(),
+      getAllAirports(),
+    ])
     const { closestTarget, minDistance } = getClosestPlace(coordinates, cities)
     const { nombre, tipo, departamento, provincia, pais, lat, lon } =
       closestTarget
+    const { closestTarget: airport, minDistance: distance } = getClosestPlace(
+      coordinates,
+      airports
+    )
+
     res.status(200).json({
       city: nombre,
       type: tipo,
       departament: departamento,
       state: provincia,
       country: pais,
-      placeDistance: `${minDistance.toFixed(3)}mts`,
+      placeDistance: `${minDistance.toFixed(3) || 0}mts`,
       coordinates: {
         latitude: lat,
         longitude: lon,
+      },
+      closestAirport: {
+        iata: airport.iata,
+        name: airport.name,
+        city: airport.city,
+        state: airport.state,
+        country: airport.country,
+        latitude: airport.lat,
+        longitude: airport.lon,
+        distance: `${distance.toFixed(3) || 0}mts`,
       },
     })
   } catch (error) {
