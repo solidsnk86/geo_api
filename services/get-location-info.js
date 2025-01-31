@@ -38,6 +38,7 @@ const extractLocationInfo = (req, airports) => {
       iata: closestTarget?.iata || 'No disponible',
       name: closestTarget?.name || 'No disponible',
       country: closestTarget?.country || 'No disponoble',
+      distance: `${minDistance}mts`,
     },
     coords: {
       latitude: latitude || 'No disponible',
