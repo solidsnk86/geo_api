@@ -23,10 +23,7 @@ const extractLocationInfo = (req, airports) => {
   return {
     ip: clientIp,
     city: {
-      name: cityName
-        ? decodeURIComponent(cityName)
-        : closestTarget.city || 'No disponible',
-      state: closestTarget.state,
+      name: decodeURIComponent(cityName),
       postalCode: postalCode,
     },
     country: {
