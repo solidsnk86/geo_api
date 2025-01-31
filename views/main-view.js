@@ -31,9 +31,9 @@ export const mainView = ({ data }) => `
         --background-color: #000000;
         --sh-class: #ffffff;
         --sh-identifier: #ffffff;
-        --sh-sign: rgba(214, 176, 110, 0.5);
+        --sh-sign: #9D63D8;
         --sh-string: #ffffff;
-        --sh-keyword: #ffffff;
+        --sh-keyword: lightgreen;
         --sh-comment: #ffffff;
         --sh-jsxliterals: #ffffff;
       }
@@ -71,13 +71,13 @@ export const mainView = ({ data }) => `
       align-items: center;  
     }
     .solid:hover {
-      color: orange;
+      color: #9D63D8s;
     }
   </style>
   </head>
   <body>
     <pre>
-      <code>\t${JSON.stringify(data, null, 2)}</code>
+      <code>${JSON.stringify(data, null, 2)}</code>
     </pre>
     <section>
       <a href="https://github.com/solidsnk86/" target="_blank" rel="noopener noreferrer nofollow" class="solid" aria-label="View profile on GitHub">
