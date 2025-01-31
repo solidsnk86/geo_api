@@ -69,7 +69,7 @@ app.get('/geolocation', async (req, res) => {
       departament: departamento,
       state: provincia,
       country: pais,
-      squareCenter: `${minDistance.toFixed(3)}mts`,
+      placeDistance: `${minDistance.toFixed(3)}mts`,
       coordinates: {
         latitude: lat,
         longitude: lon,
