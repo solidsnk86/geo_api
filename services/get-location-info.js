@@ -35,9 +35,9 @@ const extractLocationInfo = (req, airports) => {
       timezone: timeZone || null,
     },
     nearestAirport: {
-      iata: closestTarget?.iata || 'No disponible',
-      name: closestTarget?.name || 'No disponible',
-      country: closestTarget?.country || 'No disponoble',
+      iata: closestTarget.iata || 'No disponible',
+      name: closestTarget.name || 'No disponible',
+      country: closestTarget.country || 'No disponoble',
       distance: `${minDistance}mts`,
     },
     coords: {

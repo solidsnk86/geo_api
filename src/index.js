@@ -41,7 +41,8 @@ app.get('/', async (req, res, next) => {
 
 app.get('/location', async (req, res) => {
   try {
-    const locationInfo = extractLocationInfo(req)
+    const [airports] = await Promise.all([getAllAirports()])
+    const locationInfo = extractLocationInfo(req, airports)
 
     res.status(200).json(locationInfo)
   } catch (err) {
