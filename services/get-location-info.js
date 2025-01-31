@@ -24,26 +24,26 @@ const extractLocationInfo = (req, airports) => {
     lon: parseFloat(longitude || '-65.2351276'),
   }
 
-  const { closestAirport, minDistance } = getClosestPlace(coords, airports)
+  const { closestTarget, minDistance } = getClosestPlace(coords, airports)
 
   return {
     ip: clientIp,
     city: {
       name: cityName
         ? decodeURIComponent(cityName)
-        : closestAirport.city || 'No disponible',
-      state: closestAirport.state,
-      postalCode: postalCode || null,
+        : closestTarget.city || 'No disponible',
+      state: closestTarget.state,
+      postalCode: closestTarget || null,
       closestAirport: {
-        iata: closestAirport.iata || 'Sin geolocalización',
-        airport: closestAirport.name || 'Sin geolocalización',
+        iata: closestTarget.iata || 'Sin geolocalización',
+        airport: closestTarget.name || 'Sin geolocalización',
         airportDistance: `${minDistance.toFixed(2)}km` || 'Sin geolocalización',
-        latitude: closestAirport.lat || 'Sin geolocalización',
-        longitude: closestAirport.lon || 'Sin geolocalización',
+        latitude: closestTarget.lat || 'Sin geolocalización',
+        longitude: closestTarget.lon || 'Sin geolocalización',
       },
     },
     country: {
-      name: countryName || closestAirport.country,
+      name: countryName || closestTarget.country,
       alpha: country || null,
       emojiFlag: getCountryFlag({ countryCode: country }),
       timezone: timeZone || null,
