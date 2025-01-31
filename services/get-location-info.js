@@ -1,7 +1,8 @@
+import { getClosestPlace } from './closest-airport.js'
 import { getCountryFlag } from './convert-to-flag.js'
 import checkIfUndefined from './set-undefined.js'
 
-const extractLocationInfo = (req) => {
+const extractLocationInfo = (req, airports) => {
   const clientIp =
     req.headers['x-forwarded-for'] ||
     req.headers['x-real-ip'] ||
@@ -18,11 +19,13 @@ const extractLocationInfo = (req) => {
   const regex = /"([^"]+)";v="(\d+)"/
   const webBrowser = userInfo.split('\n')[0].split(',')[0]
   const match = webBrowser.match(regex)
+  const coords = { latitude, longitude }
+  const { closestTarget, minDistance } = getClosestPlace(coords, airports)
 
   return {
     ip: clientIp,
     city: {
-      name: decodeURIComponent(cityName),
+      name: decodeURIComponent(cityName) || 'No disponible',
       postalCode: postalCode,
     },
     country: {
@@ -30,6 +33,11 @@ const extractLocationInfo = (req) => {
       alpha: country || null,
       emojiFlag: getCountryFlag({ countryCode: country }),
       timezone: timeZone || null,
+    },
+    nearestAirport: {
+      iata: closestTarget?.iata || 'No disponible',
+      name: closestTarget?.name || 'No disponible',
+      country: closestTarget?.country || 'No disponoble',
     },
     coords: {
       latitude: latitude || 'No disponible',
