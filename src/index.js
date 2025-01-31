@@ -21,7 +21,7 @@ app.disable('x-powered-by')
 
 const limiter = rateLimit({
   windowMS: 15 * 60 * 1000,
-  max: 300,
+  max: 50,
   message: 'Demasiadas peticiones desde esta IP, por favor intente más tarde',
 })
 
