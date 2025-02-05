@@ -101,13 +101,13 @@ app.get('/geolocation', async (req, res) => {
 })
 
 app.get('/supabase', async (req, res) => {
-  const { id, select, column, updateTable, deleteRow } = req.query
+  const { id, table, column, updateTable, deleteRow } = req.query
 
   try {
     let data = []
-    if (select) {
+    if (table) {
       data = await SupabaseDB.getData({
-        table: select,
+        table: table,
         column: column,
       })
     }
