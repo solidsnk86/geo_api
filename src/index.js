@@ -102,6 +102,9 @@ app.get('/geolocation', async (req, res) => {
 
 app.get('/supabase', async (req, res) => {
   const { id, table, column, updateTable, deleteRow } = req.query
+  if (!id || !table || !column || !updateTable || !deleteRow) {
+    res.status(400).json({ message: 'Must to provide params' })
+  }
 
   try {
     let data = []
@@ -128,7 +131,8 @@ app.get('/supabase', async (req, res) => {
 app.post('/supabase', async (req, res) => {
   const { insertRow } = req.query
   const content = req.body
-
+  if (!insertRow) res.status.json({ message: 'Must to provide params' })
+  if (!content) res.status.json({ mesage: 'Need body content' })
   try {
     if (!insertRow) {
       return res
