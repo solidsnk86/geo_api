@@ -7,6 +7,7 @@ import rateLimit from 'express-rate-limit'
 import { getAllAirports } from '../services/get-airports.js'
 import { getAllCitiesAR } from '../services/get-cities.js'
 import { getClosestPlace } from '../services/closest-airport.js'
+import { SupabaseDB } from '../controller/Model.js'
 
 const app = express()
 
@@ -96,6 +97,49 @@ app.get('/geolocation', async (req, res) => {
     })
   } catch (error) {
     res.status(500).json({ message: 'Server error: ' + error })
+  }
+})
+
+app.get('/supabase', async (req, res) => {
+  const { id, select, column, updateTable, deleteRow } = req.query
+
+  try {
+    let data = []
+    if (select) {
+      data = await SupabaseDB.getData({
+        table: select,
+        column: column,
+      })
+    }
+
+    if (updateTable) {
+      data = await SupabaseDB.update(id, { content })
+    }
+    if (deleteRow) {
+      data = await SupabaseDB.delete(id, deleteRow)
+    }
+
+    res.status(200).json(data)
+  } catch (err) {
+    res.status(500).json({ message: 'Server error ' + err })
+  }
+})
+
+app.post('/supabase', async (req, res) => {
+  const { insertRow } = req.query
+  const content = req.body
+
+  try {
+    if (!insertRow) {
+      return res
+        .status(400)
+        .json({ message: 'No se especificó la tabla para insertar.' })
+    }
+
+    const data = await SupabaseDB.sendData({ table: insertRow, content })
+    res.status(200).json({ data })
+  } catch (err) {
+    res.status(500).json({ message: 'Server error: ' + err })
   }
 })
 
