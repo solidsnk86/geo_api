@@ -1,6 +1,6 @@
 import { getClosestPlace } from './closest-airport.js'
-import { getCountryFlag } from './convert-to-flag.js'
-import checkIfUndefined from './set-undefined.js'
+import { getCountryFlag } from '../utils/convert-to-flag.js'
+import checkIfUndefined from '../utils/set-undefined.js'
 
 const extractLocationInfo = (req, airports) => {
   const clientIp =
@@ -38,13 +38,13 @@ const extractLocationInfo = (req, airports) => {
       timezone: timeZone || null,
     },
     closestAirport: {
-      iata: closestTarget.iata,
-      name: closestTarget.name,
-      city: closestTarget.city,
-      state: closestTarget.state,
-      country: closestTarget.country,
-      latitude: closestTarget.lat,
-      longitude: closestTarget.lon,
+      iata: closestTarget?.iata || 'No dusponible',
+      name: closestTarget?.name || 'No disponible',
+      city: closestTarget?.city || 'No disponible',
+      state: closestTarget?.state || 'No disponible',
+      country: closestTarget?.country || 'No disponible',
+      latitude: closestTarget?.lat || 'No disponible',
+      longitude: closestTarget?.lon || 'No disponible',
       distance: `${minDistance.toFixed(3) || 0}mts`,
     },
     coords: {
