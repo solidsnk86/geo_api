@@ -7,7 +7,6 @@ import rateLimit from 'express-rate-limit'
 import { getAllAirports } from '../services/get-airports.js'
 import { getAllCitiesAR } from '../services/get-cities.js'
 import { getClosestPlace } from '../services/closest-airport.js'
-import { SupabaseDB } from '../controller/Model.js'
 
 const app = express()
 
@@ -31,8 +30,7 @@ dotenv.config()
 
 app.get('/', async (req, res, next) => {
   try {
-    const [airports] = await Promise.all([getAllAirports()])
-    const locationInfo = extractLocationInfo(req, airports)
+    const locationInfo = extractLocationInfo(req)
 
     res.status(200).send(mainView({ data: locationInfo }))
   } catch (error) {
@@ -42,8 +40,7 @@ app.get('/', async (req, res, next) => {
 
 app.get('/location', async (req, res) => {
   try {
-    const [airports] = await Promise.all([getAllAirports()])
-    const locationInfo = extractLocationInfo(req, airports)
+    const locationInfo = extractLocationInfo(req)
 
     res.status(200).json(locationInfo)
   } catch (err) {

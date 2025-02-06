@@ -1,7 +1,7 @@
 import { getCountryFlag } from '../utils/convert-to-flag.js'
 import checkIfUndefined from '../utils/set-undefined.js'
 
-const extractLocationInfo = (req, airports) => {
+const extractLocationInfo = (req) => {
   const clientIp =
     req.headers['x-forwarded-for'] ||
     req.headers['x-real-ip'] ||
