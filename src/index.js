@@ -22,7 +22,7 @@ app.disable('x-powered-by')
 
 const limiter = rateLimit({
   windowMS: 15 * 60 * 1000,
-  max: 50,
+  max: 100,
   message: 'Demasiadas peticiones desde esta IP, por favor intente más tarde',
 })
 
@@ -97,53 +97,6 @@ app.get('/geolocation', async (req, res) => {
     })
   } catch (error) {
     res.status(500).json({ message: 'Server error: ' + error })
-  }
-})
-
-app.get('/supabase', async (req, res) => {
-  const { id, table, column, updateTable, deleteRow } = req.query
-  if (!id || !table || !column || !updateTable || !deleteRow) {
-    res.status(400).json({ message: 'Must to provide params' })
-  }
-
-  try {
-    let data = []
-    if (table) {
-      data = await SupabaseDB.getData({
-        table: table,
-        column: column,
-      })
-    }
-
-    if (updateTable) {
-      data = await SupabaseDB.update(id, { content })
-    }
-    if (deleteRow) {
-      data = await SupabaseDB.delete(id, deleteRow)
-    }
-
-    res.status(200).json(data)
-  } catch (err) {
-    res.status(500).json({ message: 'Server error ' + err })
-  }
-})
-
-app.post('/supabase', async (req, res) => {
-  const { insertRow } = req.query
-  const content = req.body
-  if (!insertRow) res.status.json({ message: 'Must to provide params' })
-  if (!content) res.status.json({ mesage: 'Need body content' })
-  try {
-    if (!insertRow) {
-      return res
-        .status(400)
-        .json({ message: 'No se especificó la tabla para insertar.' })
-    }
-
-    const data = await SupabaseDB.sendData({ table: insertRow, content })
-    res.status(200).json({ data })
-  } catch (err) {
-    res.status(500).json({ message: 'Server error: ' + err })
   }
 })
 

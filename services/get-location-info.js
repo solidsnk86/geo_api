@@ -1,4 +1,3 @@
-import { getClosestPlace } from './closest-airport.js'
 import { getCountryFlag } from '../utils/convert-to-flag.js'
 import checkIfUndefined from '../utils/set-undefined.js'
 
@@ -19,11 +18,6 @@ const extractLocationInfo = (req, airports) => {
   const regex = /"([^"]+)";v="(\d+)"/
   const webBrowser = userInfo.split('\n')[0].split(',')[0]
   const match = webBrowser.match(regex)
-  const coords = {
-    lat: parseFloat(latitude),
-    lon: parseFloat(longitude),
-  }
-  const { closestTarget, minDistance } = getClosestPlace(coords, airports)
 
   return {
     ip: clientIp,
@@ -36,16 +30,6 @@ const extractLocationInfo = (req, airports) => {
       alpha: country || null,
       emojiFlag: getCountryFlag({ countryCode: country }),
       timezone: timeZone || null,
-    },
-    closestAirport: {
-      iata: closestTarget?.iata || 'No dusponible',
-      name: closestTarget?.name || 'No disponible',
-      city: closestTarget?.city || 'No disponible',
-      state: closestTarget?.state || 'No disponible',
-      country: closestTarget?.country || 'No disponible',
-      latitude: closestTarget?.lat || 'No disponible',
-      longitude: closestTarget?.lon || 'No disponible',
-      distance: `${minDistance.toFixed(3) || 0}mts`,
     },
     coords: {
       latitude: latitude || 'No disponible',
