@@ -7,7 +7,6 @@ import rateLimit from 'express-rate-limit'
 import { getAllAirports } from '../services/get-airports.js'
 import { getAllCitiesAR } from '../services/get-cities.js'
 import { getClosestPlace } from '../services/closest-airport.js'
-import { readJSON } from '../utils/read-json.js'
 
 const app = express()
 
@@ -28,8 +27,6 @@ const limiter = rateLimit({
 
 app.use(limiter)
 dotenv.config()
-
-const airports = readJSON('../services/airports.json')
 
 app.get('/', async (req, res, next) => {
   try {
@@ -61,7 +58,10 @@ app.get('/geolocation', async (req, res) => {
   }
   const coordinates = { lat, lon }
   try {
-    const [cities] = await Promise.all([getAllCitiesAR()])
+    const [cities, airports] = await Promise.all([
+      getAllCitiesAR(),
+      getAllAirports(),
+    ])
     const { closestTarget, minDistance } = getClosestPlace(coordinates, cities)
     const { nombre, tipo, departamento, provincia, pais, lat, lon } =
       closestTarget
