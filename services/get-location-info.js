@@ -39,8 +39,8 @@ const extractLocationInfo = (req) => {
       language: checkIfUndefined({ fx: navigator.language }),
       system: platform ? platform.replace(/\"/g, '') : 'No Disponible' || null,
       webBrowser: {
-        browser: match[1],
-        version: match[2],
+        browser: match[1] ?? 'No disponible',
+        version: match[2] ?? 'No Disponible',
       },
     },
   }
