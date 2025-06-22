@@ -12,11 +12,11 @@ const extractLocationInfo = (req) => {
   const latitude = req.headers['x-vercel-ip-latitude']
   const longitude = req.headers['x-vercel-ip-longitude']
   const timeZone = req.headers['x-vercel-ip-timezone']
-  const countryName = timeZone?.split('/')[1]
+  const countryName = timeZone?.split('/')?.[1]
   const platform = req.headers['sec-ch-ua-platform']
   const userInfo = req.headers['sec-ch-ua']
   const regex = /"([^"]+)";v="(\d+)"/
-  const webBrowser = userInfo?.split('\n')[0].split(',')[0] || 'No disponible'
+  const webBrowser = userInfo?.split('\n')?.[0].split(',')[0] || 'No disponible'
   const match = webBrowser.match(regex)
 
   return {
