@@ -16,7 +16,7 @@ const extractLocationInfo = (req) => {
   const platform = req.headers['sec-ch-ua-platform']
   const userInfo = req.headers['sec-ch-ua']
   const regex = /"([^"]+)";v="(\d+)"/
-  const webBrowser = userInfo?.split('\n')[0].split(',')[0]
+  const webBrowser = userInfo?.split('\n')[0].split(',')[0] || 'No disponible'
   const match = webBrowser.match(regex)
 
   return {
