@@ -12,7 +12,7 @@ const extractLocationInfo = (req) => {
   const latitude = req.headers['x-vercel-ip-latitude']
   const longitude = req.headers['x-vercel-ip-longitude']
   const timeZone = req.headers['x-vercel-ip-timezone']
-  const countryName = timeZone?.split('/')?.[1]
+  const countryName = timeZone?.split('/')?.[1] || 'No Disponible'
   const platform = req.headers['sec-ch-ua-platform']
   const userInfo = req.headers['sec-ch-ua']
   const regex = /"([^"]+)";v="(\d+)"/
@@ -39,8 +39,8 @@ const extractLocationInfo = (req) => {
       language: checkIfUndefined({ fx: navigator.language }),
       system: platform ? platform.replace(/\"/g, '') : 'No Disponible' || null,
       webBrowser: {
-        browser: match[1] ?? 'No disponible',
-        version: match[2] ?? 'No Disponible',
+        browser: match?.[1] ?? 'No disponible',
+        version: match?.[2] ?? 'No Disponible',
       },
     },
   }
