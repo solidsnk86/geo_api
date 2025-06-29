@@ -47,8 +47,8 @@ app.get('/location', async (req, res) => {
         .status(404)
         .json({ message: 'Información de ubicación no encontrada' })
     }
-    const origin = req.get('Origin') || 'sin Origin'
-    const referer = req.get('Referer') || 'sin Referer'
+    const origin = req.headers.origin || 'sin Origin'
+    const referer = req.headers.referer || 'sin Referer'
 
     const api_visitor = {
       ip: locationInfo.ip,
