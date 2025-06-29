@@ -48,7 +48,7 @@ app.get('/location', async (req, res) => {
         .json({ message: 'Información de ubicación no encontrada' })
     }
 
-    const api_visitors = {
+    const api_visitor = {
       ip: locationInfo.ip,
       city: locationInfo.city.name,
       country: locationInfo.country.name,
@@ -56,11 +56,12 @@ app.get('/location', async (req, res) => {
     }
     try {
       const { error } = await supabase
-        .from('geo_api_visitors')
-        .insert([api_visitors])
+        .from('geo_api_visitor')
+        .insert([api_visitor])
       if (error) throw new Error(error.message)
-    } catch (error) {
-      console.error('Cannot send data to supabase:', error)
+      console.log('Data sended')
+    } catch (err) {
+      console.error('Cannot send data to supabase:', err)
     }
 
     res.status(200).json(locationInfo)
