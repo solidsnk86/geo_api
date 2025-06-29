@@ -47,15 +47,15 @@ app.get('/location', async (req, res) => {
         .status(404)
         .json({ message: 'Información de ubicación no encontrada' })
     }
+    const origin = req.get('Origin') || 'sin Origin'
+    const referer = req.get('Referer') || 'sin Referer'
 
     const api_visitor = {
       ip: locationInfo.ip,
       city: locationInfo.city.name,
       country: locationInfo.country.name,
       system: locationInfo.sysInfo.system,
-      host_url: `${req.headers['x-forwarded-proto'] || 'http'}://${
-        req.headers.host
-      }`,
+      host_url: `${origin}${referer ? ` - ${referer}` : 'No disponible'}`,
     }
 
     try {
