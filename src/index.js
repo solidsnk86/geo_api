@@ -7,7 +7,7 @@ import rateLimit from 'express-rate-limit'
 import { getAllAirports } from '../services/get-airports.js'
 import { getAllCitiesAR } from '../services/get-cities.js'
 import { getClosestPlace } from '../services/closest-airport.js'
-import { supabase } from '../utils/supabase.js'
+import supabase from '../utils/supabase.js'
 
 const app = express()
 
