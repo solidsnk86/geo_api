@@ -53,7 +53,7 @@ app.get('/location', async (req, res) => {
       city: locationInfo.city.name,
       country: locationInfo.country.name,
       system: locationInfo.sysInfo.system,
-      host_url: req.url ?? 'host_url: no disponible',
+      host_url: `${req.protocol}://${req.get('host')}`,
     }
 
     try {
