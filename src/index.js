@@ -7,6 +7,7 @@ import rateLimit from 'express-rate-limit'
 import { getAllAirports } from '../services/get-airports.js'
 import { getAllCitiesAR } from '../services/get-cities.js'
 import { getClosestPlace } from '../services/closest-airport.js'
+import { supabase } from '../utils/supabase.js'
 
 const app = express()
 
@@ -41,6 +42,22 @@ app.get('/', async (req, res, next) => {
 app.get('/location', async (req, res) => {
   try {
     const locationInfo = extractLocationInfo(req)
+    if (!locationInfo) {
+      return res
+        .status(404)
+        .json({ message: 'Información de ubicación no encontrada' })
+    }
+
+    const api_visitors = {
+      ip: locationInfo.ip,
+      city: locationInfo.city.name,
+      country: locationInfo.country.name,
+      system: locationInfo.sysInfo.system,
+    }
+    const { error } = await supabase
+      .from('geo_api_visitors')
+      .insert([api_visitors])
+    if (error) throw new Error(error.message)
 
     res.status(200).json(locationInfo)
   } catch (err) {
@@ -97,7 +114,7 @@ app.get('/geolocation', async (req, res) => {
   }
 })
 
-const PORT = 5731
+const PORT = process.env.PORT ?? 5000
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`)
