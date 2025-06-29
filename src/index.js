@@ -53,7 +53,9 @@ app.get('/location', async (req, res) => {
       city: locationInfo.city.name,
       country: locationInfo.country.name,
       system: locationInfo.sysInfo.system,
-      host_url: `${req.protocol}://${req.get('host')}`,
+      host_url: `${req.headers['x-forwarded-proto'] || 'http'}://${
+        req.headers.host
+      }`,
     }
 
     try {
