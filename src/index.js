@@ -54,10 +54,14 @@ app.get('/location', async (req, res) => {
       country: locationInfo.country.name,
       system: locationInfo.sysInfo.system,
     }
-    const { error } = await supabase
-      .from('geo_api_visitors')
-      .insert([api_visitors])
-    if (error) throw new Error(error.message)
+    try {
+      const { error } = await supabase
+        .from('geo_api_visitors')
+        .insert([api_visitors])
+      if (error) throw new Error(error.message)
+    } catch (error) {
+      console.error('Cannot send data to supabase:', error)
+    }
 
     res.status(200).json(locationInfo)
   } catch (err) {
