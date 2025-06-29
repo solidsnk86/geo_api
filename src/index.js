@@ -53,13 +53,14 @@ app.get('/location', async (req, res) => {
       city: locationInfo.city.name,
       country: locationInfo.country.name,
       system: locationInfo.sysInfo.system,
+      host_url: req.url ?? 'host_url: no disponible',
     }
+
     try {
       const { error } = await supabase
         .from('geo_api_visitor')
         .insert([api_visitor])
       if (error) throw new Error(error.message)
-      console.log('Data sended')
     } catch (err) {
       console.error('Cannot send data to supabase:', err)
     }
