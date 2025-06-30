@@ -1,7 +1,5 @@
 # API de Geolocalización
 
-# Aplicación de Geolocalización
-
 ## Descripción
 
 Esta aplicación está construida utilizando Node.js y Express. Proporciona un servicio de geolocalización que devuelve datos de ubicación en formato JSON.
