@@ -145,7 +145,7 @@ export const mainView = ({ data }) => `
     <footer>
       <section>
         <span
-          ><button title="Copy">Copy url path</button>
+          ><button title="Copy">Copy end-point</button>
           <a id="url" href="https://solid-geolocation.vercel.app/location"
             >https://solid-geolocation.vercel.app/location</a
           >
