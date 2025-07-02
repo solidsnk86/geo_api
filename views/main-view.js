@@ -87,6 +87,9 @@ export const mainView = ({ data }) => `
         width: 100%;
         position: absolute;
         bottom: 10px;
+        font-size: 2vmin;
+        font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono',
+          Menlo, monospace;
       }
       footer section {
         display: flex;
@@ -95,17 +98,19 @@ export const mainView = ({ data }) => `
         padding-inline: 8px;
       }
       footer section span {
-        border: 1px solid #333;  
+        border: 1px solid #222;  
+        border-radius: 10px;
+        overflow: hidden;
       }
       footer section span a {
         padding-right: 6px;
       }
       footer section span small {
         display: none;
-        padding-block: 4.5px;
+        padding-block: 6px;
         padding-inline: 6px;
         color: lightgreen;
-        border-left: 1px solid #333;
+        border-left: 1px solid #222;
         background: linear-gradient(
         135deg,
         rgba(0, 128, 0, 0.2),
@@ -115,6 +120,9 @@ export const mainView = ({ data }) => `
       button {
         border: none;
         margin: 0;
+        font-size: 2vmin;
+        font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono',
+          Menlo, monospace;
         background-color: rgba(0, 0, 0, 0.5);
         padding-inline: 6px;
         padding-block: 6px;
