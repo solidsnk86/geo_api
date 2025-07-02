@@ -75,10 +75,16 @@ Puedes hacer un `fetch` a este endpoint utilizando JavaScript de la siguiente ma
 ```python
 import requests
 
-def obtener_ubicacion():
-    res = requests.get("https://solid-geolocation.vercel.app/location")
-    datos = res.json()
-    return datos
+def obtener_ubicacion() -> list | None:
+  try:
+      response = requests.get("https://solid-geolocation.vercel.app/locatio")
+      if response.ok:
+          data = response.json()
+          return data
+      else:
+          raise ValueError(f"Error {response.status_code}: {response.text}")
+  except Exception as e:
+        print(f"HTTP {e}")
 
 if __name__ == "__main__":
     json = obtener_ubicacion()
