@@ -19,6 +19,14 @@ const extractLocationInfo = (req) => {
   const webBrowser = userInfo?.split('\n')?.[0].split(',')[0] || 'No disponible'
   const match = webBrowser.match(regex)
 
+  function cleanBrowserInfo(text = '') {
+    if (text.includes(')') && text.includes(';')) {
+      return text.replace(')', ' ').replace(';', ' ')
+    } else {
+      return text
+    }
+  }
+
   return {
     ip: clientIp,
     city: {
@@ -39,7 +47,7 @@ const extractLocationInfo = (req) => {
       language: checkIfUndefined({ fx: navigator.language }),
       system: platform ? platform.replace(/\"/g, '') : 'No Disponible' || null,
       webBrowser: {
-        browser: match?.[1] ?? 'No disponible',
+        browser: cleanBrowserInfo(match?.[1]) ?? 'No disponible',
         version: match?.[2] ?? 'No Disponible',
       },
     },
