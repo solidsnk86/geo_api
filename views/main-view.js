@@ -59,6 +59,7 @@ export const mainView = ({ data }) => `
         --sh-identifier: #000000;
         --sh-sign: rgba(0, 0, 0, 0.5);
         --sh-string: #000000;
+        --sh-token-string; lightgreen;
         --sh-keyword: #000000;
         --sh-comment: #000000;
         --sh-jsxliterals: #000000;
@@ -71,6 +72,7 @@ export const mainView = ({ data }) => `
           --sh-identifier: #ffffff;
           --sh-sign: #9d63d8;
           --sh-string: #ffffff;
+          --sh-token-string; lightgreen;
           --sh-keyword: lightgreen;
           --sh-comment: #ffffff;
           --sh-jsxliterals: #ffffff;
