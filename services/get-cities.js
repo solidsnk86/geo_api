@@ -1,6 +1,6 @@
 const getAllCitiesAR = async () => {
   const resposne = await fetch(
-    'https://cdn.jsdelivr.net/gh/liquidsnk86/cdn-js@main/geodata-arg-v3.json'
+    'https://cdn.jsdelivr.net/gh/liquidsnk86/cdn-js@main/solid-geodata-v4.json'
   )
   const jsonData = await resposne.json()
   const formatJSON = Object.keys(jsonData).map((key) => {
