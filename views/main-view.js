@@ -26,11 +26,26 @@ export const mainView = ({ data }) => `
       code.innerHTML = highlight(cleanIndent(code.innerText))
       document.querySelector('button').addEventListener('click', async () => {
         const url = document.getElementById('url')
-        const copied = document.querySelector('footer section span small')
+        const dialog = document.querySelector('dialog')
         if (navigator.clipboard) {
           await navigator.clipboard.writeText(url.textContent)
-          copied.style.display = 'inline-flex'
-          setTimeout(() => copied.style.display = "none", 3000)
+          dialog.showModal()
+          const controller = new AbortController()
+          setTimeout(() => {
+            dialog.style.animation = 'fadeOut 0.3s ease-in-out'
+            dialog.addEventListener(
+              'animationend',
+              () => {
+                if (dialog.open) {
+                  dialog.close()
+                  dialog.style.animation = 'fadeIn 0.3s ease-in-out'
+                  dialog.open = false
+                  controller.abort()
+                }
+              },
+              { signal: controller.signal, once: true }
+            )
+          }, 2500)
         } else {
           console.error('Navigator doesnt allowed clipboard')
         }
@@ -65,7 +80,7 @@ export const mainView = ({ data }) => `
         width: 100%;
         margin: 0;
         padding: 0;
-        overflow-x: hidden;
+        overflow: hidden;
         background: var(--background-color);
         font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono';
       }
@@ -94,28 +109,44 @@ export const mainView = ({ data }) => `
       footer section {
         display: flex;
         justify-content: space-between;
-        items-align: center;
+        align-items: center;
         padding-inline: 8px;
       }
       footer section span {
-        border: 1px solid #222;  
+        border: 1px solid #222;
         border-radius: 10px;
         overflow: hidden;
       }
       footer section span a {
         padding-right: 6px;
       }
-      footer section span small {
-        display: none;
-        padding-block: 6px;
-        padding-inline: 6px;
+      dialog {
+        padding: 16px;
+        border: none;
+        border-radius: 4px;
         color: lightgreen;
-        border-left: 1px solid #222;
         background: linear-gradient(
-        135deg,
-        rgba(0, 128, 0, 0.2),
-        rgba(0, 255, 0, 0.2)
-      );
+          135deg,
+          rgba(0, 128, 0, 0.2),
+          rgba(0, 255, 0, 0.2)
+        );
+        animation: fadeIn 0.3s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          transform: translateY(500%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeOut {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(500%);
+        }
       }
       button {
         border: none;
@@ -128,8 +159,8 @@ export const mainView = ({ data }) => `
         padding-block: 6px;
         cursor: pointer;
       }
-        button:hover {
-        background-color: #9d63d8b1; 
+      button:hover {
+        background-color: #9d63d8b1;
       }
       .solid {
         text-decoration: none;
@@ -157,7 +188,6 @@ export const mainView = ({ data }) => `
           <a id="url" href="https://solid-geolocation.vercel.app/location"
             >https://solid-geolocation.vercel.app/location</a
           >
-          <small>✅ Copied!</small>
         </span>
         <a
           href="https://github.com/solidsnk86/"
@@ -170,6 +200,7 @@ export const mainView = ({ data }) => `
         </a>
       </section>
     </footer>
+    <dialog>✅ Copied!</dialog>
   </body>
 </html>
 `
