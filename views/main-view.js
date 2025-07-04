@@ -254,14 +254,16 @@ export const mainView = ({ data }) => `
     </pre>
     <div id="dialog">
       <h2 style="text-align: center;">📍 Para obtener más precisión</h2>
-      Poedés utilizar este endpoint donde deberá proporcionar (latitud y longitud), ejemplo:
+      <p>
+        Podés utilizar este endpoint donde se deberá proporcionar (latitud y longitud), ejemplo:
       <a href="https://solid-geolocation.vercel.app/geolocation?lat=-33.0548161&lon=-65.6174943">
         https://solid-geolocation.vercel.app/geolocation?lat=-33.0548161&lon=-65.6174943
       </a>
-      Estos datos se pueden obtener a través de la API de geolocalización del navegador. Te dejo esta guía: 
-      <a href="https://developer.mozilla.org/es/docs/Web/API/Geolocation/getCurrentPosition#ejemplos" target="_blank" rel="noopener noreferrer">
-        https://developer.mozilla.org/es/docs/Web/API/Geolocation/getCurrentPosition#ejemplos
+      Estos datos se pueden obtener a través de la API de geolocalización del navegador. 
+      Te dejo esta guía <a href="https://developer.mozilla.org/es/docs/Web/API/Geolocation/getCurrentPosition#ejemplos" target="_blank">
+        aquí de MDN.
       </a>
+      </p>
     </div>
     <footer>
       <section>
