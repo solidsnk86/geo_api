@@ -250,7 +250,7 @@ export const mainView = ({ data }) => `
   </head>
   <body>
     <pre>
-      <code>\n${(data, null, 2)}</code>
+      <code>\n${JSON.stringify(data, null, 2)}</code>
     </pre>
     <div id="dialog">
       <h2 style="text-align: center;">📍 Para obtener más precisión</h2>
