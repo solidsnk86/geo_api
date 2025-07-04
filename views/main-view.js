@@ -19,70 +19,74 @@ export const mainView = ({ data }) => `
     />
     <meta charset="utf-8" />
     <script type="module">
-      import { highlight } from 'https://esm.sh/sugar-high'
-      import cleanIndent from 'https://cdn.jsdelivr.net/gh/liquidsnk86/cdn-js@main/indent-cleaner.js'
+      import { highlight } from "https://esm.sh/sugar-high";
+      import cleanIndent from "https://cdn.jsdelivr.net/gh/liquidsnk86/cdn-js@main/indent-cleaner.js";
 
-      const code = document.querySelector('pre > code')
-      code.innerHTML = highlight(cleanIndent(code.innerText))
+      const code = document.querySelector("pre > code");
+      code.innerHTML = highlight(cleanIndent(code.innerText));
 
       const generateDialog = async (content) => {
-        const url = document.getElementById('url')
-        const dialog = document.querySelector('dialog')
-        dialog.innerHTML = content
+        const url = document.getElementById("url");
+        const dialog = document.querySelector("dialog");
+        dialog.innerHTML = content;
         if (navigator.clipboard) {
-          await navigator.clipboard.writeText(url.textContent)
-          dialog.showModal()
-          const controller = new AbortController()
+          await navigator.clipboard.writeText(url.textContent);
+          dialog.showModal();
+          const controller = new AbortController();
           setTimeout(() => {
-            dialog.style.animation = 'fadeOut 0.2s ease-in-out'
+            dialog.style.animation = "fadeOut 0.2s ease-in-out";
             dialog.addEventListener(
-              'animationend',
+              "animationend",
               () => {
                 if (dialog.open) {
-                  dialog.close()
-                  dialog.style.animation = 'fadeIn 0.2s ease-in-out'
-                  dialog.open = false
-                  controller.abort()
+                  dialog.close();
+                  dialog.style.animation = "fadeIn 0.2s ease-in-out";
+                  dialog.open = false;
+                  controller.abort();
                 }
               },
               { signal: controller.signal, once: true }
-            )
-          }, 2500)
+            );
+          }, 2500);
         } else {
-          console.error('Navigator doesnt allowed clipboard')
+          console.error("Navigator doesnt allowed clipboard");
         }
-      }
-      
+      };
+
       const startTimer = (get = () => {}, timeStop = 10) => {
         let count = 0;
         const interval = setInterval(() => {
           count++;
-         get(count)
-         if (count >= timeStop) clearInterval(interval)
-        }, 1000)
-      }
+          get(count);
+          if (count >= timeStop) clearInterval(interval);
+        }, 1000);
+      };
 
-      document.querySelector('button').addEventListener('click', async () => {
-        await generateDialog("✅ Copied!")
-      })
+      document.querySelector("button").addEventListener("click", async () => {
+        await generateDialog("✅ Copiado!");
+      });
 
       startTimer((counter) => {
         const count = document.getElementById("counter");
         if (counter === 5) {
           const dialog = document.getElementById("dialog");
-          dialog.style.display = "block"
+          const controller = new AbortController();
+          dialog.style.display = "block";
 
           document.addEventListener("click", (event) => {
             if (dialog && !dialog.contains(event.target)) {
-              dialog.style.animation = "exit 0.3s ease-out"
-              dialog.addEventListener("animationend", () => {
-                dialog.remove()
-              })
+              dialog.style.animation = "exit 0.3s ease-out";
+              dialog.addEventListener(
+                "animationend",
+                () => {
+                  dialog.style.display = "none";
+                },
+                { signal: controller.signal, once: true }
+              );
             }
-          })
+          });
         }
-      }, 5)
-    
+      }, 5);
     </script>
     <style>
       :root {
@@ -106,14 +110,14 @@ export const mainView = ({ data }) => `
           --background-color: #000000;
           --sh-class: #ffffff;
           --sh-identifier: #ffffff;
-          --sh-sign: #9d63d8;
+          --sh-sign: #6495ed;
           --sh-string: #ffffff;
           --sh-token-string: lightgreen;
           --sh-keyword: lightgreen;
           --sh-comment: #ffffff;
           --sh-jsxliterals: #ffffff;
           --dialog-bg: #202020;
-          --border-color: #222;
+          --border-color: #333;
           --shadow: #000;
         }
       }
@@ -123,7 +127,7 @@ export const mainView = ({ data }) => `
         padding: 0;
         overflow: hidden;
         background: var(--background-color);
-        font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono';
+        font-family: "Inter", "Segoe UI", Roboto, sans-serif;
       }
       span {
         margin: 0;
@@ -136,7 +140,7 @@ export const mainView = ({ data }) => `
       }
       code {
         font-size: 2vmin;
-        font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono',
+        font-family: "Operator Mono", "Fira Code", "SF Mono", "Roboto Mono",
           Menlo, monospace;
         line-height: 1.5;
       }
@@ -145,8 +149,7 @@ export const mainView = ({ data }) => `
         position: absolute;
         bottom: 10px;
         font-size: 2vmin;
-        font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono',
-          Menlo, monospace;
+        font-family: "Inter", "Segoe UI", Roboto, sans-serif;
       }
       footer section {
         display: flex;
@@ -161,12 +164,14 @@ export const mainView = ({ data }) => `
       }
       footer section span a {
         padding-right: 6px;
+        text-decoration: none;
+        color: cornflowerblue;
       }
       dialog {
         padding: 16px;
+        font-family: "Inter", "Segoe UI", Roboto, sans-serif;
         border: none;
         border-radius: 4px;
-        color: lightgreen;
         background: var(--dialog-bg);
         animation: fadeIn 0.2s ease-in-out;
       }
@@ -190,45 +195,57 @@ export const mainView = ({ data }) => `
         border: none;
         margin: 0;
         font-size: 2vmin;
-        font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono',
-          Menlo, monospace;
-        background-color: rgba(0, 0, 0, 0.5);
+        font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+        background: var(--background-color);
         padding-inline: 6px;
         padding-block: 6px;
         cursor: pointer;
       }
       button:hover {
-        background-color: #9d63d8b1;
+        background-color: rgba(108, 156, 246, 0.683);
       }
       .solid {
         text-decoration: none;
         color: var(--color);
         font-size: 2vmin;
-        font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono',
-          Menlo, monospace;
+        font-family: "Inter", "Segoe UI", Roboto, sans-serif;
         display: flex;
         width: fit-content;
         align-items: center;
       }
       .solid:hover {
-        color: #9d63d8;
+        color: cornflowerblue;
       }
       #dialog {
         display: none;
-        position: absolute;      
+        position: absolute;
+        width: 50%;
         top: 50%;
         left: 50%;
         translate: -50% -50%;
         padding: 16px;
         background-color: var(--dialog-bg);
         border: 1px solid var(--border-color);
-        border-radius: 6px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
         z-index: 999;
-        font-size: 2vmin;
-        font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono',
-          Menlo, monospace;
-          filter: drop-shadow(0 0 10px var(--shadow));
-          animation: entrance 0.6s ease-in-out;
+        filter: drop-shadow(0 0 10px var(--shadow));
+        animation: entrance 0.6s ease-in-out;
+        font-size: 2.3vmin;
+        font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+        overflow: hidden;
+        flex-wrap: wrap;
+      }
+      #dialog h2 {
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+      }
+      #dialog a {
+        text-decoration: none;
+        color: #6495ed;
+      }
+      #dialog a:hover {
+        text-decoration: underline;
       }
       @keyframes entrance {
         from {
@@ -240,35 +257,47 @@ export const mainView = ({ data }) => `
       }
       @keyframes exit {
         from {
-          transform: scale(1)
+          transform: scale(1);
         }
         to {
           transform: scale(0);
+        }
+      }
+      @media (width <= 762px) {
+        #dialog {
+          width: 90%;
         }
       }
     </style>
   </head>
   <body>
     <pre>
-      <code>\n${JSON.stringify(data, null, 2)}</code>
+      <code>\n${(data, null, 2)}</code>
     </pre>
     <div id="dialog">
-      <h2 style="text-align: center;">📍 Para obtener más precisión</h2>
+      <h2>📍 Obtené más precisión</h2>
       <p>
-        Podés utilizar este endpoint donde se deberá proporcionar (latitud y longitud), ejemplo:
-      <a href="https://solid-geolocation.vercel.app/geolocation?lat=-33.0548161&lon=-65.6174943">
-        https://solid-geolocation.vercel.app/geolocation?lat=-33.0548161&lon=-65.6174943
-      </a>
-      Estos datos se pueden obtener a través de la API de geolocalización del navegador. 
-      Te dejo esta guía <a href="https://developer.mozilla.org/es/docs/Web/API/Geolocation/getCurrentPosition#ejemplos" target="_blank">
-        aquí de MDN.
-      </a>
+        Podés utilizar este endpoint donde se deberá proporcionar (latitud y
+        longitud), ejemplo:
+        <a
+          href="https://solid-geolocation.vercel.app/geolocation?lat=-33.0548161&lon=-65.6174943"
+        >
+          https://solid-geolocation.vercel.app/geolocation?lat=-33.0548161&lon=-65.6174943
+        </a>
+        Estos datos se pueden obtener a través de la API de geolocalización del
+        navegador. Te dejo esta guía
+        <a
+          href="https://developer.mozilla.org/es/docs/Web/API/Geolocation/getCurrentPosition#ejemplos"
+          target="_blank"
+        >
+          aquí de MDN.
+        </a>
       </p>
     </div>
     <footer>
       <section>
         <span
-          ><button title="Copy">Copy end-point</button>
+          ><button title="Copiar">Copiar end-point</button>
           <a id="url" href="https://solid-geolocation.vercel.app/location"
             >https://solid-geolocation.vercel.app/location</a
           >
@@ -280,7 +309,7 @@ export const mainView = ({ data }) => `
           class="solid"
           aria-label="View profile on GitHub"
         >
-          Made with 🤍 by @solidSnk86
+          Hecho con 🤍 by @solidSnk86
         </a>
       </section>
     </footer>
