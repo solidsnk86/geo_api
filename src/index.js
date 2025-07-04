@@ -33,7 +33,13 @@ app.get('/', async (req, res, next) => {
   try {
     const locationInfo = extractLocationInfo(req)
 
-    res.status(200).send(mainView({ data: locationInfo }))
+    res.status(200).send(
+      mainView({
+        data: locationInfo,
+        lat: locationInfo.coords.latitude,
+        lon: locationInfo.coords.longitude,
+      })
+    )
   } catch (error) {
     next(error)
   }

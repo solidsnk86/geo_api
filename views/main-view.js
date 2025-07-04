@@ -1,4 +1,4 @@
-export const mainView = ({ data }) => `
+export const mainView = ({ data, lat, lon }) => `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,13 +17,33 @@ export const mainView = ({ data }) => `
       href="https://raw.githubusercontent.com/solidsnk86/portfolio-mgc-2024/master/public/solidsnk86.png"
       type="image/x-icon"
     />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
     <meta charset="utf-8" />
     <script type="module">
       import { highlight } from "https://esm.sh/sugar-high";
       import cleanIndent from "https://cdn.jsdelivr.net/gh/liquidsnk86/cdn-js@main/indent-cleaner.js";
 
+      const lat = ${lat} || -33.2991
+      const lon = ${lon} || -66.3547
+
+      const map = L.map('map').setView([lat, lon], 13);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 6,
+      }).addTo(map);
+      L.marker([lat, lon]).addTo(map);
+      
+
+
       const code = document.querySelector("pre > code");
-      code.innerHTML = highlight(cleanIndent(code.innerText));
+      try {
+        if (!highlight) throw new Error("Cannot import sugar-high from https://esm.sh/sugar-high")
+        code.innerHTML = highlight(cleanIndent(code.innerText));
+      } catch (error) {
+        console.log(error)
+      }
 
       const generateDialog = async (content) => {
         const url = document.getElementById("url");
@@ -94,8 +114,8 @@ export const mainView = ({ data }) => `
         --background-color: #ffffff;
         --sh-class: #000000;
         --sh-identifier: #000000;
-        --sh-sign: rgba(0, 0, 0, 0.5);
-        --sh-string: #000000;
+        --sh-sign: #00000080;
+        --sh-string: #0e0e0e;
         --sh-token-string: lightgreen;
         --sh-keyword: #000000;
         --sh-comment: #000000;
@@ -134,6 +154,7 @@ export const mainView = ({ data }) => `
         padding: 0;
       }
       pre {
+        position: fixed;
         margin: 0;
         padding-inline: 8px;
         z-index: 1;
@@ -174,6 +195,7 @@ export const mainView = ({ data }) => `
         border-radius: 4px;
         background: var(--dialog-bg);
         animation: fadeIn 0.2s ease-in-out;
+        z-index: 999;
       }
       @keyframes fadeIn {
         from {
@@ -263,9 +285,21 @@ export const mainView = ({ data }) => `
           transform: scale(0);
         }
       }
+      #map {
+        position: absolute;
+        opacity: 0.8;
+        right: 16px;
+        top: 16px;
+        width: 300px;
+        height: 400px;
+        border-radius: 12px;
+      }
       @media (width <= 762px) {
         #dialog {
           width: 90%;
+        }
+        #map {
+          display: none;
         }
       }
     </style>
@@ -294,6 +328,7 @@ export const mainView = ({ data }) => `
         </a>
       </p>
     </div>
+    <div id="map"></div>
     <footer>
       <section>
         <span
