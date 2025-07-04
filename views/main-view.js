@@ -287,7 +287,7 @@ export const mainView = ({ data, lat, lon }) => `
       }
       #map {
         position: absolute;
-        opacity: 0.8;
+        opacity: 0.9;
         right: 16px;
         top: 16px;
         width: 300px;
