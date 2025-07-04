@@ -234,7 +234,7 @@ export const mainView = ({ data }) => `
         font-size: 2.3vmin;
         font-family: "Inter", "Segoe UI", Roboto, sans-serif;
         overflow: hidden;
-        flex-wrap: wrap;
+        text-wrap: balance;
       }
       #dialog h2 {
         font-size: 1.4rem;
