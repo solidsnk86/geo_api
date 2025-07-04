@@ -24,21 +24,23 @@ export const mainView = ({ data }) => `
 
       const code = document.querySelector('pre > code')
       code.innerHTML = highlight(cleanIndent(code.innerText))
-      document.querySelector('button').addEventListener('click', async () => {
+
+      const generateDialog = async (content) => {
         const url = document.getElementById('url')
         const dialog = document.querySelector('dialog')
+        dialog.innerHTML = content
         if (navigator.clipboard) {
           await navigator.clipboard.writeText(url.textContent)
           dialog.showModal()
           const controller = new AbortController()
           setTimeout(() => {
-            dialog.style.animation = 'fadeOut 0.3s ease-in-out'
+            dialog.style.animation = 'fadeOut 0.2s ease-in-out'
             dialog.addEventListener(
               'animationend',
               () => {
                 if (dialog.open) {
                   dialog.close()
-                  dialog.style.animation = 'fadeIn 0.3s ease-in-out'
+                  dialog.style.animation = 'fadeIn 0.2s ease-in-out'
                   dialog.open = false
                   controller.abort()
                 }
@@ -49,7 +51,38 @@ export const mainView = ({ data }) => `
         } else {
           console.error('Navigator doesnt allowed clipboard')
         }
+      }
+      
+      const startTimer = (get = () => {}, timeStop = 10) => {
+        let count = 0;
+        const interval = setInterval(() => {
+          count++;
+         get(count)
+         if (count >= timeStop) clearInterval(interval)
+        }, 1000)
+      }
+
+      document.querySelector('button').addEventListener('click', async () => {
+        await generateDialog("✅ Copied!")
       })
+
+      startTimer((counter) => {
+        const count = document.getElementById("counter");
+        if (counter === 5) {
+          const dialog = document.getElementById("dialog");
+          dialog.style.display = "block"
+
+          document.addEventListener("click", (event) => {
+            if (dialog && !dialog.contains(event.target)) {
+              dialog.style.animation = "exit 0.3s ease-out"
+              dialog.addEventListener("animationend", () => {
+                dialog.remove()
+              })
+            }
+          })
+        }
+      }, 5)
+    
     </script>
     <style>
       :root {
@@ -63,6 +96,9 @@ export const mainView = ({ data }) => `
         --sh-keyword: #000000;
         --sh-comment: #000000;
         --sh-jsxliterals: #000000;
+        --dialog-bg: #f5f5f5;
+        --border-color: #ccc;
+        --shadow: #9d9d9d;
       }
       @media (prefers-color-scheme: dark) {
         :root {
@@ -76,6 +112,9 @@ export const mainView = ({ data }) => `
           --sh-keyword: lightgreen;
           --sh-comment: #ffffff;
           --sh-jsxliterals: #ffffff;
+          --dialog-bg: #202020;
+          --border-color: #222;
+          --shadow: #000;
         }
       }
       body {
@@ -93,6 +132,7 @@ export const mainView = ({ data }) => `
       pre {
         margin: 0;
         padding-inline: 8px;
+        z-index: 1;
       }
       code {
         font-size: 2vmin;
@@ -115,7 +155,7 @@ export const mainView = ({ data }) => `
         padding-inline: 8px;
       }
       footer section span {
-        border: 1px solid #222;
+        border: 1px solid var(--border-color);
         border-radius: 10px;
         overflow: hidden;
       }
@@ -127,12 +167,8 @@ export const mainView = ({ data }) => `
         border: none;
         border-radius: 4px;
         color: lightgreen;
-        background: linear-gradient(
-          135deg,
-          rgba(0, 128, 0, 0.2),
-          rgba(0, 255, 0, 0.2)
-        );
-        animation: fadeIn 0.3s ease-in-out;
+        background: var(--dialog-bg);
+        animation: fadeIn 0.2s ease-in-out;
       }
       @keyframes fadeIn {
         from {
@@ -177,12 +213,56 @@ export const mainView = ({ data }) => `
       .solid:hover {
         color: #9d63d8;
       }
+      #dialog {
+        display: none;
+        position: absolute;      
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        padding: 16px;
+        background-color: var(--dialog-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        z-index: 999;
+        font-size: 2vmin;
+        font-family: 'Operator Mono', 'Fira Code', 'SF Mono', 'Roboto Mono',
+          Menlo, monospace;
+          filter: drop-shadow(0 0 10px var(--shadow));
+          animation: entrance 0.6s ease-in-out;
+      }
+      @keyframes entrance {
+        from {
+          transform: translateY(-500%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+      @keyframes exit {
+        from {
+          transform: scale(1)
+        }
+        to {
+          transform: scale(0);
+        }
+      }
     </style>
   </head>
   <body>
     <pre>
-      <code>\n${JSON.stringify(data, null, 2)}</code>
+      <code>\n${(data, null, 2)}</code>
     </pre>
+    <div id="dialog">
+      <h2 style="text-align: center;">📍 Para obtener más precisión</h2>
+      Poedés utilizar este endpoint donde deberá proporcionar (latitud y longitud), ejemplo:
+      <a href="https://solid-geolocation.vercel.app/geolocation?lat=-33.0548161&lon=-65.6174943">
+        https://solid-geolocation.vercel.app/geolocation?lat=-33.0548161&lon=-65.6174943
+      </a>
+      Estos datos se pueden obtener a través de la API de geolocalización del navegador. Te dejo esta guía: 
+      <a href="https://developer.mozilla.org/es/docs/Web/API/Geolocation/getCurrentPosition#ejemplos" target="_blank" rel="noopener noreferrer">
+        https://developer.mozilla.org/es/docs/Web/API/Geolocation/getCurrentPosition#ejemplos
+      </a>
+    </div>
     <footer>
       <section>
         <span
@@ -202,7 +282,7 @@ export const mainView = ({ data }) => `
         </a>
       </section>
     </footer>
-    <dialog>✅ Copied!</dialog>
+    <dialog></dialog>
   </body>
 </html>
 `
