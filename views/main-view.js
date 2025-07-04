@@ -199,7 +199,7 @@ export const mainView = ({ data }) => `
         background: var(--background-color);
         padding-inline: 6px;
         padding-block: 6px;
-        cursor: pointer;
+        cursor: copy;
       }
       button:hover {
         background-color: rgba(108, 156, 246, 0.683);
