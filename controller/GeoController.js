@@ -21,6 +21,7 @@ export class GeoController {
       console.error('Server error:', error)
     }
   }
+
   static async location(req, res) {
     try {
       const locationInfo = extractLocationInfo(req)
@@ -104,6 +105,14 @@ export class GeoController {
       })
     } catch (error) {
       res.status(500).json({ message: 'Server error: ' + error })
+    }
+  }
+
+  static async docs(req, res) {
+    try {
+      res.status(400).send()
+    } catch (error) {
+      res.status(500).json('Server error:', error)
     }
   }
 }

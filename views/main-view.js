@@ -86,6 +86,7 @@ export const mainView = ({ data }) => `
 
       startTimer((counter) => {
         const count = document.getElementById("counter");
+        
         if (counter === 5) {
           const dialog = document.getElementById("dialog");
           const controller = new AbortController();
@@ -286,13 +287,21 @@ export const mainView = ({ data }) => `
       }
       #map {
         position: absolute;
-        opacity: 0.9;
         right: 16px;
         top: 16px;
         width: 300px;
         height: 400px;
         border-radius: 12px;
         border: 1px solid var(--border-color);
+        animation: mapEffect 0.6s ease-in-out;
+      }
+      @keyframes mapEffect {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(0);
+        }
       }
       @media (width <= 762px) {
         #dialog {
