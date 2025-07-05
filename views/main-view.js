@@ -223,6 +223,7 @@ export const mainView = ({ data }) => `
       }
       button:hover {
         background-color: rgba(108, 156, 246, 0.683);
+        transition-duration: 0.4s;
       }
       .solid {
         text-decoration: none;
