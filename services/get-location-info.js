@@ -40,8 +40,8 @@ const extractLocationInfo = (req) => {
       timezone: timeZone || null,
     },
     coords: {
-      latitude: latitude || 'No disponible',
-      longitude: longitude || 'No disponible',
+      latitude: latitude || -33.2991,
+      longitude: longitude || -66.3547,
     },
     sysInfo: {
       language: checkIfUndefined({ fx: navigator.language }),

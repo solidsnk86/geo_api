@@ -1,4 +1,4 @@
-export const mainView = ({ data, lat, lon }) => `
+export const mainView = ({ data }) => `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,8 +25,8 @@ export const mainView = ({ data, lat, lon }) => `
       import { highlight } from "https://esm.sh/sugar-high";
       import cleanIndent from "https://cdn.jsdelivr.net/gh/liquidsnk86/cdn-js@main/indent-cleaner.js";
 
-      const lat = ${lat} || -33.2991
-      const lon = ${lon} || -66.3547
+      const lat = ${data.coords.lat} || -33.2991
+      const lon = ${data.coords.lon} || -66.3547
 
       const map = L.map('map').setView([lat, lon], 13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -35,8 +35,6 @@ export const mainView = ({ data, lat, lon }) => `
       }).addTo(map);
       L.marker([lat, lon]).addTo(map);
       
-
-
       const code = document.querySelector("pre > code");
       try {
         if (!highlight) throw new Error("Cannot import sugar-high from https://esm.sh/sugar-high")
@@ -83,7 +81,7 @@ export const mainView = ({ data, lat, lon }) => `
       };
 
       document.querySelector("button").addEventListener("click", async () => {
-        await generateDialog("✅ Copiado!");
+        await generateDialog("✅ Link Copiado!");
       });
 
       startTimer((counter) => {
@@ -121,7 +119,7 @@ export const mainView = ({ data, lat, lon }) => `
         --sh-comment: #000000;
         --sh-jsxliterals: #000000;
         --dialog-bg: #f5f5f5;
-        --border-color: #ccc;
+        --border-color: #e6e6e6;
         --shadow: #9d9d9d;
       }
       @media (prefers-color-scheme: dark) {
@@ -293,6 +291,7 @@ export const mainView = ({ data, lat, lon }) => `
         width: 300px;
         height: 400px;
         border-radius: 12px;
+        border: 1px solid var(--border-color);
       }
       @media (width <= 762px) {
         #dialog {

@@ -1,0 +1,109 @@
+import extractLocationInfo from '../services/get-location-info.js'
+import supabase from '../utils/supabase.js'
+import { mainView } from '../views/main-view.js'
+import { getAllAirports } from '../services/get-airports.js'
+import { getAllCitiesAR } from '../services/get-cities.js'
+import { getClosestPlace } from '../services/closest-airport.js'
+
+export class GeoController {
+  static async home(req, res) {
+    try {
+      const locationInfo = extractLocationInfo(req)
+
+      res.status(200).send(
+        mainView({
+          data: locationInfo,
+          latitude: locationInfo.coords.latitude,
+          longitude: locationInfo.coords.longitude,
+        })
+      )
+    } catch (error) {
+      console.error('Server error:', error)
+    }
+  }
+  static async location(req, res) {
+    try {
+      const locationInfo = extractLocationInfo(req)
+      if (!locationInfo) {
+        return res
+          .status(404)
+          .json({ message: 'Información de ubicación no encontrada' })
+      }
+      const origin = req.headers.origin || 'sin Origin'
+      const referer = req.headers.referer || 'sin Referer'
+
+      const api_visitor = {
+        ip: locationInfo.ip,
+        city: locationInfo.city.name,
+        country: locationInfo.country.name,
+        system: locationInfo.sysInfo.system,
+        host_url: `${origin}${referer ? ` - ${referer}` : 'No disponible'}`,
+      }
+
+      try {
+        const { error } = await supabase
+          .from('geo_api_visitor')
+          .insert([api_visitor])
+        if (error) throw new Error(error.message)
+      } catch (err) {
+        console.error('Cannot send data to supabase:', err)
+      }
+
+      res.status(200).json(locationInfo)
+    } catch (err) {
+      res.status(500).json({ message: 'Server Error ' + err })
+    }
+  }
+
+  static async geolocation(req, res) {
+    const { lat, lon } = req.query
+    if (!lat || !lon) {
+      res.status(400).json({
+        message: 'Debes proporcionar los parámetros de latitud y longitud',
+      })
+      return
+    }
+    const coordinates = { lat, lon }
+    try {
+      const [cities, airports] = await Promise.all([
+        getAllCitiesAR(),
+        getAllAirports(),
+      ])
+      const { closestTarget, minDistance } = getClosestPlace(
+        coordinates,
+        cities
+      )
+      const { nombre, tipo, departamento, provincia, pais, lat, lon } =
+        closestTarget
+      const { closestTarget: airport, minDistance: distance } = getClosestPlace(
+        coordinates,
+        airports
+      )
+
+      res.status(200).json({
+        city: nombre,
+        type: tipo,
+        departament: departamento,
+        state: provincia,
+        country: pais,
+        centerSquare: `${minDistance.toFixed(3) || 0}mts`,
+        coordinates: {
+          latitude: lat,
+          longitude: lon,
+        },
+        closestAirport: {
+          iata: airport.iata,
+          name: airport.name,
+          city: airport.city,
+          state: airport.state,
+          country: airport.country,
+          latitude: airport.latitude,
+          longitude: airport.longitude,
+          distance: `${distance.toFixed(3) || 0}mts`,
+        },
+      })
+    } catch (error) {
+      res.status(500).json({ message: 'Server error: ' + error })
+    }
+  }
+}
