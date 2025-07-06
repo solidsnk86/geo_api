@@ -594,7 +594,7 @@ console.log(JSON.stringify(data, null, 2));
       </main>
     </div>
     <footer>
-      © 2024 Solid Geolocation API 100% hecha por humano — Todos los derechos reservados.
+      © 2024 Solid Geolocation API — 100% hecha por humano.
     </footer>
   </body>
 </html>
