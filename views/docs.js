@@ -193,6 +193,8 @@ export const docsView = (data) => `
         font-size: 1.5rem;
         margin: 0;
         text-shadow: 1px 2px 3px #121212;
+        align-items: center;
+        gap: 8px;
       }
 
       .container {
