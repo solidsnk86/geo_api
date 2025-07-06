@@ -95,30 +95,34 @@ export const docsView = (data) => `
         const selector = document.querySelector("select");
         let currentLanguage = 'es';
         selector.onchange = async (event) => {
-          showLoadingIndicator()
-          const traductor = await Translator.create({
-            sourceLanguage: currentLanguage,
-            targetLanguage: event.target.value,
-          });
-          const loaderText = document.getElementById("text");
-          const traduction = await traductor.translate(loaderText.innerText);
-          loaderText.innerText = traduction;
-          currentLanguage = event.target.value;
-          const h1Element = document.querySelector("h1");
-          const h2Elements = document.querySelectorAll("h2");
-          const h3Elements = document.querySelectorAll("h3");
-          const allParagraphs = document.querySelectorAll("p");
-          const aElements = document.querySelectorAll("a");
-          const liElements = document.querySelectorAll("li");
-          const footer = document.querySelector("footer");
-          h1Element.innerText = await traductor.translate(h1Element.innerText);
-          h2Elements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
-          h3Elements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
-          allParagraphs.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
-          aElements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
-          liElements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
-          footer.innerText = await traductor.translate(footer.innerText);
-          showLoadingIndicator(false)
+           try {
+              showLoadingIndicator()
+              const traductor = await Translator.create({
+                sourceLanguage: currentLanguage,
+                targetLanguage: event.target.value,
+              });
+              const loaderText = document.getElementById("text");
+              const traduction = await traductor.translate(loaderText.innerText);
+              loaderText.innerText = traduction;
+              currentLanguage = event.target.value;
+              const h1Element = document.querySelector("h1");
+              const h2Elements = document.querySelectorAll("h2");
+              const h3Elements = document.querySelectorAll("h3");
+              const allParagraphs = document.querySelectorAll("p");
+              const aElements = document.querySelectorAll("a");
+              const liElements = document.querySelectorAll("li");
+              const footer = document.querySelector("footer");
+              h1Element.innerText = await traductor.translate(h1Element.innerText);
+              h2Elements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
+              h3Elements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
+              allParagraphs.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
+              aElements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
+              liElements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
+              footer.innerText = await traductor.translate(footer.innerText);
+              showLoadingIndicator(false)
+          } catch (error) {
+            console.log("Navegador no compatible con la API Translator")
+          }
         };
         const links = document.querySelectorAll('aside a[href^="#"]');
         links.forEach((link) => {
@@ -298,7 +302,7 @@ export const docsView = (data) => `
         text-align: center;
         padding: 1rem;
         font-size: 0.9rem;
-        border-top: 1px solid #e2e8f0;
+        border-top: 1px solid var(--border-color);
       }
 
       @media (max-width: 768px) {
@@ -472,26 +476,26 @@ export const docsView = (data) => `
 
           <p><strong>Respuesta de ejemplo:</strong></p>
           <pre class="pre">
-{
-  "city": "La Toma",
-  "type": "Ciudad",
-  "departament": "Coronel Pringles",
-  "state": "San Luis",
-  "country": "Argentina",
-  "centerSquare": "0.057mts",
-  "coordinates": {
-    "latitude": -33.0551991251609,
-    "longitude": -65.6178979076542
-  },
-  "closestAirport": {
-    "iata": "LUQ",
-    "name": "Brigadier Mayor D Cesar Raul Ojeda Airport",
-    "city": "San Luis",
-    "state": "San-Luis",
-    "country": "AR",
-    "distance": "73.022mts"
-  }
-}
+          {
+            "city": "La Toma",
+            "type": "Ciudad",
+            "departament": "Coronel Pringles",
+            "state": "San Luis",
+            "country": "Argentina",
+            "centerSquare": "0.057mts",
+            "coordinates": {
+              "latitude": -33.0551991251609,
+              "longitude": -65.6178979076542
+            },
+            "closestAirport": {
+              "iata": "LUQ",
+              "name": "Brigadier Mayor D Cesar Raul Ojeda Airport",
+              "city": "San Luis",
+              "state": "San-Luis",
+              "country": "AR",
+              "distance": "73.022mts"
+            }
+          }
           </pre>
         </section>
 
