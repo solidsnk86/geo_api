@@ -189,6 +189,7 @@ export const docsView = (data) => `
         color: #fff;
         font-size: 1.5rem;
         margin: 0;
+        text-shadow: 1px 2px 3px #121212;
       }
 
       .container {
@@ -205,7 +206,7 @@ export const docsView = (data) => `
         background: var(--sidebar-bg);
         padding: 1.5rem;
         border-radius: 8px;
-        border: 1px solid var(--sidebar-border);
+        border: 1px solid var(--border-color);
         height: fit-content;
         position: sticky;
         top: 100px;
@@ -244,7 +245,7 @@ export const docsView = (data) => `
         background: var(--main-bg);
         padding: 2rem;
         border-radius: 8px;
-        border: 1px solid var(--sidebar-border);
+        border: 1px solid var(--border-color);
       }
 
       h1,
@@ -294,6 +295,10 @@ export const docsView = (data) => `
 
       li {
         margin-bottom: 0.5rem;
+      }
+
+      select {
+        border-radius: 4px;
       }
 
       footer {
@@ -375,7 +380,7 @@ export const docsView = (data) => `
         }
 
         h2 {
-          border-bottom-color: #1e3a8a;
+          border-bottom-color: var(--border-color);
         }
 
         code {
