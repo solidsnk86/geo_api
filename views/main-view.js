@@ -346,6 +346,8 @@ export const mainView = ({ data }) => `
             >https://solid-geolocation.vercel.app/location</a
           >
         </span>
+        <a href="/docs" rel="noopener noreferrer nofollow"
+          class="solid">Documentación</a>
         <a
           href="https://github.com/solidsnk86/"
           target="_blank"
@@ -353,7 +355,7 @@ export const mainView = ({ data }) => `
           class="solid"
           aria-label="View profile on GitHub"
         >
-          Hecho con 🤍 by @solidSnk86
+          Hecho con 🤍 por @solidSnk86
         </a>
       </section>
     </footer>

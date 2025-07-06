@@ -4,6 +4,7 @@ import { mainView } from '../views/main-view.js'
 import { getAllAirports } from '../services/get-airports.js'
 import { getAllCitiesAR } from '../services/get-cities.js'
 import { getClosestPlace } from '../services/closest-airport.js'
+import { docsView } from '../views/docs.js'
 
 export class GeoController {
   static async home(req, res) {
@@ -110,7 +111,7 @@ export class GeoController {
 
   static async docs(req, res) {
     try {
-      res.status(400).send()
+      res.status(400).send(docsView())
     } catch (error) {
       res.status(500).json('Server error:', error)
     }
