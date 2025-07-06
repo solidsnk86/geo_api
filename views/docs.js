@@ -201,26 +201,27 @@ export const docsView = (data) => `
 
         <p><strong>Respuesta de ejemplo:</strong></p>
         <pre class="pre">
-{
-  "city": "Carpintería",
-  "type": "Villa Turística",
-  "departament": "Junín",
+        {
+  "city": "La Toma",
+  "type": "Ciudad",
+  "departament": "Coronel Pringles",
   "state": "San Luis",
   "country": "Argentina",
-  "centerSquare": "5.366mts",
+  "centerSquare": "0.057mts",
   "coordinates": {
-    "latitude": -32.410147547291,
-    "longitude": -65.0100090777743
+    "latitude": -33.0551991251609,
+    "longitude": -65.6178979076542
   },
   "closestAirport": {
-    "iata": "RLO",
-    "name": "Valle Del Conlara International Airport",
-    "city": "Merlo",
+    "iata": "LUQ",
+    "name": "Brigadier Mayor D Cesar Raul Ojeda Airport",
+    "city": "San Luis",
     "state": "San-Luis",
     "country": "AR",
-    "distance": "17.116mts"
+    "distance": "73.022mts"
   }
-}</pre
+}
+        </pre
         >
       </section>
 
