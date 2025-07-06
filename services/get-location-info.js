@@ -19,7 +19,7 @@ const extractLocationInfo = (req) => {
   const webBrowser = userInfo?.split('\n')?.[0].split(',')[0] || 'No disponible'
   const match = webBrowser.match(regex)
 
-  function cleanBrowserInfo(text = '') {
+  function formatBrowserInfo(text = '') {
     if (text.includes(')') && text.includes(';')) {
       return text.replace(')', ' ').replace(';', ' ')
     } else {
@@ -30,14 +30,14 @@ const extractLocationInfo = (req) => {
   return {
     ip: clientIp,
     city: {
-      name: decodeURIComponent(cityName) || 'No disponible',
-      postalCode: postalCode,
+      name: cityName ?? 'Concarán',
+      postalCode: postalCode || 5770,
     },
     country: {
       name: countryName,
-      alpha: country || null,
+      alpha: country || 'AR',
       emojiFlag: getCountryFlag({ countryCode: country }),
-      timezone: timeZone || null,
+      timezone: timeZone || 'America/Argentina/San_Luis',
     },
     coords: {
       latitude: latitude || -33.2991,
@@ -47,7 +47,7 @@ const extractLocationInfo = (req) => {
       language: checkIfUndefined({ fx: navigator.language }),
       system: platform ? platform.replace(/\"/g, '') : 'No Disponible' || null,
       webBrowser: {
-        browser: cleanBrowserInfo(match?.[1]) ?? 'No disponible',
+        browser: formatBrowserInfo(match?.[1]) ?? 'No disponible',
         version: match?.[2] ?? 'No Disponible',
       },
     },

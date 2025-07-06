@@ -303,7 +303,7 @@ export const mainView = ({ data }) => `
           transform: translateX(0);
         }
       }
-      @media (width <= 762px) {
+      @media (width < 762px) {
         #dialog {
           width: 90%;
         }
@@ -311,8 +311,8 @@ export const mainView = ({ data }) => `
           display: none;
         }
         footer {
-          display: block;
           position: relative;
+          display: block;
         }
       }
     </style>
