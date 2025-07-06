@@ -1,4 +1,4 @@
-export const docsView = () => `
+export const docsView = (data) => `
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -181,33 +181,8 @@ export const docsView = () => `
         </p>
         <pre>GET /</pre>
 
-        <p><strong>Respuesta de ejemplo:</strong></p>
-        <pre calss="pre">
-{
-  "ip": "45.178.0.81",
-  "city": {
-    "name": "San Luis",
-    "postalCode": "5700"
-  },
-  "country": {
-    "name": "Argentina",
-    "alpha": "AR",
-    "emojiFlag": "🇦🇷",
-    "timezone": "America/Argentina/San_Luis"
-  },
-  "coords": {
-    "latitude": "-33.2991",
-    "longitude": "-66.3547"
-  },
-  "sysInfo": {
-    "language": "en-US",
-    "system": "Windows",
-    "webBrowser": {
-      "browser": "Not A Brand",
-      "version": "8"
-    }
-  }
-}</pre
+        <p><strong>Respuesta de la API:</strong></p>
+        <pre calss="pre">${JSON.stringify(data, null, 2)}</pre
         >
 
         <h3>2. Geolocalización por coordenadas</h3>
