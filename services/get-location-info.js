@@ -30,7 +30,7 @@ const extractLocationInfo = (req) => {
   return {
     ip: clientIp,
     city: {
-      name: cityName ?? 'Concarán',
+      name: cityName ? decodeURIComponent(cityName) : 'No disponible',
       postalCode: postalCode || 5770,
     },
     country: {

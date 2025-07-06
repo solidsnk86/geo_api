@@ -189,21 +189,13 @@ export const docsView = (data) => `
       }
 
       nav h1 {
-        color: rgb(248, 249, 250);
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
-        font-size: 56px;
-        font-weight: 900;
-        line-height: 54.8953px;
-        mask-image: url("https://nerdy.dev/grunge.png");
-        mask-size: cover;
-        mask-repeat: repeat;
-        mask-position: 0% 0%; 
-        max-inline-size: 671.016px;
-        max-width: 671.016px;
-        padding-block-end: 8.3877px;
-        padding-bottom: 8.3877px;
-        text-wrap-style: balance;
-        word-break: break-word;
+        color: #fff;
+        font-size: 1.5rem;
+        margin: 0;
+        text-shadow: 1px 2px 3px #121212;
+        display: flex;
+        align-items: center;
+        gap: 8px;
       }
 
       .container {
