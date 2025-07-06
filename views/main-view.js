@@ -310,6 +310,10 @@ export const mainView = ({ data }) => `
         #map {
           display: none;
         }
+        footer {
+          display: block;
+          position: relative;
+        }
       }
     </style>
   </head>
