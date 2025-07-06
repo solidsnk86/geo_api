@@ -111,7 +111,13 @@ export class GeoController {
 
   static async docs(req, res) {
     try {
-      res.status(400).send(docsView())
+      const locationInfo = extractLocationInfo(req)
+      if (!locationInfo) {
+        return res
+          .status(404)
+          .json({ message: 'Información de ubicación no encontrada' })
+      }
+      res.status(400).send(docsView(locationInfo))
     } catch (error) {
       res.status(500).json('Server error:', error)
     }
