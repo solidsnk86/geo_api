@@ -87,9 +87,7 @@ export const docsView = (data) => `
       }
       document.addEventListener("DOMContentLoaded", async () => {
         for (const lang of languages) {
-          selectorLanguages.innerHTML += \`<option value="\${lang.value}">\${
-  lang.name
-}</option>\`;
+          selectorLanguages.innerHTML += \`<option value="\${lang.value}">\${lang.name}</option>\`;
         }
         const options = document.querySelectorAll("option");
         const selector = document.querySelector("select");
@@ -404,13 +402,11 @@ export const docsView = (data) => `
       }
     </style>
   </head>
-
   <body>
     <nav>
       <h1>Documentación API - Solid Geolocation</h1>
       <select name="" id="lang"></select>
     </nav>
-
     <div class="container">
       <aside>
         <h3>Índice</h3>
@@ -425,7 +421,6 @@ export const docsView = (data) => `
         <a href="#calculo-distancias">Cálculo de distancias</a>
         <a href="#codigos-estado">Códigos de estado</a>
       </aside>
-
       <main>
         <section id="introduccion">
           <h2>Introducción</h2>
@@ -436,12 +431,10 @@ export const docsView = (data) => `
             disponibles, su uso y ejemplos de respuesta.
           </p>
         </section>
-
         <section id="base-url">
           <h2>Base URL</h2>
           <p><code>https://solid-geolocation.vercel.app/</code></p>
         </section>
-
         <section id="limites">
           <h2>Límites de uso</h2>
           <p>
@@ -449,20 +442,16 @@ export const docsView = (data) => `
             <strong>100 peticiones por hora</strong>.
           </p>
         </section>
-
         <section id="endpoints">
           <h2>Endpoints</h2>
-
           <h3 id="geolocalizacion-automatica">1. Geolocalización automática</h3>
           <p>
             Este endpoint detecta automáticamente la ubicación del cliente a
             partir de su dirección IP.
           </p>
           <pre>GET /</pre>
-
           <p><strong>Respuesta de la API:</strong></p>
           <pre class="pre">${JSON.stringify(data, null, 2)}</pre>
-
           <h3 id="geolocalizacion-coordenadas">
             2. Geolocalización por coordenadas
           </h3>
@@ -471,14 +460,12 @@ export const docsView = (data) => `
             latitud y longitud como parámetros en la URL.
           </p>
           <pre>GET /geolocation?lat=&lt;LATITUD&gt;&lon=&lt;LONGITUD&gt;</pre>
-
           <p><strong>Ejemplo de uso:</strong></p>
           <a
             href="https://solid-geolocation.vercel.app/geolocation?lat=-33.0548161&lon=-65.6174943"
           >
             https://solid-geolocation.vercel.app/geolocation?lat=-33.0548161&lon=-65.6174943
           </a>
-
           <p><strong>Respuesta de ejemplo:</strong></p>
           <pre class="pre">
           {
@@ -503,7 +490,6 @@ export const docsView = (data) => `
           }
           </pre>
         </section>
-
         <section id="calculo-distancias">
           <h2>Cálculo de distancias</h2>
           <p>
@@ -523,37 +509,31 @@ export const docsView = (data) => `
               proporcionadas.
             </li>
           </ul>
-
           <p>
             Por ejemplo, en la respuesta de
             <code>/geolocation?lat=&lt;LAT&gt;&lon=&lt;LON&gt;</code>
             encontrarás:
           </p>
-
           <pre class="pre">
-{
-  "centerSquare": "5.366mts",
-  "closestAirport": {
-    "name": "Valle Del Conlara International Airport",
-    "distance": "17.116mts"
-  }
-}</pre
-          >
-
+          {
+            "centerSquare": "5.366mts",
+            "closestAirport": {
+              "name": "Valle Del Conlara International Airport",
+              "distance": "17.116mts"
+            }
+          }</pre>
           <p>
             Estos valores indican que desde las coordenadas proporcionadas estás
             a
             <code>5.366 metros</code> de la plaza central de Carpintería y a
             <code>17.116 metros</code> del aeropuerto más cercano.
           </p>
-
           <p>
             La fórmula de Haversine calcula la distancia en línea recta mínima,
             no la distancia por carretera, y es una aproximación estándar usada
             en geolocalización.
           </p>
         </section>
-
         <section id="codigos-estado">
           <h2>Códigos de estado</h2>
           <ul>
@@ -572,7 +552,6 @@ export const docsView = (data) => `
         </section>
       </main>
     </div>
-
     <footer>
       © 2024 Solid Geolocation API — Todos los derechos reservados.
     </footer>
