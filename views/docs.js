@@ -144,60 +144,71 @@ export const docsView = (data) => `
       :root {
         --color: #000000;
         --background-color: #ffffff;
-        --sh-class: #000000;
-        --sh-identifier: #000000;
-        --sh-sign: #00000080;
-        --sh-string: #0e0e0e;
+        --sh-class: #E5C049;
+        --sh-identifier: #61AFEF;
+        --sh-sign: #D19045;
+        --sh-string: #98C35B;
         --sh-token-string: lightgreen;
-        --sh-keyword: #000000;
-        --sh-comment: #000000;
-        --sh-jsxliterals: #000000;
+        --sh-keyword: #C678DD;
+        --sh-comment: #ffffff;
+        --sh-property: #E05A50;
+        --sh-jsxliterals: #ffffff;
         --dialog-bg: #f5f5f5;
         --border-color: #e6e6e6;
         --shadow: #9d9d9d;
         --footer-bg: #f1f5f9;
         --footer-color: #4a90e2;
-        --navbar-bg: #4a90e2;
         --sidebar-bg: #f8fafc;
         --sidebar-border: #e2e8f0;
         --main-bg: #ffffff;
       }
-
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-
       body {
         font-family: Arial, sans-serif;
         background-color: #f9fafb;
         color: #333;
         line-height: 1.6;
       }
-
       nav {
         display: flex;
         justify-content: space-between;
-        background-color: var(--navbar-bg);
-        color: #fff;
         padding: 1rem 2rem;
-        position: sticky;
-        top: 0;
         z-index: 1000;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid var(--border-color);
       }
-
-      nav h1 {
-        color: #fff;
-        font-size: 1.5rem;
+      nav h3 {
+        color: var(--color);
         margin: 0;
-        text-shadow: 1px 2px 3px #121212;
         display: flex;
+        font-weight: 800;
         align-items: center;
         gap: 8px;
       }
-
+      .heading-container {
+        display: flex;
+        justify-content: center;
+        margin: 24px auto 0;
+      }
+      h1 {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
+        font-size: 56px;
+        font-weight: 900;
+        line-height: 54.8953px;
+        mask-image: url("https://raw.githubusercontent.com/solidsnk86/geo_api/refs/heads/master/assets/grunge.png");
+        mask-size: cover;
+        mask-repeat: repeat;
+        mask-position: 0% 0%; 
+        max-inline-size: 671.016px;
+        max-width: 671.016px;
+        padding-block-end: 8.3877px;
+        padding-bottom: 8.3877px;
+        text-wrap-style: balance;
+        word-break: break-word;
+      }
       .container {
         display: flex;
         min-height: calc(100vh - 80px);
@@ -206,7 +217,6 @@ export const docsView = (data) => `
         gap: 2rem;
         padding: 2rem;
       }
-
       aside {
         flex: 0 0 250px;
         background: var(--sidebar-bg);
@@ -217,35 +227,29 @@ export const docsView = (data) => `
         position: sticky;
         top: 100px;
       }
-
       aside h3 {
         color: #4a90e2;
         margin-bottom: 1rem;
         font-size: 1.1rem;
       }
-
       aside ul {
         list-style: none;
       }
-
       aside li {
         margin-bottom: 0.5rem;
       }
-
       aside a {
         color: #374151;
         text-decoration: none;
-        padding: 0.5rem 0;
+        padding: 0.5rem;
         display: block;
         border-radius: 4px;
         transition: all 0.2s;
       }
-
       aside a:hover {
         color: #4a90e2;
         background-color: #e5f3ff;
       }
-
       main {
         flex: 1;
         background: var(--main-bg);
@@ -253,32 +257,26 @@ export const docsView = (data) => `
         border-radius: 8px;
         border: 1px solid var(--border-color);
       }
-
-      h1,
       h2,
       h3 {
         color: #4a90e2;
         margin-bottom: 1rem;
         cursor: default;
       }
-
       h2 {
         margin-top: 2rem;
         padding-bottom: 0.5rem;
         border-bottom: 2px solid #e5f3ff;
       }
-
       section {
         margin-bottom: 2rem;
       }
-
       code {
         background: #eee;
         padding: 2px 4px;
         border-radius: 4px;
         font-family: monospace;
       }
-
       pre {
         background: #f4f4f4;
         padding: 1rem;
@@ -288,25 +286,20 @@ export const docsView = (data) => `
         border-radius: 4px;
         margin: 1rem 0;
       }
-
       a {
         color: #4a90e2;
         text-decoration: none;
       }
-
       ul {
         margin-left: 1.5rem;
         margin-bottom: 1rem;
       }
-
       li {
         margin-bottom: 0.5rem;
       }
-
       select {
         border-radius: 4px;
       }
-
       footer {
         background-color: var(--footer-bg);
         color: var(--footer-color);
@@ -315,43 +308,38 @@ export const docsView = (data) => `
         font-size: 0.9rem;
         border-top: 1px solid var(--border-color);
       }
-
       @media (max-width: 768px) {
         .container {
           flex-direction: column;
           padding: 1rem;
         }
-
         aside {
           flex: none;
           position: static;
           order: -1;
         }
-
         nav {
           padding: 1rem;
         }
-
         nav h1 {
           font-size: 1.2rem;
         }
-
         main {
           padding: 1.5rem;
         }
       }
-
       @media (prefers-color-scheme: dark) {
         :root {
           --color: #ffffff;
           --background-color: #000000;
-          --sh-class: #ffffff;
-          --sh-identifier: #ffffff;
-          --sh-sign: #6495ed;
-          --sh-string: #ffffff;
+          --sh-class: #E5C05D;
+          --sh-identifier: #61AFEF;
+          --sh-sign: #D19045;
+          --sh-string: #98C35B;
           --sh-token-string: lightgreen;
-          --sh-keyword: lightgreen;
+          --sh-keyword: #C678DD;
           --sh-comment: #ffffff;
+          --sh-property: #E05A50;
           --sh-jsxliterals: #ffffff;
           --dialog-bg: #202020;
           --border-color: #333;
@@ -363,64 +351,55 @@ export const docsView = (data) => `
           --sidebar-border: #374151;
           --main-bg: #1e1e1e;
         }
-
         body {
           background-color: #121212;
           color: #e0e0e0;
         }
-
         aside a {
           color: #d1d5db;
           padding-inline: 6px;
         }
-
         aside a:hover {
           color: #60a5fa;
           background-color: #1e3a8a;
         }
-
-        h1,
         h2,
         h3 {
           color: #60a5fa;
         }
-
         h2 {
           border-bottom-color: var(--border-color);
         }
-
         code {
           background: #2c2c2c;
           color: #f1f1f1;
         }
-
         pre {
           background: #141414;
           border-left-color: #60a5fa;
           color: #e0e0e0;
         }
-
         a {
           color: #93c5fd;
         }
-
         a:hover {
           color: #bfdbfe;
         }
       }
-        #breadcrumbs {
-          display: flex;
-          gap: 12px;
+      #breadcrumbs {
+        display: flex;
+        gap: 12px;
       }
     </style>
   </head>
   <body>
     <nav>
-      <h1>
-        Documentación API - Solid Geolocation
-      </h1>
+      <h3>Solid Geolocation</h3>
       <select name="" id="lang"></select>
     </nav>
+    <div class="heading-container">
+    <h1>Documentación de la API Solid Geolocation</h1>
+    </div>
     <div class="container">
       <aside>
         <h3>Índice</h3>
@@ -432,6 +411,7 @@ export const docsView = (data) => `
         <a href="#geolocalizacion-coordenadas"
           >Geolocalización por coordenadas</a
         >
+        <a href="#uso-coordenadas">Uso por coordenadas</a>
         <a href="#calculo-distancias">Cálculo de distancias</a>
         <a href="#codigos-estado">Códigos de estado</a>
       </aside>
@@ -486,28 +466,69 @@ export const docsView = (data) => `
           >
             https://solid-geolocation.vercel.app/geolocation?lat=-33.0548161&lon=-65.6174943
           </a>
-          <p><strong>Respuesta de ejemplo:</strong></p>
+        </section>
+        <section id="uso-coordenadas">
+          <h2>Uso de la geolocalización por coordenadas</h2>
+           <p>
+            Para poder hacer uso de éste <strong>end-point</strong>, se deberá proveer los parmámetros de <code>latitud</code> y <code>longitud</code>.
+            Desde el front-end podemos hacer uso de la api del navegador de geolocalización y realizar el fecth a dicho end-point, dejo éste ejemplo de
+            como podría implementarse:
+          </p>
+          <pre>
+async function getCurrentLocation() {
+  return await new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+          const coords = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+          };
+          resolve(coords);
+        });
+        } else {
+          reject(new Error("Navigator doesn't allowed geolocation"));
+    }
+  });
+}
+
+async function getApiDataLocation({ latitude, longitude }) {
+    return await fetch(
+      \`https://solid-geolocation.vercel.app/geolocation?lat=\${latitude}&lon=\${longitude}\`)
+      .then((res) => res.json())
+      .then((data) => data)
+      .catch((error) => console.log(error.message));
+}
+
+const coords = await getCurrentLocation();
+const data = await getApiDataLocation({
+  latitude: coords.latitude,
+  longitude: coords.longitude,
+});
+
+console.log(JSON.stringify(data, null, 2));
+        </pre>
+                  <p><strong>Respuesta de ejemplo:</strong></p>
           <pre class="pre">
-          {
-            "city": "La Toma",
-            "type": "Ciudad",
-            "departament": "Coronel Pringles",
-            "state": "San Luis",
-            "country": "Argentina",
-            "centerSquare": "0.057mts",
-            "coordinates": {
-              "latitude": -33.0551991251609,
-              "longitude": -65.6178979076542
-            },
-            "closestAirport": {
-              "iata": "LUQ",
-              "name": "Brigadier Mayor D Cesar Raul Ojeda Airport",
-              "city": "San Luis",
-              "state": "San-Luis",
-              "country": "AR",
-              "distance": "73.022mts"
-            }
-          }
+{
+  "city": "La Toma",
+  "type": "Ciudad",
+  "departament": "Coronel Pringles",
+  "state": "San Luis",
+  "country": "Argentina",
+  "centerSquare": "0.057mts",
+  "coordinates": {
+    "latitude": -33.0551991251609,
+    "longitude": -65.6178979076542
+    },
+  "closestAirport": {
+    "iata": "LUQ",
+    "name": "Brigadier Mayor D Cesar Raul Ojeda Airport",
+    "city": "San Luis",
+    "state": "San-Luis",
+    "country": "AR",
+    "distance": "73.022mts"
+  }
+}
           </pre>
         </section>
         <section id="calculo-distancias">
@@ -535,13 +556,13 @@ export const docsView = (data) => `
             encontrarás:
           </p>
           <pre class="pre">
-          {
-            "centerSquare": "5.366mts",
-            "closestAirport": {
-              "name": "Valle Del Conlara International Airport",
-              "distance": "17.116mts"
-            }
-          }</pre>
+{
+  "centerSquare": "5.366mts",
+  "closestAirport": {
+      "name": "Valle Del Conlara International Airport",
+      "distance": "17.116mts"
+  }
+}</pre>
           <p>
             Estos valores indican que desde las coordenadas proporcionadas estás
             a
@@ -573,7 +594,7 @@ export const docsView = (data) => `
       </main>
     </div>
     <footer>
-      © 2024 Solid Geolocation API — Todos los derechos reservados.
+      © 2024 Solid Geolocation API 100% hecha por humano — Todos los derechos reservados.
     </footer>
   </body>
 </html>
