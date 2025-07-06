@@ -13,9 +13,7 @@ export class GeoController {
 
       res.status(200).send(
         mainView({
-          data: locationInfo,
-          latitude: locationInfo.coords.latitude,
-          longitude: locationInfo.coords.longitude,
+          data: locationInfo
         })
       )
     } catch (error) {
