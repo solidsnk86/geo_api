@@ -31,6 +31,8 @@ export const docsView = () => `
         --dialog-bg: #f5f5f5;
         --border-color: #e6e6e6;
         --shadow: #9d9d9d;
+        --footer-bg: #f1f5f9;
+        --footer-color: #4a90e2;
       }
       body {
         font-family: Arial, sans-serif;
@@ -96,13 +98,15 @@ export const docsView = () => `
           --dialog-bg: #202020;
           --border-color: #333;
           --shadow: #000;
+          --footer-bg: #a9d0f7b8;
+          --footer-color: #1e64b3;
         }
         body {
           background-color: #121212;
           color: #e0e0e0;
         }
         header {
-          background-color: #1e3a8a;
+          background-color: #4a90e2;
           color: #f1f1f1;
         }
         .container {
@@ -310,8 +314,8 @@ export const docsView = () => `
       </section>
     </div>
     <footer style="
-  background-color: #f1f5f9;
-  color: #4a90e2;
+  background-color: var(--footer-bg);
+  color: var(--footer-color);
   text-align: center;
   padding: 1rem;
   font-size: 0.9rem;
@@ -322,5 +326,4 @@ export const docsView = () => `
 </footer>
   </body>
 </html>
-
 `
