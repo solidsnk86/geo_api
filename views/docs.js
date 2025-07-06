@@ -189,6 +189,18 @@ export const docsView = () => `
     </ul>
   </section>
 </div>
+<footer style="
+  background-color: #f1f5f9;
+  color: #4a90e2;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+">
+  © 2024 Solid Geolocation API — Todos los derechos reservados.
+</footer>
+
 </body>
 </html>
 `
