@@ -70,7 +70,7 @@ export const docsView = (data) => `
                   border-radius: 50%;
                   animation: spin 1s linear infinite;
                 "></div>
-                <span id="text">${text}</span>
+                <span id="text">\${text}</span>
               </div>
             </div>
             <style>
@@ -87,7 +87,7 @@ export const docsView = (data) => `
       }
       document.addEventListener("DOMContentLoaded", async () => {
         for (const lang of languages) {
-          selectorLanguages.innerHTML += \`<option value="${lang.value}">${
+          selectorLanguages.innerHTML += \`<option value="\${lang.value}">\${
   lang.name
 }</option>\`;
         }
