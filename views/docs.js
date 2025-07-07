@@ -517,7 +517,7 @@ export const docsView = (data) => `
             Este endpoint detecta automáticamente la ubicación del cliente a
             partir de su dirección IP.
           </p>
-          <pre>GET /</pre>
+          <pre>GET /location</pre>
           <p><strong>Respuesta de la API:</strong></p>
           <pre class="pre">${JSON.stringify(data, null, 2)}</pre>
           <h3 id="geolocalizacion-coordenadas">
