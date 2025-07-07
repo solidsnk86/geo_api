@@ -507,6 +507,7 @@ export const docsView = (data) => `
           <p>
             Cada IP cliente tiene un límite de
             <strong>100 peticiones por hora</strong>.
+            Si ha sobrepasado el límite dentro de la hora, deberá esperar el tiempo que sea necesario para poder hacer llamadas a la API.
           </p>
         </section>
         <section id="endpoints">
