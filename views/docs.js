@@ -14,6 +14,8 @@ export const docsView = (data) => `
     <script type="module">
       import { highlight } from "https://esm.sh/sugar-high";
 
+      document.getElementById("home").addEventListener("click", () => window.open("/"));
+
       const codes = document.querySelectorAll("pre");
       const selectorLanguages = document.getElementById("lang");
       if (codes) {
@@ -152,7 +154,7 @@ export const docsView = (data) => `
         --sh-keyword: #C678DD;
         --sh-comment: #ffffff;
         --sh-property: #E05A50;
-        --sh-jsxliterals: #ffffff;
+        --sh-jsxliterals: #61AFEF;
         --dialog-bg: #f5f5f5;
         --border-color: #e6e6e6;
         --shadow: #9d9d9d;
@@ -208,6 +210,17 @@ export const docsView = (data) => `
         padding-bottom: 8.3877px;
         text-wrap-style: balance;
         word-break: break-word;
+        animation: fade 0.6s ease-in;
+      }
+      @keyframes fade { 
+          from {
+            transform: scale(0);
+            opacity: 0;
+          }
+            to {
+            transform: scale(1);
+            opacity: 1;
+          }
       }
       .container {
         display: flex;
@@ -219,7 +232,7 @@ export const docsView = (data) => `
       }
       aside {
         flex: 0 0 250px;
-        background: var(--sidebar-bg);
+        background: var(--main-bg);
         padding: 1.5rem;
         border-radius: 8px;
         border: 1px solid var(--border-color);
@@ -270,6 +283,21 @@ export const docsView = (data) => `
       }
       section {
         margin-bottom: 2rem;
+
+        & div {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: small;
+        }
+
+        & time {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 24px;
+          font-size: small;
+        }
       }
       code {
         background: #eee;
@@ -298,6 +326,8 @@ export const docsView = (data) => `
         margin-bottom: 0.5rem;
       }
       select {
+        padding: 3px;
+        border: 1px solid var(--border-color);
         border-radius: 4px;
       }
       footer {
@@ -390,13 +420,33 @@ export const docsView = (data) => `
         display: flex;
         font-weight: 600;
         gap: 12px;
+        color: var(--color);
+        opacity: 0.7;
+
+        & a {
+          color: var(--color);
+        }
+        & a:hover {
+          text-decoration: underline;
+        }
+      }
+      .lang {
+        display: flex;
+        align-items: center;
+        gap: 8px;  
       }
     </style>
   </head>
   <body>
     <nav>
-      <h3>Solid Geolocation</h3>
+      <h3 id="home">Solid Geolocation</h3>
+      <div class="lang">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="size-6" width="26" height="26"
+      style="transform: translateY(-1px); opacity: 0.6;">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m20.893 13.393-1.135-1.135a2.252 2.252 0 0 1-.421-.585l-1.08-2.16a.414.414 0 0 0-.663-.107.827.827 0 0 1-.812.21l-1.273-.363a.89.89 0 0 0-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 0 1-1.81 1.025 1.055 1.055 0 0 1-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 0 1-1.383-2.46l.007-.042a2.25 2.25 0 0 1 .29-.787l.09-.15a2.25 2.25 0 0 1 2.37-1.048l1.178.236a1.125 1.125 0 0 0 1.302-.795l.208-.73a1.125 1.125 0 0 0-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 0 1-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 0 1-1.458-1.137l1.411-2.353a2.25 2.25 0 0 0 .286-.76m11.928 9.869A9 9 0 0 0 8.965 3.525m11.928 9.868A9 9 0 1 1 8.965 3.525" />
+      </svg>
       <select name="" id="lang"></select>
+      </diV>
     </nav>
     <div class="heading-container">
     <h1>Documentación de la API Solid Geolocation</h1>
@@ -425,6 +475,24 @@ export const docsView = (data) => `
         </div>
         <section id="introduccion">
           <h2>Introducción</h2>
+          <div>
+          <svg xmlns="http://www.w3.org/2000/svg" 
+          fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="18" height="18" 
+          style="transform: translateY(-1px); opacity: 0.6;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          4 min lectura
+          </div>
+          <time>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" width="18" height="18"
+          style="transform: translateY(-1px); opacity: 0.6;">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+          </svg>
+          ${new Date('February, 27 2025').toLocaleDateString('es-AR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}</time>
           <p>
             La API <strong>Solid Geolocation</strong> permite obtener
             información geográfica basada en IP o coordenadas
@@ -469,7 +537,7 @@ export const docsView = (data) => `
           </a>
         </section>
         <section id="uso-coordenadas">
-          <h2>Uso de la geolocalización por coordenadas</h2>
+          <h2>Uso del end-point con coordenadas</h2>
            <p>
             Para poder hacer uso de éste <strong>end-point</strong>, se deberá proveer los parmámetros de <code>latitud</code> y <code>longitud</code>.
             Desde el front-end podemos hacer uso de la api del navegador de geolocalización y realizar el fecth a dicho end-point, dejo éste ejemplo de
@@ -595,7 +663,7 @@ console.log(JSON.stringify(data, null, 2));
       </main>
     </div>
     <footer>
-      © 2024 Solid Geolocation API — 100% hecha por humano.
+      © 2024 Solid Geolocation API — 100% hecha por un humano.
     </footer>
   </body>
 </html>
