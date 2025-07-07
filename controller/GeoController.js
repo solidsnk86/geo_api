@@ -13,7 +13,7 @@ export class GeoController {
 
       res.status(200).send(
         mainView({
-          data: locationInfo
+          data: locationInfo,
         })
       )
     } catch (error) {
@@ -79,8 +79,37 @@ export class GeoController {
         coordinates,
         airports
       )
+      const clientIp =
+        req.headers['x-forwarded-for'] ||
+        req.headers['x-real-ip'] ||
+        req.connection.remoteAddress
+
+      const preparedStatements = {
+        ip: clientIp,
+        latitude: coordinates.lat,
+        longitude: coordinates.lon,
+        city_name: nombre,
+        country_name: pais,
+        departament: departamento,
+        closest_airport: airport.name,
+        airport_distance: `${distance.toFixed(3) || 0}mts`,
+        state: provincia,
+        center_square_distance: `${minDistance.toFixed(3) || 0}mts`,
+      }
+
+      try {
+        const { error } = await supabase
+          .from('geolocation_requests')
+          .insert([preparedStatements])
+        if (error) {
+          throw new Error(error.message)
+        }
+      } catch (error) {
+        console.log('Cannot send data to DB:', error)
+      }
 
       res.status(200).json({
+        ip: clientIp,
         city: nombre,
         type: tipo,
         departament: departamento,
