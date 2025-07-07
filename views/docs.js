@@ -127,6 +127,8 @@ export const docsView = (data) => `
               showLoadingIndicator(false)
           } catch (error) {
             console.log("Navegador no compatible con la API Translator")
+          } finally {
+             showLoadingIndicator(false);
           }
         };
         const links = document.querySelectorAll('aside a[href^="#"]');
