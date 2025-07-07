@@ -206,8 +206,6 @@ export const docsView = (data) => `
         mask-position: 0% 0%; 
         max-inline-size: 671.016px;
         max-width: 671.016px;
-        padding-block-end: 8.3877px;
-        padding-bottom: 8.3877px;
         text-wrap-style: balance;
         word-break: break-word;
         animation: fade 0.6s ease-in;
