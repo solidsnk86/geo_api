@@ -193,11 +193,11 @@ export const docsView = (data) => `
       .heading-container {
         display: flex;
         justify-content: center;
-        margin: 24px auto 0;
+        margin: 24px auto 0 24px;
       }
       h1 {
         font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif;
-        font-size: 56px;
+        font-size: 10.3vmin;
         font-weight: 900;
         line-height: 54.8953px;
         mask-image: url("https://raw.githubusercontent.com/solidsnk86/geo_api/refs/heads/master/assets/grunge.png");
