@@ -77,7 +77,7 @@ import requests
 
 def obtener_ubicacion() -> list | None:
   try:
-      response = requests.get("https://solid-geolocation.vercel.app/locatio")
+      response = requests.get("https://solid-geolocation.vercel.app/location")
       if response.ok:
           data = response.json()
           return data

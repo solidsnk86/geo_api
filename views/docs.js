@@ -388,6 +388,7 @@ export const docsView = (data) => `
       }
       #breadcrumbs {
         display: flex;
+        font-weight: 600;
         gap: 12px;
       }
     </style>
