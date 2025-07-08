@@ -249,7 +249,8 @@ export const docsView = (data) => `
         border: 1px solid var(--border-color);
         height: fit-content;
         position: sticky;
-        top: 100px;
+        top: 50px;
+        animation: slideLeft 0.5s ease-in;
       }
       aside h3 {
         color: #4a90e2;
@@ -446,6 +447,18 @@ export const docsView = (data) => `
         align-items: center;
         gap: 8px;  
       }
+      .codigos-estado li:nth-child(1) code {
+        color: #4caf50;
+      }
+      .codigos-estado li:nth-child(2) code {
+        color: #ff9800;
+      }
+      .codigos-estado li:nth-child(3) code {
+        color: #f44336;
+      }
+      .codigos-estado li:nth-child(4) code {
+        color: #9c27b0;
+      }
     </style>
   </head>
   <body>
@@ -499,7 +512,7 @@ export const docsView = (data) => `
           style="transform: translateY(-1px); opacity: 0.6;">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
           </svg>
-          ${new Date('February, 27 2025').toLocaleDateString('es-AR', {
+          ${new Date('February, 1 2025').toLocaleDateString('es-AR', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
@@ -656,7 +669,7 @@ console.log(JSON.stringify(data, null, 2));
             en geolocalización.
           </p>
         </section>
-        <section id="codigos-estado">
+        <section id="codigos-estado" class="codigos-estado">
           <h2>Códigos de estado</h2>
           <ul>
             <li><code>200 OK</code> – Petición exitosa.</li>

@@ -1,4 +1,4 @@
-export const mainView = ({ data }) => `
+export const mainView = ({ data, fx = () => {} }) => `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -165,6 +165,7 @@ export const mainView = ({ data }) => `
         flex: 1;
         background: #1e1e1e;
         color: #c5c5c5;
+        text-shadow: 0 0 2px lightgreen;
         padding: 12px;
         font-family: Menlo, Monaco, monospace;
         border-radius: 4px;
@@ -174,7 +175,16 @@ export const mainView = ({ data }) => `
         flex: 1;
         border-radius: 4px;
         margin: 8px;
+        animation: slide 1s ease-in;
       }
+        @keyframes slide {
+          from {
+            transform: translateX(200%) scale(0);
+          }
+          to {
+            transform: translateX(0) scale(1);
+          }
+        }
       .footer {
         padding: 8px 16px;
         background: var(--card-bg);
@@ -189,6 +199,7 @@ export const mainView = ({ data }) => `
         font-size: 14px;
         font-weight: 500;
         transition: .2s ease-in-out;
+        height: 20px;
       }
       .footer a:hover {
         text-shadow: 0px 0px 1px #000;
@@ -306,12 +317,12 @@ export const mainView = ({ data }) => `
     <div id="map" class="pane"></div>
     </div>
     <div class="footer">
-        <a href="/docs">Documentación</a>
+        <a href="/docs"></a>
         <a
           href="https://github.com/solidsnk86"
           target="_blank"
           rel="noopener noreferrer"
-          >Hecho con ❤ por @solidSnk86</a
+          ></a
         >
       </div>
     </div>
@@ -353,6 +364,20 @@ export const mainView = ({ data }) => `
 
       const code = document.querySelector("pre > code");
       code.innerHTML = highlight(cleanIndent(code.innerText));
+      const footer = document.querySelector(".footer")
+
+      const machineWriter = ({ text, childrenIndex, delay = 50, output }) => {
+          output = output.children[childrenIndex]
+          let i = 0;
+          const interval = setInterval(() => {
+            output.textContent += text[i];
+            i++;
+            console.log(text[i])
+            if (i >= text.length) clearInterval(interval);
+          }, delay)
+      }
+      machineWriter({ text: "Documentación", childrenIndex: 0, delay: 80, output: footer })
+      machineWriter({ text: "Hecho con ❤ por @solidSnk86", childrenIndex: 1, output: footer })
 
       const generateDialog = async (content) => {
         const url = document.querySelector(".address-bar");
