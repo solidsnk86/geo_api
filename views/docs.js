@@ -20,8 +20,6 @@ export const docsView = (data) => `
       const selectorLanguages = document.getElementById("lang");
       if (codes) {
         codes.forEach((code) => (code.innerHTML = highlight(code.innerText)));
-      } else {
-        console.log("No se encontró el elemento");
       }
       const languages = [
         { name: "Español", value: "es" },
@@ -50,7 +48,10 @@ export const docsView = (data) => `
         { name: "עברית (Hebreo)", value: "he" },
         { name: "Română", value: "ro" },
       ];
-        function showLoadingIndicator(show = true, text = "Traduciendo...") {
+      for (const lang of languages) {
+          selectorLanguages.innerHTML += \`<option value="\${lang.value}">\${lang.name}</option>\`;
+      }
+      function showLoadingIndicator(show = true, text = "Traduciendo...") {
         let loader = document.getElementById('translation-loader');
         if (show && !loader) {
           loader = document.createElement('div');
@@ -93,38 +94,44 @@ export const docsView = (data) => `
         }
       }
       document.addEventListener("DOMContentLoaded", async () => {
-        for (const lang of languages) {
-          selectorLanguages.innerHTML += \`<option value="\${lang.value}">\${lang.name}</option>\`;
-        }
         const options = document.querySelectorAll("option");
         const selector = document.querySelector("select");
         let currentLanguage = 'es';
         selector.onchange = async (event) => {
+           showLoadingIndicator()
            try {
-              showLoadingIndicator()
-              const traductor = await Translator.create({
-                sourceLanguage: currentLanguage,
-                targetLanguage: event.target.value,
-              });
-              const loaderText = document.getElementById("text");
-              const traduction = await traductor.translate(loaderText.innerText);
-              loaderText.innerText = traduction;
-              currentLanguage = event.target.value;
-              const h1Element = document.querySelector("h1");
-              const h2Elements = document.querySelectorAll("h2");
-              const h3Elements = document.querySelectorAll("h3");
-              const allParagraphs = document.querySelectorAll("p");
-              const aElements = document.querySelectorAll("a");
-              const liElements = document.querySelectorAll("li");
-              const footer = document.querySelector("footer");
-              h1Element.innerText = await traductor.translate(h1Element.innerText);
-              h2Elements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
-              h3Elements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
-              allParagraphs.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
-              aElements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
-              liElements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
-              footer.innerText = await traductor.translate(footer.innerText);
-              showLoadingIndicator(false)
+              if (!self.Translator || typeof self.Translator.create !== 'function') {
+                  alert("Tu navegador no soporta la API Translator.");
+                  return;
+              }
+              if ('Translator' in self) {
+                  const traductor = await Translator.create({
+                    sourceLanguage: currentLanguage,
+                    targetLanguage: event.target.value,
+                  });
+                  const loaderText = document.getElementById("text");
+                  const traduction = await traductor.translate(loaderText.innerText);
+                  loaderText.innerText = traduction;
+                  currentLanguage = event.target.value;
+                  const h1Element = document.querySelector("h1");
+                  const h2Elements = document.querySelectorAll("h2");
+                  const h3Elements = document.querySelectorAll("h3");
+                  const allParagraphs = document.querySelectorAll("p");
+                  const aElements = document.querySelectorAll("a");
+                  const liElements = document.querySelectorAll("li");
+                  const footer = document.querySelector("footer");
+                  h1Element.innerText = await traductor.translate(h1Element.innerText);
+                  h2Elements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
+                  h3Elements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
+                  allParagraphs.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
+                  aElements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
+                  liElements.forEach(async (el) => (el.innerText = await traductor.translate(el.innerText)));
+                  footer.innerText = await traductor.translate(footer.innerText);
+                  showLoadingIndicator(false)
+              } else {
+                  alert("Tu versión de navegador no está actualizada!")
+                  showLoadingIndicator(false); 
+              }
           } catch (error) {
             console.log("Navegador no compatible con la API Translator")
           } finally {
@@ -210,14 +217,18 @@ export const docsView = (data) => `
         max-width: 671.016px;
         text-wrap-style: balance;
         word-break: break-word;
-        animation: fade 0.6s ease-in;
+        animation: fade 0.7s ease-in;
       }
       @keyframes fade { 
-          from {
-            transform: scale(0);
+          0% {
+            transform: translateY(-200%) scale(0);
             opacity: 0;
           }
-            to {
+          50% {
+            transform: translateY(0) scale(0.5);
+            opacity: 0.5;
+          }
+          100% {
             transform: scale(1);
             opacity: 1;
           }

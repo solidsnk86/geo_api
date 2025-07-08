@@ -44,7 +44,7 @@ const extractLocationInfo = (req) => {
       longitude: longitude || -66.3547,
     },
     sysInfo: {
-      language: checkIfUndefined({ fx: navigator.language }),
+      language: checkIfUndefined(navigator.language),
       system: platform ? platform.replace(/\"/g, '') : 'No Disponible' || null,
       webBrowser: {
         browser: formatBrowserInfo(match?.[1]) ?? 'No disponible',

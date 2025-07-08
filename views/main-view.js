@@ -97,6 +97,7 @@ export const mainView = ({ data }) => `
         opacity: 0.8;
         cursor: copy;
         transform: scale(1.05);
+        border-color: #007aff;
       }
       .window {
         flex: 0 0 800px;
@@ -187,6 +188,11 @@ export const mainView = ({ data }) => `
         text-decoration: none;
         font-size: 14px;
         font-weight: 500;
+        transition: .2s ease-in-out;
+      }
+      .footer a:hover {
+        text-shadow: 0px 0px 1px #000;
+        filter: drop-shadow(0 0 10px #007aff) blur(0.5px);
       }
       dialog {
         padding: 16px;
@@ -323,7 +329,7 @@ export const mainView = ({ data }) => `
         Estos datos se pueden obtener a través de la API de geolocalización del
         navegador. Te dejo la documentación
         <a
-          href="https://developer.mozilla.org/es/docs/Web/API/Geolocation/getCurrentPosition#ejemplos"
+          href="/docs"
           target="_blank"
         >
           aquí.
