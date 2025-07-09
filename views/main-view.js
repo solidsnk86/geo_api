@@ -84,20 +84,60 @@ export const mainView = ({ data, fx = () => {} }) => `
         background: var(--background-color);
         font-family: "Poppins", sans-serif;
       }
-      button {
-        padding: 8px 12px;
-        border-radius: 50px;
-        border: 1px solid var(--border-color);
-        background-color: var(--btn-bg);
-        color: var(--btn-color);
-        font-weight: 600;
-        transition: 0.2s ease-in-out;
+      
+      @property --rotate {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: false;
       }
-      button:hover {
-        opacity: 0.8;
-        cursor: copy;
-        transform: scale(1.05);
-        border-color: #007aff;
+      .fancy-button {
+          --btn-color: #181818;
+          --radius: 999px;
+          --inset: 1px;
+          --animation-duration: 2.1s;
+          --light-color: #61afef;
+          position: relative;
+          border: none;
+          padding: 8px 10px;
+          border-radius: var(--radius);
+          inset: var(--inset);
+          transition: 0.3s ease-in-out;
+      }
+      .fancy-button:hover {
+          transform: scale(1.05);
+          filter: drop-shadow(0 0 6px var(--color));
+      }
+      .light::after {
+          background-color: var(--btn-color);
+          content: "";
+          position: absolute;
+          inset: var(--inset);
+          border-radius: var(--radius);
+      }
+      .light::before {
+          content: "";
+          position: absolute;
+          rotate: 0;
+          background: conic-gradient(
+            from var(--rotate),
+            transparent 0,
+            var(--light-color) 340deg,
+            white 360deg
+          );
+          inset: 0;
+          border-radius: var(--radius);
+          animation: rotate var(--animation-duration) linear infinite both;
+      }
+      .text {
+          position: relative;
+          font-weight: 600;
+          color: #fff;
+          z-index: 9;
+      }
+      @keyframes rotate {
+          to {
+              --rotate: 360deg;
+          }
       }
       .window {
         flex: 0 0 800px;
@@ -301,7 +341,10 @@ export const mainView = ({ data, fx = () => {} }) => `
   <body>
     <div class="window">
       <div class="browser-bar">
-        <button title="Copiar end-point">Copiar</button>
+        <button title="Copiar end-point" class="fancy-button">
+        <div class="light" />
+        <span class="text">Copiar</span>
+        </button>
         <div class="address-bar">
           <span>https://solid-geolocation.vercel.app/location</span>
         </div>
