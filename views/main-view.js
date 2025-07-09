@@ -255,6 +255,9 @@ export const mainView = ({ data, fx = () => {} }) => `
         animation: fadeIn 0.2s ease-in-out;
         z-index: 999;
       }
+      dialog::backdrop {
+        backdrop-filter: blur(3px);
+      }
       #dialog {
         display: none;
         position: absolute;
