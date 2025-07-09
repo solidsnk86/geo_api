@@ -49,6 +49,7 @@ export const mainView = ({ data, fx = () => {} }) => `
         --btn-bg: #010101;
         --btn-color: #fff;
         --card-bg: #eee;
+        --spark-color: tomato;
       }
       @media (prefers-color-scheme: dark) {
         :root {
@@ -71,6 +72,7 @@ export const mainView = ({ data, fx = () => {} }) => `
           --btn-bg: #f5f5f5;
           --btn-color: #000;
           --card-bg: #333;
+          --spark-color: lightgreen;
         }
       }
       html,
@@ -95,7 +97,7 @@ export const mainView = ({ data, fx = () => {} }) => `
           --radius: 999px;
           --inset: 1px;
           --animation-duration: 2.1s;
-          --light-color: #61afef;
+          --light-color: var(--spark-color);
           position: relative;
           border: none;
           padding: 8px 10px;
