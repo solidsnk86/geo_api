@@ -102,6 +102,7 @@ export const mainView = ({ data, fx = () => {} }) => `
           border-radius: var(--radius);
           inset: var(--inset);
           transition: 0.3s ease-in-out;
+          cursor: copy;
       }
       .fancy-button:hover {
           transform: scale(1.05);
