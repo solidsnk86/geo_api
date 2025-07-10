@@ -1,4 +1,4 @@
-export const mainView = ({ data, fx = () => {} }) => `
+export const mainView = ({ data }) => `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,15 +31,15 @@ export const mainView = ({ data, fx = () => {} }) => `
       :root {
         --color: #000000;
         --background-color: #f5f5f5;
-        --sh-class: #E5C049;
-        --sh-identifier: #61AFEF;
-        --sh-sign: #D19045;
-        --sh-string: #98C35B;
+        --sh-class: #e5c049;
+        --sh-identifier: #61afef;
+        --sh-sign: #d19045;
+        --sh-string: #98c35b;
         --sh-token-string: lightgreen;
-        --sh-keyword: #C678DD;
+        --sh-keyword: #c678dd;
         --sh-comment: #ffffff;
-        --sh-property: #E05A50;
-        --sh-jsxliterals: #61AFEF;
+        --sh-property: #e05a50;
+        --sh-jsxliterals: #61afef;
         --bg-main: #ffffff;
         --bg-desk: #2f3542;
         --win-bg: #f5f5f7;
@@ -50,18 +50,48 @@ export const mainView = ({ data, fx = () => {} }) => `
         --btn-color: #fff;
         --card-bg: #eee;
         --spark-color: tomato;
+        --sunset-2: linear-gradient(
+          90deg,
+          #f06844 0%,
+          #ee4c54 25%,
+          #d45e95 50%,
+          #9c6ca6 75%,
+          #6583c1 100%
+        );
+        --rainbow-1: linear-gradient(
+          90deg,
+          #00daf4 0%,
+          #5edc99 10%,
+          #3861bc 20%,
+          #5606ef 30%,
+          #d400a5 40%,
+          #ee4c54 50%,
+          #ff7800 60%,
+          #ffaf00 70%,
+          #ffc800 80%,
+          #bada6d 100%
+        );
+
+        --retro-2: linear-gradient(
+          90.42deg,
+          #4ab1f1 0.58%,
+          #566cec 37.22%,
+          #d749af 73.87%,
+          #ff7c51 112.26%
+        );
       }
+
       @media (prefers-color-scheme: dark) {
         :root {
           --color: #ffffff;
           --background-color: #000000;
-          --sh-identifier: #61AFEF;
-          --sh-sign: #D19045;
-          --sh-string: #98C35B;
+          --sh-identifier: #61afef;
+          --sh-sign: #d19045;
+          --sh-string: #98c35b;
           --sh-token-string: lightgreen;
-          --sh-keyword: #C678DD;
+          --sh-keyword: #c678dd;
           --sh-comment: #ffffff;
-          --sh-property: #E05A50;
+          --sh-property: #e05a50;
           --sh-jsxliterals: #ffffff;
           --bg-desk: #000000;
           --win-bg: #2a2a2a;
@@ -75,6 +105,7 @@ export const mainView = ({ data, fx = () => {} }) => `
           --spark-color: lightgreen;
         }
       }
+
       html,
       body {
         margin: 0;
@@ -83,66 +114,82 @@ export const mainView = ({ data, fx = () => {} }) => `
         display: flex;
         align-items: center;
         justify-content: center;
-        background: var(--background-color);
         font-family: "Poppins", sans-serif;
       }
-      
+
       @property --rotate {
         syntax: "<angle>";
         initial-value: 0deg;
         inherits: false;
       }
+
       .fancy-button {
-          --btn-color: #181818;
-          --radius: 999px;
-          --inset: 1px;
-          --animation-duration: 2.1s;
-          --light-color: var(--spark-color);
-          position: relative;
-          border: none;
-          padding: 8px 10px;
-          border-radius: var(--radius);
-          inset: var(--inset);
-          transition: 0.3s ease-in-out;
-          cursor: copy;
+        --btn-color: #181818;
+        --radius: 999px;
+        --inset: 1px;
+        --animation-duration: 2.1s;
+        --light-color: var(--spark-color);
+        position: relative;
+        border: none;
+        padding: 8px 10px;
+        border-radius: var(--radius);
+        inset: var(--inset);
+        transition: 0.3s ease-in-out;
+        cursor: copy;
       }
+
       .fancy-button:hover {
-          transform: scale(1.05);
-          filter: drop-shadow(0 0 6px var(--color));
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 6px var(--color));
       }
+
       .light::after {
-          background-color: var(--btn-color);
-          content: "";
-          position: absolute;
-          inset: var(--inset);
-          border-radius: var(--radius);
+        background-color: var(--btn-color);
+        content: "";
+        position: absolute;
+        inset: var(--inset);
+        border-radius: var(--radius);
       }
+
       .light::before {
-          content: "";
-          position: absolute;
-          rotate: 0;
-          background: conic-gradient(
-            from var(--rotate),
-            transparent 0,
-            var(--light-color) 340deg,
-            white 360deg
-          );
-          inset: 0;
-          border-radius: var(--radius);
-          animation: rotate var(--animation-duration) linear infinite both;
+        content: "";
+        position: absolute;
+        rotate: 0;
+        background: conic-gradient(
+          from var(--rotate),
+          #00daf4 0deg,
+          #5edc99 36deg,
+          #3861bc 72deg,
+          #5606ef 108deg,
+          #d400a5 144deg,
+          #ee4c54 180deg,
+          #ff7800 216deg,
+          #ffaf00 252deg,
+          #ffc800 288deg,
+          #bada6d 324deg,
+          #00daf4 360deg
+        );
+        inset: 0;
+        opacity: 0.6;
+        border-radius: var(--radius);
+        animation: rotate var(--animation-duration) linear infinite both;
       }
+
       .text {
-          position: relative;
-          font-weight: 600;
-          color: #fff;
-          z-index: 9;
+        position: relative;
+        font-weight: 600;
+        color: #fff;
+        z-index: 9;
       }
+
       @keyframes rotate {
-          to {
-              --rotate: 360deg;
-          }
+        to {
+          --rotate: 360deg;
+        }
       }
+
       .window {
+        position: relative;
         flex: 0 0 800px;
         width: 90%;
         max-width: 800px;
@@ -154,6 +201,7 @@ export const mainView = ({ data, fx = () => {} }) => `
         box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
         overflow: hidden;
       }
+
       .browser-bar {
         background: var(--card-bg);
         padding: 8px 12px;
@@ -162,6 +210,7 @@ export const mainView = ({ data, fx = () => {} }) => `
         gap: 8px;
         border: 1px solid var(--border-color);
       }
+
       .nav-btn {
         width: 20px;
         height: 20px;
@@ -171,9 +220,11 @@ export const mainView = ({ data, fx = () => {} }) => `
         cursor: pointer;
         user-select: none;
       }
+
       .nav-btn:hover {
         background: rgba(0, 0, 0, 0.1);
       }
+
       .address-bar {
         flex: 1;
         display: flex;
@@ -186,17 +237,20 @@ export const mainView = ({ data, fx = () => {} }) => `
         color: #333;
         overflow: hidden;
       }
+
       .address-bar span {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
       .content {
         flex: 1;
         display: flex;
         background: var(--bg-main, #ffffff);
         border-inline: 1px solid var(--border-color);
       }
+
       .pane {
         flex: 1;
         display: flex;
@@ -204,6 +258,7 @@ export const mainView = ({ data, fx = () => {} }) => `
         overflow: hidden;
         padding: 8px;
       }
+
       .json-window {
         flex: 1;
         background: #1e1e1e;
@@ -220,14 +275,15 @@ export const mainView = ({ data, fx = () => {} }) => `
         margin: 8px;
         animation: slide 1s ease-in;
       }
-        @keyframes slide {
-          from {
-            transform: translateX(200%) scale(0);
-          }
-          to {
-            transform: translateX(0) scale(1);
-          }
+      @keyframes slide {
+        from {
+          transform: translateX(200%) scale(0);
         }
+
+        to {
+          transform: translateX(0) scale(1);
+        }
+      }
       .footer {
         padding: 8px 16px;
         background: var(--card-bg);
@@ -241,12 +297,11 @@ export const mainView = ({ data, fx = () => {} }) => `
         text-decoration: none;
         font-size: 14px;
         font-weight: 500;
-        transition: .2s ease-in-out;
+        transition: 0.3s ease-in-out;
         height: 20px;
       }
       .footer a:hover {
-        text-shadow: 0px 0px 1px #000;
-        filter: drop-shadow(0 0 10px #007aff) blur(0.5px);
+        filter: invert();
       }
       dialog {
         padding: 16px;
@@ -312,6 +367,7 @@ export const mainView = ({ data, fx = () => {} }) => `
         from {
           transform: scale(1);
         }
+
         to {
           transform: scale(0);
         }
@@ -320,6 +376,7 @@ export const mainView = ({ data, fx = () => {} }) => `
         from {
           transform: translateY(500%);
         }
+
         to {
           transform: translateY(0);
         }
@@ -328,11 +385,12 @@ export const mainView = ({ data, fx = () => {} }) => `
         from {
           transform: translateY(0);
         }
+
         to {
           transform: translateY(500%);
         }
       }
-      @media (width <= 762px) {
+      @media (width <=762px) {
         .window {
           flex: 400px 0 0;
           display: flex;
@@ -342,20 +400,138 @@ export const mainView = ({ data, fx = () => {} }) => `
           width: 85%;
         }
       }
+      body:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        background: var(--rainbow-1);
+        filter: blur(120px);
+        border-radius: 999px;
+        opacity: 0.6;
+        z-index: -2;
+      }
+      .aside-browser-bar svg:last-child {
+        padding: 5px;
+        border-radius: 100%;
+      }
+      .aside-browser-bar svg:last-child:hover {
+        padding: 5px;
+        background: var(--border-color);
+      }
+      .menu-bar {
+        display: none;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        padding: 0.4rem;
+        background-color: var(--win-bg);
+        border-radius: 12px;
+        z-index: 999;
+        filter: drop-shadow(0 0 6px var(--shadow));
+      }
+      .menu-bar ul {
+        margin: 0;
+        padding: 0;
+      }
+      .menu-bar ul li {
+        list-style: none;
+        padding: 10px 14px;
+        cursor: pointer;
+      }
+      .menu-bar ul li:hover {
+        background: var(--border-color);
+        border-radius: 12px;
+      }
+      .solid {
+        background: var(--retro-2);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
     </style>
   </head>
+
   <body>
-    <div class="window">
-      <div class="browser-bar">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      width="100%"
+      height="100%"
+      style="position: absolute; top: 0; left: 0; opacity: 0.1; z-index: -1"
+      className="absolute top-0 left-0 opacity-[0.2]"
+    >
+      <filter id="noiseFilter">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="9.5"
+          numOctaves="2"
+          stitchTiles="stitch"
+        />
+      </filter>
+      <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+    </svg>
+    <main class="window">
+      <section class="browser-bar">
         <button title="Copiar end-point" class="fancy-button">
-        <div class="light" />
-        <span class="text">Copiar</span>
+          <div class="light" />
+          <span class="text">Copiar</span>
         </button>
         <div class="address-bar">
           <span>https://solid-geolocation.vercel.app/location</span>
         </div>
-      </div>
-      <div class="content">
+        <div
+          style="display: flex; align-items: center; gap: 8px"
+          class="aside-browser-bar"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 0 1-.657.643 48.39 48.39 0 0 1-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 0 1-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 0 0-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 0 1-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 0 0 .657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 0 1-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 0 0 5.427-.63 48.05 48.05 0 0 0 .582-4.717.532.532 0 0 0-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 0 0 .658-.663 48.422 48.422 0 0 0-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 0 1-.61-.58v0Z"
+            />
+          </svg>
+          <span style="opacity: 0.5">|</span>
+          <img
+            title="@solidSnk86"
+            src="https://avatars.githubusercontent.com/u/93176365?v=4"
+            alt="avatar"
+            width="24"
+            height="24"
+            style="border-radius: 50%"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-three-dots-vertical"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+            />
+          </svg>
+        </div>
+        <article class="menu-bar">
+          <ul>
+            <li>Compartir</li>
+            <li>Bugs</li>
+          </ul>
+        </article>
+      </section>
+      <section class="content">
         <div class="pane">
           <div class="json-window">
             <pre>
@@ -363,18 +539,17 @@ export const mainView = ({ data, fx = () => {} }) => `
             </pre>
           </div>
         </div>
-    <div id="map" class="pane"></div>
-    </div>
-    <div class="footer">
+        <div id="map" class="pane"></div>
+      </section>
+      <div class="footer">
         <a href="/docs"></a>
         <a
           href="https://github.com/solidsnk86"
           target="_blank"
           rel="noopener noreferrer"
-          ></a
-        >
+        >Hecho con ❤ por <strong class="solid">@solidSnk86</strong></a>
       </div>
-    </div>
+    </main>
     <dialog></dialog>
     <div id="dialog">
       <h2><span id="chin">📌</span> Obtené más precisión</h2>
@@ -388,20 +563,15 @@ export const mainView = ({ data, fx = () => {} }) => `
         </a>
         Estos datos se pueden obtener a través de la API de geolocalización del
         navegador. Te dejo la documentación
-        <a
-          href="/docs"
-          target="_blank"
-        >
-          aquí.
-        </a>
+        <a href="/docs" target="_blank"> aquí. </a>
       </p>
     </div>
     <script type="module">
       import { highlight } from "https://esm.sh/sugar-high";
       import cleanIndent from "https://cdn.jsdelivr.net/gh/liquidsnk86/cdn-js@main/indent-cleaner.js";
 
-      const lat = ${data.coords.latitude} || -33.2991;
-      const lon = ${data.coords.longitude} || -66.3547;
+      const lat = -33.2991;
+      const lon = -66.3547;
 
       const map = L.map("map").setView([lat, lon], 13);
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -413,51 +583,53 @@ export const mainView = ({ data, fx = () => {} }) => `
 
       const code = document.querySelector("pre > code");
       code.innerHTML = highlight(cleanIndent(code.innerText));
-      const footer = document.querySelector(".footer")
+      const footer = document.querySelector(".footer");
 
       const machineWriter = ({ text, childrenIndex, delay = 50, output }) => {
-          output = output.children[childrenIndex]
-          let i = 0;
-          const interval = setInterval(() => {
-            output.textContent += text[i];
-            i++;
-            console.log(text[i])
-            if (i >= text.length) clearInterval(interval);
-          }, delay)
-      }
+        output = output.children[childrenIndex];
+        let i = 0;
+        const interval = setInterval(() => {
+          output.textContent += text[i];
+          i++;
+          if (i >= text.length) clearInterval(interval);
+        }, delay);
+      };
       machineWriter({ text: "Documentación", childrenIndex: 0, delay: 80, output: footer })
-      machineWriter({ text: "Hecho con ❤ por @solidSnk86", childrenIndex: 1, output: footer })
 
-      const generateDialog = async (content) => {
-        const url = document.querySelector(".address-bar");
+      const generateDialog = (content) => {
         const dialog = document.querySelector("dialog");
         dialog.innerHTML = content;
+        dialog.showModal();
+        const controller = new AbortController();
+        setTimeout(() => {
+          dialog.style.animation = "fadeOut 0.2s ease-in-out";
+          dialog.addEventListener(
+            "animationend",
+            () => {
+              if (dialog.open) {
+                dialog.close();
+                dialog.style.animation = "fadeIn 0.2s ease-in-out";
+                dialog.open = false;
+                controller.abort();
+              }
+            },
+            { signal: controller.signal, once: true }
+          );
+        }, 2500);
+      };
+
+      const copyDialog = async (content) => {
+        const url = document.querySelector(".address-bar");
         if (navigator.clipboard) {
           await navigator.clipboard.writeText(url.textContent);
-          dialog.showModal();
-          const controller = new AbortController();
-          setTimeout(() => {
-            dialog.style.animation = "fadeOut 0.2s ease-in-out";
-            dialog.addEventListener(
-              "animationend",
-              () => {
-                if (dialog.open) {
-                  dialog.close();
-                  dialog.style.animation = "fadeIn 0.2s ease-in-out";
-                  dialog.open = false;
-                  controller.abort();
-                }
-              },
-              { signal: controller.signal, once: true }
-            );
-          }, 2500);
+          generateDialog(content);
         } else {
           console.error("Navigator doesnt allowed clipboard");
         }
       };
 
       document.querySelector("button").addEventListener("click", async () => {
-        await generateDialog("✅ End-point Copiado!");
+        await copyDialog("✅ End-point Copiado!");
       });
 
       const startTimer = (get = () => {}, timeStop = 10) => {
@@ -468,7 +640,6 @@ export const mainView = ({ data, fx = () => {} }) => `
           if (count >= timeStop) clearInterval(interval);
         }, 1000);
       };
-
 
       startTimer((counter) => {
         if (counter === 5) {
@@ -489,7 +660,40 @@ export const mainView = ({ data, fx = () => {} }) => `
             }
           });
         }
-      }, 5);
+      }, 9);
+      const dots = document.querySelector(".bi-three-dots-vertical")
+      const menu = document.querySelector(".menu-bar");
+      dots.addEventListener("click", (event) => {
+          if (!menu.checkVisibility()) {
+            menu.style.display = "block";
+          } else {
+            menu.style.display = "none";
+          }
+        });
+      document.addEventListener("click", (event) => {
+        if (!dots.contains(event.target) && menu && !menu.contains(event.target)) {
+          menu.style.display = "none"
+        }
+      })
+      document.querySelectorAll(".menu-bar li").forEach((li) => {
+        if (li.textContent === "Compartir") {
+          li.onclick = () => {
+            navigator.share({
+              title: document.title,
+              text: "Descubre nuestra potente aplicación basada en Node.js y Express que ofrece un servicio de geolocalización rápido y preciso, entregando datos de ubicación en formato JSON para tus proyectos innovadores.",
+              url: window.location.href,
+            });
+          };
+        }
+        if (li.textContent === "Bugs") {
+          li.onclick = () => {
+            window.open(
+              "https://github.com/solidsnk86/geo_api/issues/new",
+              "_blank"
+            );
+          };
+        }
+      });
     </script>
   </body>
 </html>
