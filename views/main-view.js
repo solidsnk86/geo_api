@@ -228,6 +228,7 @@ export const mainView = ({ data }) => `
       .address-bar {
         flex: 1;
         display: flex;
+        justify-content: space-between;
         align-items: center;
         background: #fff;
         border: 1px solid var(--border-color);
@@ -297,11 +298,11 @@ export const mainView = ({ data }) => `
         text-decoration: none;
         font-size: 14px;
         font-weight: 500;
-        transition: 0.3s ease-in-out;
+        transition: 0.2s ease-in-out;
         height: 20px;
       }
       .footer a:hover {
-        filter: invert();
+        filter:invert();
       }
       dialog {
         padding: 16px;
@@ -437,6 +438,9 @@ export const mainView = ({ data }) => `
         padding: 0;
       }
       .menu-bar ul li {
+        display: flex;
+        gap: 8px;
+        align-items: center;
         list-style: none;
         padding: 10px 14px;
         cursor: pointer;
@@ -481,6 +485,10 @@ export const mainView = ({ data }) => `
         </button>
         <div class="address-bar">
           <span>https://solid-geolocation.vercel.app/location</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="18" height="18" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+          </svg>
+          
         </div>
         <div
           style="display: flex; align-items: center; gap: 8px"
@@ -526,8 +534,14 @@ export const mainView = ({ data }) => `
         </div>
         <article class="menu-bar">
           <ul>
-            <li>Compartir</li>
-            <li>Bugs</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+            </svg>
+            Compartir</li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 12.75c1.148 0 2.278.08 3.383.237 1.037.146 1.866.966 1.866 2.013 0 3.728-2.35 6.75-5.25 6.75S6.75 18.728 6.75 15c0-1.046.83-1.867 1.866-2.013A24.204 24.204 0 0 1 12 12.75Zm0 0c2.883 0 5.647.508 8.207 1.44a23.91 23.91 0 0 1-1.152 6.06M12 12.75c-2.883 0-5.647.508-8.208 1.44.125 2.104.52 4.136 1.153 6.06M12 12.75a2.25 2.25 0 0 0 2.248-2.354M12 12.75a2.25 2.25 0 0 1-2.248-2.354M12 8.25c.995 0 1.971-.08 2.922-.236.403-.066.74-.358.795-.762a3.778 3.778 0 0 0-.399-2.25M12 8.25c-.995 0-1.97-.08-2.922-.236-.402-.066-.74-.358-.795-.762a3.734 3.734 0 0 1 .4-2.253M12 8.25a2.25 2.25 0 0 0-2.248 2.146M12 8.25a2.25 2.25 0 0 1 2.248 2.146M8.683 5a6.032 6.032 0 0 1-1.155-1.002c.07-.63.27-1.222.574-1.747m.581 2.749A3.75 3.75 0 0 1 15.318 5m0 0c.427-.283.815-.62 1.155-.999a4.471 4.471 0 0 0-.575-1.752M4.921 6a24.048 24.048 0 0 0-.392 3.314c1.668.546 3.416.914 5.223 1.082M19.08 6c.205 1.08.337 2.187.392 3.314a23.882 23.882 0 0 1-5.223 1.082" />
+            </svg>
+            Reportar bugs</li>
           </ul>
         </article>
       </section>
@@ -676,7 +690,7 @@ export const mainView = ({ data }) => `
         }
       })
       document.querySelectorAll(".menu-bar li").forEach((li) => {
-        if (li.textContent === "Compartir") {
+        if (li.textContent.toLowerCase().includes("compartir")) {
           li.onclick = () => {
             navigator.share({
               title: document.title,
@@ -685,7 +699,7 @@ export const mainView = ({ data }) => `
             });
           };
         }
-        if (li.textContent === "Bugs") {
+        if (li.textContent.includes("bugs")) {
           li.onclick = () => {
             window.open(
               "https://github.com/solidsnk86/geo_api/issues/new",
