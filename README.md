@@ -18,11 +18,11 @@ Esta aplicación está construida utilizando Node.js y Express. Proporciona un s
 {
   "ip": "192.168.1.1",
   "ciudad": {
-    "nombre": "Ciudad Ejemplo",
-    "códigoPostal": "12345"
+    "nombre": "Lima",
+    "códigoPostal": "15001"
   },
   "país": {
-    "nombre": "País Ejemplo",
+    "nombre": "Perú",
     "alpha": "PE",
     "emojiBandera": "🇵🇪",
     "zonaHoraria": "UTC-5"
@@ -36,7 +36,7 @@ Esta aplicación está construida utilizando Node.js y Express. Proporciona un s
     "sistema": "Windows",
     "navegadorWeb": {
       "navegador": "Chrome",
-      "versión": "92.0.4515.107"
+      "versión": "138.0.4515.107"
     }
   }
 }
