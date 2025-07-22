@@ -185,6 +185,8 @@ Puedes saber a que distancia estás del aeropuerto más cercano y la plaza entra
 
 ### 🌍 Vista en vivo de la web api: <a href="https://solid-geolocation.vercel.app/location">https://solid-geolocation.vercel.app/location</a>
 
+---
+
 <div align="center">
 @solidSnk86 - 2024
 </div>
