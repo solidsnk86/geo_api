@@ -46,7 +46,7 @@ Esta aplicación está construida utilizando Node.js y Express. Proporciona un s
 
 Para utilizar la API de geolocalización, realiza una solicitud GET a la siguiente URL:
 
-```
+```bash
 https://solid-geolocation.vercel.app/location
 ```
 
@@ -109,6 +109,77 @@ if __name__ == "__main__":
 ```
 
 La respuesta será un objeto JSON similar al ejemplo anterior.
+
+## Uso del end-point por coordenadas
+
+Para utilizar la API de geolocalización, mediante coordenadas tenés que realizar una solicitud GET a la siguiente url:
+
+```bash
+https://solid-geolocation.vercel.app/geolocation?lat=<latitud>&lon=<longitud>
+```
+
+Para poder hacer uso de éste end-point, se deberá proveer los parmámetros de latitud y longitud. Desde el front-end podemos hacer uso de la api del navegador de geolocalización y realizar el fecth a dicho end-point, dejo éste ejemplo de como podría implementarse:
+
+```javascript
+async function getCurrentLocation() {
+  return await new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const coords = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        }
+        resolve(coords)
+      })
+    } else {
+      reject(new Error('El navegador no soporta la geolocalización'))
+    }
+  })
+}
+
+async function getApiDataLocation({ latitude, longitude }) {
+  return await fetch(
+    `https://solid-geolocation.vercel.app/geolocation?lat=${latitude}&lon=${longitude}`
+  )
+    .then((res) => res.json())
+    .then((data) => data)
+    .catch((error) => console.log(error.message))
+}
+
+const coords = await getCurrentLocation()
+const data = await getApiDataLocation({
+  latitude: coords.latitude,
+  longitude: coords.longitude,
+})
+
+console.log(JSON.stringify(data, null, 2))
+```
+
+La respuesta de la api:
+
+```json
+{
+  "ip": "192.168.0.254",
+  "city": "La Toma",
+  "type": "Ciudad",
+  "departament": "Coronel Pringles",
+  "state": "San Luis",
+  "country": "Argentina",
+  "centerSquare": "0.057mts",
+  "coordinates": {
+    "latitude": -33.0551991251609,
+    "longitude": -65.6178979076542
+  },
+  "closestAirport": {
+    "iata": "LUQ",
+    "name": "Brigadier Mayor D Cesar Raul Ojeda Airport",
+    "city": "San Luis",
+    "state": "San-Luis",
+    "country": "AR",
+    "distance": "73.022mts"
+  }
+}
+```
 
 ---
 
