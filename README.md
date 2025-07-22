@@ -155,7 +155,7 @@ const data = await getApiDataLocation({
 console.log(JSON.stringify(data, null, 2))
 ```
 
-La respuesta de la api:
+## La respuesta:
 
 ```json
 {
@@ -181,7 +181,9 @@ La respuesta de la api:
 }
 ```
 
----
+Puedes saber a que distancia estás del aeropuerto más cercano y la plaza entral de la ciudad.
+
+## 🌍 Vista en vivo de la web api: <a href="https://solid-geolocation.vercel.app/location">https://solid-geolocation.vercel.app/location</a>
 
 <div align="center">
 @solidSnk86 - 2024
