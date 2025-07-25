@@ -1,5 +1,5 @@
 import { getCountryFlag } from '../utils/convert-to-flag.js'
-import checkIfUndefined from '../utils/set-undefined.js'
+import { checkIfUndefined } from '../utils/set-undefined.js'
 
 const extractLocationInfo = (req) => {
   const clientIp =

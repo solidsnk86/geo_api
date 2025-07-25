@@ -1,11 +1,10 @@
 import express from 'express'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import rateLimit from 'express-rate-limit'
 import { geoRouter } from '../routes/router.js'
 
 const app = express()
-dotenv.config()
+process.loadEnvFile()
 
 const corsOptions = {
   methods: ['GET', 'POST'],
