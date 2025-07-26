@@ -2,9 +2,10 @@ import express from 'express'
 import cors from 'cors'
 import rateLimit from 'express-rate-limit'
 import { geoRouter } from '../routes/router.js'
+import { loadEnv } from '../utils/load-env.js'
 
 const app = express()
-process.loadEnvFile()
+loadEnv()
 
 const corsOptions = {
   methods: ['GET', 'POST'],
