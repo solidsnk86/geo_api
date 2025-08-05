@@ -1,4 +1,4 @@
-export const mainView = ({ data }) => `
+export const mainView = ({ data, latitude, longitude }) => `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -664,8 +664,8 @@ export const mainView = ({ data }) => `
       import { highlight } from "https://esm.sh/sugar-high";
       import cleanIndent from "https://cdn.jsdelivr.net/gh/liquidsnk86/cdn-js@main/indent-cleaner.js";
 
-      const lat = -33.2991;
-      const lon = -66.3547;
+      const lat = ${latitude} || -33.2991;
+      const lon = ${longitude} || -66.3547;
 
       const map = L.map("map").setView([lat, lon], 13);
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
