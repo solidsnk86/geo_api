@@ -29,7 +29,7 @@ export class GeoController {
       if (!locationInfo) {
         return res
           .status(404)
-          .json({ message: 'Información de ubicación no encontrada' })
+          .json({ message: 'No se encontró la ubicación requerida.' })
       }
       const origin = req.headers.origin || 'sin Origin'
       const referer = req.headers.referer || 'sin Referer'
@@ -85,6 +85,7 @@ export class GeoController {
         req.headers['x-forwarded-for'] ||
         req.headers['x-real-ip'] ||
         req.connection.remoteAddress
+      const locationInfo = extractLocationInfo(req)
 
       const preparedStatements = {
         ip: clientIp,
@@ -97,6 +98,7 @@ export class GeoController {
         airport_distance: `${distance.toFixed(3) || 0}mts`,
         state: provincia,
         center_square_distance: `${minDistance.toFixed(3) || 0}mts`,
+        so: locationInfo.sysInfo.system || 'No disponible',
       }
 
       try {
