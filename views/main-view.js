@@ -440,7 +440,7 @@ export const mainView = ({ data, latitude, longitude }) => `
         padding: 0.4rem;
         background-color: var(--win-bg);
         border-radius: 12px;
-        z-index: 999;
+        z-index: 9999;
         filter: drop-shadow(0 0 6px var(--shadow));
         animation: vanishIn 180ms ease-in-out;
       }
