@@ -11,7 +11,12 @@ export class QrCodeController {
     }
 
     try {
-      const qrDataUrl = await QRCode.toDataURL(url, { type: 'image/png' })
+      const qrDataUrl = await QRCode.toDataURL(url, {
+        type: 'image/png',
+        width: 800,
+        margin: 2,
+        errorCorrectionLevel: 'H',
+      })
 
       res.send(qrCode({ dataURL: qrDataUrl }))
     } catch (error) {
