@@ -5,7 +5,6 @@ import { geoRouter } from '../routes/router.js'
 // import { loadEnv } from '../utils/load-env.js'
 
 const app = express()
-//loadEnv()
 
 const corsOptions = {
   methods: ['GET', 'POST'],

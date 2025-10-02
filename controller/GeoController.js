@@ -19,7 +19,7 @@ export class GeoController {
         })
       )
     } catch (error) {
-      console.error('Server error:', error)
+      res.send('Server error: ' + error)
     }
   }
 
@@ -27,7 +27,7 @@ export class GeoController {
     try {
       const locationInfo = extractLocationInfo(req)
       if (!locationInfo) {
-        return res
+        res
           .status(404)
           .json({ message: 'No se encontró la ubicación requerida.' })
       }
@@ -48,7 +48,7 @@ export class GeoController {
           .insert([api_visitor])
         if (error) throw new Error(error.message)
       } catch (err) {
-        console.error('Cannot send data to supabase:', err)
+        throw new Error('Cannot send data to supabase: ' + err.message)
       }
 
       res.status(200).json(locationInfo)
@@ -109,7 +109,7 @@ export class GeoController {
           throw new Error(error.message)
         }
       } catch (error) {
-        console.log('Cannot send data to DB:', error)
+        res.send('Cannot send data to DB: ' + error.message)
       }
 
       res.status(200).json({
