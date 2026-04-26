@@ -31,13 +31,13 @@ const extractLocationInfo = (req) => {
     ip: clientIp,
     city: {
       name: cityName ? decodeURIComponent(cityName) : 'No disponible',
-      postalCode: postalCode || 5770,
+      postalCode: postalCode || 0,
     },
     country: {
       name: countryName,
       alpha: country || 'AR',
       emojiFlag: getCountryFlag({ countryCode: country }),
-      timezone: timeZone || 'America/Argentina/San_Luis',
+      timezone: timeZone || 'No Disponible',
     },
     coords: {
       latitude: latitude || -33.2991,

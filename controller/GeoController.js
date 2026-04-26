@@ -16,7 +16,7 @@ export class GeoController {
           data: locationInfo,
           latitude: locationInfo.coords.latitude,
           longitude: locationInfo.coords.longitude,
-        })
+        }),
       )
     } catch (error) {
       res.send('Server error: ' + error)
@@ -33,6 +33,7 @@ export class GeoController {
       }
       const origin = req.headers.origin || 'sin Origin'
       const referer = req.headers.referer || 'sin Referer'
+      const { latitude, longitude } = locationInfo.coords;
 
       const api_visitor = {
         ip: locationInfo.ip,
@@ -40,6 +41,8 @@ export class GeoController {
         country: locationInfo.country.name,
         system: locationInfo.sysInfo.system,
         host_url: `${origin}${referer ? ` - ${referer}` : 'No disponible'}`,
+        longitude,
+        longitude,
       }
 
       try {
@@ -73,13 +76,13 @@ export class GeoController {
       ])
       const { closestTarget, minDistance } = getClosestPlace(
         coordinates,
-        cities
+        cities,
       )
       const { nombre, tipo, departamento, provincia, pais, lat, lon } =
         closestTarget
       const { closestTarget: airport, minDistance: distance } = getClosestPlace(
         coordinates,
-        airports
+        airports,
       )
       const clientIp =
         req.headers['x-forwarded-for'] ||
