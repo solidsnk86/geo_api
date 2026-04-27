@@ -6,6 +6,8 @@ import { geoRouter } from '../routes/router.js'
 
 const app = express()
 
+app.set('trust proxy', 1)
+
 const corsOptions = {
   methods: ['GET', 'POST'],
   maxAge: 86400,
@@ -16,7 +18,7 @@ app.use(cors(corsOptions))
 app.disable('x-powered-by')
 
 const limiter = rateLimit({
-  windowMS: 15 * 60 * 1000,
+  windowMs: 15 * 60 * 1000,
   max: 60,
   message: 'Demasiadas peticiones desde esta IP, por favor intente más tarde',
 })
