@@ -39,6 +39,7 @@ export class GeoController {
         host_url: `${origin}${referer ? ` - ${referer}` : 'No disponible'}`,
         latitude: parseFloat(latitude),
         longitude: parseFloat(longitude),
+        timezone: country.timezone,
       }
 
       try {
@@ -51,7 +52,7 @@ export class GeoController {
         throw new Error('Cannot send data to supabase: ' + err.message)
       }
 
-      return res.status(200).json(api_visitor)
+      return res.status(200).json(extractLocationInfo(req))
     } catch (err) {
       return res.status(500).json({ message: 'Server Error ' + err })
     }
