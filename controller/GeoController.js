@@ -26,10 +26,10 @@ export class GeoController {
   static async location(req, res) {
     try {
       const { ip, city, country, sysInfo, coords } = extractLocationInfo(req)
-      
+
       const origin = req.headers.origin || 'sin Origin'
       const referer = req.headers.referer || 'sin Referer'
-      const { latitude, longitude } = coords;
+      const { latitude, longitude } = coords
 
       const api_visitor = {
         ip,
@@ -47,6 +47,7 @@ export class GeoController {
           .insert([api_visitor])
         if (error) throw new Error(error.message)
       } catch (err) {
+        console.error('Cannot send data to supabase', err.message)
         throw new Error('Cannot send data to supabase: ' + err.message)
       }
 
