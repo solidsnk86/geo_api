@@ -37,8 +37,8 @@ export class GeoController {
         country: country.name,
         system: sysInfo.system,
         host_url: `${origin}${referer ? ` - ${referer}` : 'No disponible'}`,
-        latitude,
-        longitude,
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude),
       }
 
       try {
@@ -50,9 +50,9 @@ export class GeoController {
         throw new Error('Cannot send data to supabase: ' + err.message)
       }
 
-      res.status(200).json(api_visitor)
+      return res.status(200).json(api_visitor)
     } catch (err) {
-      res.status(500).json({ message: 'Server Error ' + err })
+      return res.status(500).json({ message: 'Server Error ' + err })
     }
   }
 
