@@ -26,11 +26,7 @@ export class GeoController {
   static async location(req, res) {
     try {
       const { ip, city, country, sysInfo, coords } = extractLocationInfo(req)
-      if (!locationInfo) {
-        res
-          .status(404)
-          .json({ message: 'No se encontró la ubicación requerida.' })
-      }
+      
       const origin = req.headers.origin || 'sin Origin'
       const referer = req.headers.referer || 'sin Referer'
       const { latitude, longitude } = coords;
@@ -54,7 +50,7 @@ export class GeoController {
         throw new Error('Cannot send data to supabase: ' + err.message)
       }
 
-      res.status(200).json(locationInfo)
+      res.status(200).json(api_visitor)
     } catch (err) {
       res.status(500).json({ message: 'Server Error ' + err })
     }
