@@ -25,7 +25,7 @@ export class GeoController {
 
   static async location(req, res) {
     try {
-      const locationInfo = extractLocationInfo(req)
+      const { ip, city, country, sysInfo, coords } = extractLocationInfo(req)
       if (!locationInfo) {
         res
           .status(404)
@@ -33,15 +33,15 @@ export class GeoController {
       }
       const origin = req.headers.origin || 'sin Origin'
       const referer = req.headers.referer || 'sin Referer'
-      const { latitude, longitude } = locationInfo.coords;
+      const { latitude, longitude } = coords;
 
       const api_visitor = {
-        ip: locationInfo.ip,
-        city: locationInfo.city.name,
-        country: locationInfo.country.name,
-        system: locationInfo.sysInfo.system,
+        ip,
+        city: city.name,
+        country: country.name,
+        system: sysInfo.system,
         host_url: `${origin}${referer ? ` - ${referer}` : 'No disponible'}`,
-        longitude,
+        latitude,
         longitude,
       }
 
