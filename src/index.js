@@ -9,7 +9,7 @@ const app = express()
 app.set('trust proxy', 1)
 
 const corsOptions = {
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'OPTIONS'],
   maxAge: 86400,
 }
 
