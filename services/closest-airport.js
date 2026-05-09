@@ -8,13 +8,13 @@ const haversine = (pointA, pointB) => {
   const longitudeA = degreesToRadians(pointA.lon || pointA.longitude)
   const longitudeB = degreesToRadians(pointB.lon || pointB.longitude)
 
-  const haversine =
+  const thetaFormula =
     square(Math.sin((latitudeB - latitudeA) / 2)) +
     Math.cos(latitudeA) *
       Math.cos(latitudeB) *
       square((longitudeB - longitudeA) / 2)
 
-  const distance = 2 * EARTH_RADIUS * Math.asin(Math.sqrt(haversine))
+  const distance = 2 * EARTH_RADIUS * Math.asin(Math.sqrt(thetaFormula))
 
   return distance / 1000
 }

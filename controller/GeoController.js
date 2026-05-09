@@ -42,14 +42,16 @@ export class GeoController {
         timezone: country.timezone,
       }
 
-      try {
-        const { error } = await supabase
-          .from('geo_api_visitor')
-          .insert([api_visitor])
-        if (error) throw new Error(error.message)
-      } catch (err) {
-        console.error('Cannot send data to supabase', err.message)
-        throw new Error('Cannot send data to supabase: ' + err.message)
+      if (origin !== 'http://localhost:3000/' || referer !== 'http://localhost:3000/') {
+        try {
+          const { error } = await supabase
+            .from('geo_api_visitor')
+            .insert([api_visitor])
+          if (error) throw new Error(error.message)
+        } catch (err) {
+          console.error('Cannot send data to supabase', err.message)
+          throw new Error('Cannot send data to supabase: ' + err.message)
+        }
       }
 
       return res.status(200).json(extractLocationInfo(req))
