@@ -1,5 +1,4 @@
 import { getCountryFlag } from '../utils/convert-to-flag.js'
-import { getCountryFromTimeZone } from '../utils/get-country-timezone.js'
 import { checkIfUndefined } from '../utils/set-undefined.js'
 
 const extractLocationInfo = (req) => {
@@ -13,7 +12,7 @@ const extractLocationInfo = (req) => {
   const latitude = req.headers['x-vercel-ip-latitude']
   const longitude = req.headers['x-vercel-ip-longitude']
   const timeZone = req.headers['x-vercel-ip-timezone']
-  const countryName = getCountryFromTimeZone(timeZone)
+  const countryName = timeZone?.split('/')?.[1] || country
   const platform = req.headers['sec-ch-ua-platform']
   const userInfo = req.headers['sec-ch-ua']
   const regex = /"([^"]+)";v="(\d+)"/
