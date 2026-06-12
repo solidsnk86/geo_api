@@ -1,4 +1,4 @@
-import { getCountryFlag } from '../utils/convert-to-flag.js'
+import { getCountry } from '../utils/get-country.js'
 import { checkIfUndefined } from '../utils/set-undefined.js'
 
 const extractLocationInfo = (req) => {
@@ -36,8 +36,8 @@ const extractLocationInfo = (req) => {
       postalCode: postalCode || 0,
     },
     country: {
-      name: countryName,
-      alpha: country || 'AR',
+      name: getCountry(country),
+      alpha: country || 'No Disponible',
       emojiFlag: getCountryFlag({ countryCode: country }),
       timezone: timeZone || 'No Disponible',
     },
