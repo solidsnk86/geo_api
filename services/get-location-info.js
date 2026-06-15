@@ -7,21 +7,21 @@ const extractLocationInfo = (req) => {
     req.headers['x-forwarded-for'] ||
     req.headers['x-real-ip'] ||
     req.connection.remoteAddress
+  const cityName = req.headers['x-vercel-ip-city']
   const country = req.headers['x-vercel-ip-country']
   const postalCode = req.headers['x-vercel-ip-postal-code']
   const latitude = req.headers['x-vercel-ip-latitude']
   const longitude = req.headers['x-vercel-ip-longitude']
   const timeZone = req.headers['x-vercel-ip-timezone']
-  const timeZoneLength = timeZone.split('\n').length
-  const cityTimeZone = timeZoneLength > 1 ? timeZone?.split('\n')?.[2] : timeZone?.split('\n')?.[1]
-  const cityName = req.headers['x-vercel-ip-city'] ?? cityTimeZone;
   const countryName = timeZone?.split('/')?.[1] || country
   const platform = req.headers['sec-ch-ua-platform']
   const userInfo = req.headers['sec-ch-ua']
   const regex = /"([^"]+)";v="(\d+)"/
   const webBrowser = userInfo?.split('\n')?.[0].split(',')[0] || 'No disponible'
   const match = webBrowser.match(regex)
-
+  const timeZoneLength = timeZone.split('\n').length
+  const cityTimeZone =
+    timeZoneLength > 1 ? timeZone?.split('\n')?.[2] : timeZone?.split('\n')?.[1]
 
   function formatBrowserInfo(text = '') {
     if (text.includes(')') && text.includes(';')) {
@@ -34,7 +34,9 @@ const extractLocationInfo = (req) => {
   return {
     ip: clientIp,
     city: {
-      name: cityName,
+      name: cityName
+        ? decodeURIComponent(cityName)
+        : cityTimeZone || 'No disponible',
       postalCode: postalCode || 0,
     },
     country: {
