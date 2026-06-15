@@ -33,7 +33,7 @@ const extractLocationInfo = (req) => {
   return {
     ip: clientIp,
     city: {
-      name: cityName ? decodeURIComponent(cityName) : cityTimeZone,
+      name: cityName ? decodeURIComponent(cityName) : cityTimeZone || "No disponible",
       postalCode: postalCode || 0,
     },
     country: {

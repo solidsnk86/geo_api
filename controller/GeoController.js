@@ -56,7 +56,7 @@ export class GeoController {
 
       return res.status(200).json(extractLocationInfo(req))
     } catch (err) {
-      return res.status(500).json({ message: 'Server Error ' + err })
+      return res.status(500).json({ message: err })
     }
   }
 
