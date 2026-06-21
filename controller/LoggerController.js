@@ -2,7 +2,7 @@ import { request, response } from 'express'
 
 export class LogerController {
   collectData = async (req = request, res = response) => {
-    const ip = req.ip
+    const ip = req.connection.remoteAddress;
     const { headers, host, hostname, readableHighWaterMark, originalUrl } = req
     try {
       return res
