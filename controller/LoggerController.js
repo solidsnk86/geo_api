@@ -9,7 +9,7 @@ export class LogerController {
         .status(200)
         .json({ ip, host, hostname, readableHighWaterMark, originalUrl })
     } catch (error) {
-      return res.status(500-*-*).json({ message: 'Error', error: error.message })
+      return res.status(500).json({ message: 'Error', error: error.message })
     }
   }
 }
