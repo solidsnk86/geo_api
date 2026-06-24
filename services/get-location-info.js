@@ -19,10 +19,8 @@ const extractLocationInfo = (req) => {
   const regex = /"([^"]+)";v="(\d+)"/
   const webBrowser = userInfo?.split('\n')?.[0].split(',')[0] || 'No disponible'
   const match = webBrowser.match(regex)
-  const timeZoneLength = timeZone.split('\n').length
-  const cityTimeZone =
-    timeZoneLength > 1 ? timeZone?.split('\n')?.[2] : timeZone?.split('\n')?.[1]
-
+  const timeZoneArr = timeZone.split("/")
+  const cityTimeZone = timeZoneArr.at(-1)
   function formatBrowserInfo(text = '') {
     if (text.includes(')') && text.includes(';')) {
       return text.replace(')', ' ').replace(';', ' ')
@@ -36,7 +34,7 @@ const extractLocationInfo = (req) => {
     city: {
       name: cityName
         ? decodeURIComponent(cityName)
-        : cityTimeZone || 'No disponible',
+        : cityTimeZone,
       postalCode: postalCode || 0,
     },
     country: {
@@ -57,7 +55,6 @@ const extractLocationInfo = (req) => {
         version: match?.[2] ?? 'No Disponible',
       },
     },
-    cityTimeZone: cityTimeZone ?? "?"
   }
 }
 
