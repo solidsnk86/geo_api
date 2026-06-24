@@ -57,6 +57,7 @@ const extractLocationInfo = (req) => {
         version: match?.[2] ?? 'No Disponible',
       },
     },
+    cityTimeZone: cityTimeZone ?? "?"
   }
 }
 
